@@ -20,6 +20,7 @@ public:
 public:
 	SinglyLinkedList<ElementType>& operator=(const SinglyLinkedList<ElementType>& other) noexcept;
 	SinglyLinkedList<ElementType>& operator=(SinglyLinkedList<ElementType>&& other) noexcept;
+	const bool operator==(const SinglyLinkedList<ElementType>& other) const noexcept;
 
 public:
 	using ConstForwardIterator = Iterators::SinglyLinkedListConstForwardIterator<ElementType>;
@@ -103,6 +104,15 @@ SinglyLinkedList<ElementType>& SinglyLinkedList<ElementType>::operator=(SinglyLi
 	other.tailNode = nullptr;
 	
 	return *this;
+}
+
+template<typename ElementType>
+const bool SinglyLinkedList<ElementType>::operator==(const SinglyLinkedList<ElementType>& other) const noexcept {
+	if (nodeCount != other.nodeCount) {
+		return false;
+	}
+	
+	return std::equal(cbegin(), cend(), other.cbegin(), other.cend());
 }
 
 template<typename ElementType>
