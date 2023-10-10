@@ -6,7 +6,8 @@ SET(HEADER_FILES
 		Include/IntegerPredicates.hpp)
 
 SET(SOURCE_FILES
-		Source/DataStructures/LinkedLists/EmptyIntegerSinglyLinkedListTest.cpp)
+		Source/DataStructures/LinkedLists/EmptyIntegerSinglyLinkedListTest.cpp
+		Source/DataStructures/LinkedLists/NonEmptyIntegerSinglyLinkedListTest.cpp)
 
 SET(ENTRY_POINT
 		Source/Main.cpp)
