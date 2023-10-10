@@ -33,6 +33,7 @@ public:
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<const std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	const bool isEmpty() const noexcept;
+	const std::size_t getNodeCount() const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -227,5 +228,10 @@ const bool SinglyLinkedList<ElementType>::containsAll(const std::vector<const st
 template<typename ElementType>
 const bool SinglyLinkedList<ElementType>::isEmpty() const noexcept {
 	return nodeCount == 0 && headNode == nullptr && tailNode == nullptr;
+}
+
+template<typename ElementType>
+const std::size_t SinglyLinkedList<ElementType>::getNodeCount() const noexcept {
+	return nodeCount;
 }
 }
