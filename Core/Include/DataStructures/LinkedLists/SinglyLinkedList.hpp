@@ -12,6 +12,11 @@ namespace Core::DataStructures::LinkedLists {
 template<typename ElementType>
 class SinglyLinkedList final {
 public:
+	SinglyLinkedList() noexcept = default;
+	SinglyLinkedList(const SinglyLinkedList<ElementType>& other) noexcept;
+	SinglyLinkedList(SinglyLinkedList<ElementType>&& other) noexcept;
+
+public:
 	using ConstForwardIterator = Iterators::SinglyLinkedListConstForwardIterator<ElementType>;
 	using ForwardIterator = Iterators::SinglyLinkedListForwardIterator<ElementType>;
 	
@@ -40,6 +45,21 @@ private:
 	SinglyLinkedListNode<ElementType>* headNode {nullptr};
 	SinglyLinkedListNode<ElementType>* tailNode {nullptr};
 };
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::SinglyLinkedList(const SinglyLinkedList<ElementType>& other) noexcept {
+	for (const auto& element: other) {
+		insertAtTail(element);
+	}
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::SinglyLinkedList(SinglyLinkedList<ElementType>&& other) noexcept:
+		nodeCount {other.nodeCount}, headNode {other.headNode}, tailNode {other.tailNode} {
+	other.nodeCount = 0;
+	other.headNode = nullptr;
+	other.tailNode = nullptr;
+}
 
 template<typename ElementType>
 SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::cbegin() const noexcept {
@@ -209,7 +229,8 @@ SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::fi
 }
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(
+		const ElementType&)>& predicate) const noexcept {
 	return std::find_if(cbegin(), cend(), predicate);
 }
 
