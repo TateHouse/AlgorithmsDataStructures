@@ -32,6 +32,7 @@ public:
 	ConstForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<const std::function<bool(const ElementType&)>>& predicates) const noexcept;
+	const bool isEmpty() const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -221,5 +222,10 @@ const bool SinglyLinkedList<ElementType>::containsAll(const std::vector<const st
 	return std::all_of(predicates.cbegin(), predicates.cend(), [this](const auto& predicate) {
 		return contains(predicate);
 	});
+}
+
+template<typename ElementType>
+const bool SinglyLinkedList<ElementType>::isEmpty() const noexcept {
+	return nodeCount == 0 && headNode == nullptr && tailNode == nullptr;
 }
 }
