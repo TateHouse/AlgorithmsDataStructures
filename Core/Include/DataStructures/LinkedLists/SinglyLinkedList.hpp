@@ -15,6 +15,7 @@ public:
 	SinglyLinkedList() noexcept = default;
 	SinglyLinkedList(const SinglyLinkedList<ElementType>& other) noexcept;
 	SinglyLinkedList(SinglyLinkedList<ElementType>&& other) noexcept;
+	~SinglyLinkedList() noexcept;
 
 public:
 	using ConstForwardIterator = Iterators::SinglyLinkedListConstForwardIterator<ElementType>;
@@ -59,6 +60,11 @@ SinglyLinkedList<ElementType>::SinglyLinkedList(SinglyLinkedList<ElementType>&& 
 	other.nodeCount = 0;
 	other.headNode = nullptr;
 	other.tailNode = nullptr;
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::~SinglyLinkedList() noexcept {
+	removeAll();
 }
 
 template<typename ElementType>
