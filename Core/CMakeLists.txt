@@ -3,6 +3,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 PROJECT(${CORE_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 SET(HEADER_FILES
+		Include/DataStructures/LinkedLists/Iterators/SinglyLinkedListConstForwardIterator.hpp
+		Include/DataStructures/LinkedLists/Iterators/SinglyLinkedListForwardIterator.hpp
 		Include/DataStructures/LinkedLists/SinglyLinkedList.hpp
 		Include/DataStructures/LinkedLists/SinglyLinkedListNode.hpp)
 

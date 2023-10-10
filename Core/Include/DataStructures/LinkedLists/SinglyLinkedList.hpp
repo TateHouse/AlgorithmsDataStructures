@@ -1,10 +1,21 @@
 #pragma once
 
+#include "DataStructures/LinkedLists/Iterators/SinglyLinkedListConstForwardIterator.hpp"
+#include "DataStructures/LinkedLists/Iterators/SinglyLinkedListForwardIterator.hpp"
 #include "DataStructures/LinkedLists/SinglyLinkedListNode.hpp"
 
 namespace Core::DataStructures::LinkedLists {
 template<typename ElementType>
 class SinglyLinkedList final {
+public:
+	using ConstForwardIterator = Iterators::SinglyLinkedListConstForwardIterator<ElementType>;
+	using ForwardIterator = Iterators::SinglyLinkedListForwardIterator<ElementType>;
+	
+	ConstForwardIterator cbegin() const noexcept;
+	ConstForwardIterator cend() const noexcept;
+	ForwardIterator begin() noexcept;
+	ForwardIterator end() noexcept;
+
 public:
 	void insertAtHead(const ElementType& element) noexcept;
 	void insertAtTail(const ElementType& element) noexcept;
@@ -15,6 +26,26 @@ private:
 	SinglyLinkedListNode<ElementType>* headNode {nullptr};
 	SinglyLinkedListNode<ElementType>* tailNode {nullptr};
 };
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::cbegin() const noexcept {
+	return ConstForwardIterator {headNode};
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::cend() const noexcept {
+	return ConstForwardIterator {nullptr};
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::begin() noexcept {
+	return ForwardIterator {headNode};
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::end() noexcept {
+	return ForwardIterator {nullptr};
+}
 
 template<typename ElementType>
 void SinglyLinkedList<ElementType>::insertAtHead(const ElementType& element) noexcept {
