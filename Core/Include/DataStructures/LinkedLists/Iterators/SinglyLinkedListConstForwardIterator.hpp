@@ -42,7 +42,6 @@ SinglyLinkedListConstForwardIterator<ElementType>::SinglyLinkedListConstForwardI
 
 template<typename ElementType>
 const bool SinglyLinkedListConstForwardIterator<ElementType>::operator==(const SinglyLinkedListConstForwardIterator<ElementType>& other) const noexcept {
-	validateNode("compare equality");
 	return node == other.node;
 }
 
