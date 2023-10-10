@@ -23,6 +23,7 @@ public:
 	const bool operator==(const SinglyLinkedList<ElementType>& other) const noexcept;
 
 public:
+	using value_type = ElementType;
 	using ConstForwardIterator = Iterators::SinglyLinkedListConstForwardIterator<ElementType>;
 	using ForwardIterator = Iterators::SinglyLinkedListForwardIterator<ElementType>;
 	
