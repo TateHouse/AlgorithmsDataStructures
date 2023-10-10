@@ -28,6 +28,8 @@ public:
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
 	std::vector<ElementType> removeAll() noexcept;
+	ForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	ConstForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<const std::function<bool(const ElementType&)>>& predicates) const noexcept;
 
@@ -197,6 +199,16 @@ std::vector<ElementType> SinglyLinkedList<ElementType>::removeAll() noexcept {
 	}
 	
 	return elements;
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
+	return std::find_if(begin(), end(), predicate);
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+	return std::find_if(cbegin(), cend(), predicate);
 }
 
 template<typename ElementType>
