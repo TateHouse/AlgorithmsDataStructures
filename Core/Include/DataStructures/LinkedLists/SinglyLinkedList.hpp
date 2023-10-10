@@ -28,8 +28,8 @@ public:
 	
 	ConstForwardIterator cbegin() const noexcept;
 	ConstForwardIterator cend() const noexcept;
-	ForwardIterator begin() noexcept;
-	ForwardIterator end() noexcept;
+	ForwardIterator begin() const noexcept;
+	ForwardIterator end() const noexcept;
 
 public:
 	void insertAtHead(const ElementType& element) noexcept;
