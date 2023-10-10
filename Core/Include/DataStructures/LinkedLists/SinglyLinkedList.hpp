@@ -18,6 +18,10 @@ public:
 	~SinglyLinkedList() noexcept;
 
 public:
+	SinglyLinkedList<ElementType>& operator=(const SinglyLinkedList<ElementType>& other) noexcept;
+	SinglyLinkedList<ElementType>& operator=(SinglyLinkedList<ElementType>&& other) noexcept;
+
+public:
 	using ConstForwardIterator = Iterators::SinglyLinkedListConstForwardIterator<ElementType>;
 	using ForwardIterator = Iterators::SinglyLinkedListForwardIterator<ElementType>;
 	
@@ -65,6 +69,40 @@ SinglyLinkedList<ElementType>::SinglyLinkedList(SinglyLinkedList<ElementType>&& 
 template<typename ElementType>
 SinglyLinkedList<ElementType>::~SinglyLinkedList() noexcept {
 	removeAll();
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>& SinglyLinkedList<ElementType>::operator=(const SinglyLinkedList<ElementType>& other) noexcept {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	for (const auto& element: other) {
+		insertAtTail(element);
+	}
+	
+	return *this;
+}
+
+template<typename ElementType>
+SinglyLinkedList<ElementType>& SinglyLinkedList<ElementType>::operator=(SinglyLinkedList<ElementType>&& other) noexcept {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	nodeCount = other.nodeCount;
+	headNode = other.headNode;
+	tailNode = other.tailNode;
+	
+	other.nodeCount = 0;
+	other.headNode = nullptr;
+	other.tailNode = nullptr;
+	
+	return *this;
 }
 
 template<typename ElementType>
