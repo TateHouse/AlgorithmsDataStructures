@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -27,6 +28,8 @@ public:
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
 	std::vector<ElementType> removeAll() noexcept;
+	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	const bool containsAll(const std::vector<const std::function<bool(const ElementType&)>>& predicates) const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -194,5 +197,17 @@ std::vector<ElementType> SinglyLinkedList<ElementType>::removeAll() noexcept {
 	}
 	
 	return elements;
+}
+
+template<typename ElementType>
+const bool SinglyLinkedList<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+	return std::any_of(cbegin(), cend(), predicate);
+}
+
+template<typename ElementType>
+const bool SinglyLinkedList<ElementType>::containsAll(const std::vector<const std::function<bool(const ElementType&)>>& predicates) const noexcept {
+	return std::all_of(predicates.cbegin(), predicates.cend(), [this](const auto& predicate) {
+		return contains(predicate);
+	});
 }
 }
