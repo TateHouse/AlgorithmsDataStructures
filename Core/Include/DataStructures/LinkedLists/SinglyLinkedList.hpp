@@ -127,12 +127,12 @@ SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType
 }
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::begin() noexcept {
+SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::begin() const noexcept {
 	return ForwardIterator {headNode};
 }
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::end() noexcept {
+SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::end() const noexcept {
 	return ForwardIterator {nullptr};
 }
 
