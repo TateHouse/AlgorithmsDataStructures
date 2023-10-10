@@ -1,0 +1,8 @@
+{
+  "name": "algorithms-data-structures",
+  "version-string": "1.0.0",
+  "description": "Algorithms and Data Structures",
+  "dependencies": [
+    "gtest"
+  ]
+}
