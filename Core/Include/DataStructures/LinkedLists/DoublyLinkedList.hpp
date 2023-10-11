@@ -225,7 +225,7 @@ const bool DoublyLinkedList<ElementType>::contains(const std::function<bool(cons
 
 template<typename ElementType>
 const bool DoublyLinkedList<ElementType>::containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept {
-	return std::all_of(predicates.cbegin(), predicates.cend(), [this](const auto& predicate) {
+	return std::ranges::all_of(predicates, [this](const auto& predicate) {
 		return contains(predicate);
 	});
 }
