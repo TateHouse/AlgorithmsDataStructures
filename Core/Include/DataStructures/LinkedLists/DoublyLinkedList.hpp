@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <functional>
 #include <optional>
 #include <vector>
@@ -31,6 +32,8 @@ public:
 	std::vector<ElementType> removeAll() noexcept;
 	ConstBidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	BidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -211,5 +214,17 @@ DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<Eleme
 template<typename ElementType>
 DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
 	return std::find_if(begin(), end(), predicate);
+}
+
+template<typename ElementType>
+const bool DoublyLinkedList<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+	return std::any_of(cbegin(), cend(), predicate);
+}
+
+template<typename ElementType>
+const bool DoublyLinkedList<ElementType>::containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept {
+	return std::all_of(predicates.cbegin(), predicates.cend(), [this](const auto& predicate) {
+		return contains(predicate);
+	});
 }
 }
