@@ -35,6 +35,7 @@ public:
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	const bool isEmpty() const noexcept;
+	const std::size_t getNodeCount() const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -232,5 +233,10 @@ const bool DoublyLinkedList<ElementType>::containsAll(const std::vector<std::fun
 template<typename ElementType>
 const bool DoublyLinkedList<ElementType>::isEmpty() const noexcept {
 	return nodeCount == 0 && headNode == nullptr && tailNode == nullptr;
+}
+
+template<typename ElementType>
+const std::size_t DoublyLinkedList<ElementType>::getNodeCount() const noexcept {
+	return nodeCount;
 }
 }
