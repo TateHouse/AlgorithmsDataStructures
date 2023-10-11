@@ -2,13 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 PROJECT(${CORE_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
-SET(HEADER_FILES
-		Include/DataStructures/LinkedLists/Iterators/SinglyLinkedListConstForwardIterator.hpp
-		Include/DataStructures/LinkedLists/Iterators/SinglyLinkedListForwardIterator.hpp
-		Include/DataStructures/LinkedLists/SinglyLinkedList.hpp
-		Include/DataStructures/LinkedLists/SinglyLinkedListNode.hpp)
-
-SET(SOURCE_FILES)
-
-ADD_LIBRARY(${PROJECT_NAME} INTERFACE ${HEADER_FILES} ${SOURCE_FILES})
+ADD_LIBRARY(${PROJECT_NAME} INTERFACE)
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} INTERFACE ${PROJECT_SOURCE_DIR}/Include)
+
+ADD_SUBDIRECTORY(Include/DataStructures/LinkedLists)
