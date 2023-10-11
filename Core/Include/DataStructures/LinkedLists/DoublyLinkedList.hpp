@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -28,6 +29,8 @@ public:
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
 	std::vector<ElementType> removeAll() noexcept;
+	ConstBidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	BidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -198,5 +201,15 @@ std::vector<ElementType> DoublyLinkedList<ElementType>::removeAll() noexcept {
 	}
 	
 	return elements;
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+	return std::find_if(cbegin(), cend(), predicate);
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
+	return std::find_if(begin(), end(), predicate);
 }
 }
