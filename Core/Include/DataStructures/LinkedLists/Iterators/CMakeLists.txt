@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
+		DoublyLinkedListBidirectionalIterator.hpp
+		DoublyLinkedListConstBidirectionalIterator.hpp
 		SinglyLinkedListConstForwardIterator.hpp
 		SinglyLinkedListConstForwardIterator.hpp)
 

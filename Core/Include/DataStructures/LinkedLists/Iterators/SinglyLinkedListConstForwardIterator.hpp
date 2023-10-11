@@ -71,9 +71,9 @@ template<typename ElementType>
 const SinglyLinkedListConstForwardIterator<ElementType> SinglyLinkedListConstForwardIterator<ElementType>::operator++(int) {
 	validateNode("increment");
 	
-	auto* const previousNode {node};
+	const auto iterator {*this};
 	node = node->getNextNode();
-	return SinglyLinkedListConstForwardIterator<ElementType> {previousNode};
+	return iterator;
 }
 
 template<typename ElementType>
