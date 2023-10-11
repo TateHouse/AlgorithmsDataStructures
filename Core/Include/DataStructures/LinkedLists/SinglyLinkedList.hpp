@@ -245,7 +245,7 @@ std::optional<ElementType> SinglyLinkedList<ElementType>::removeAtIndex(const st
 		return std::nullopt;
 	}
 	
-	if (index == 0) {
+	if (index == 0 || headNode == nullptr) {
 		return removeAtHead();
 	}
 	
