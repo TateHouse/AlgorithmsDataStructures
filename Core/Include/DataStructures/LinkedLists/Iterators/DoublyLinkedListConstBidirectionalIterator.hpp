@@ -65,7 +65,7 @@ template<typename ElementType>
 const DoublyLinkedListConstBidirectionalIterator<ElementType>& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator++() {
 	validateNode("increment");
 	
-	node = node->getNext();
+	node = node->getNextNode();
 	return *this;
 }
 
@@ -75,7 +75,7 @@ const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListCo
 	validateNode("increment");
 	
 	const auto iterator {*this};
-	node = node->getNext();
+	node = node->getNextNode();
 	return iterator;
 }
 
@@ -83,7 +83,7 @@ template<typename ElementType>
 const DoublyLinkedListConstBidirectionalIterator<ElementType>& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator--() {
 	validateNode("decrement");
 	
-	node = node->getPrevious();
+	node = node->getPreviousNode();
 	return *this;
 }
 
@@ -93,7 +93,7 @@ const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListCo
 	validateNode("decrement");
 	
 	const auto iterator {*this};
-	node = node->getPrevious();
+	node = node->getPreviousNode();
 	return iterator;
 }
 

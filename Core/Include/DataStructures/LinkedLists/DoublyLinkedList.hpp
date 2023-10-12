@@ -67,7 +67,7 @@ DoublyLinkedList<ElementType>::DoublyLinkedList(const DoublyLinkedList<ElementTy
 
 template<typename ElementType>
 DoublyLinkedList<ElementType>::DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept:
-		nodeCount {other.NodeCount}, headNode {other.headNode}, tailNode {other.tailNode} {
+		nodeCount {other.nodeCount}, headNode {other.headNode}, tailNode {other.tailNode} {
 	other.nodeCount = 0;
 	other.headNode = nullptr;
 	other.tailNode = nullptr;
