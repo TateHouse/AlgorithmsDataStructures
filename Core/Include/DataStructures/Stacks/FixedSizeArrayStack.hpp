@@ -16,6 +16,10 @@ public:
 	FixedSizeArrayStack<ElementType, Size>& operator=(FixedSizeArrayStack<ElementType, Size>&& other) noexcept = default;
 	const bool operator==(const FixedSizeArrayStack<ElementType, Size>& other) const noexcept;
 
+public:
+	const bool push(const ElementType& element) noexcept;
+	const bool push(ElementType&& element) noexcept;
+
 private:
 	std::array<ElementType, Size> array {};
 	std::size_t topIndex {0};
@@ -36,6 +40,30 @@ const bool FixedSizeArrayStack<ElementType, Size>::operator==(const FixedSizeArr
 			return false;
 		}
 	}
+	
+	return true;
+}
+
+template<typename ElementType, std::size_t Size>
+const bool FixedSizeArrayStack<ElementType, Size>::push(const ElementType& element) noexcept {
+	if (topIndex == Size) {
+		return false;
+	}
+	
+	array[topIndex] = element;
+	++topIndex;
+	
+	return true;
+}
+
+template<typename ElementType, std::size_t Size>
+const bool FixedSizeArrayStack<ElementType, Size>::push(ElementType&& element) noexcept {
+	if (topIndex == Size) {
+		return false;
+	}
+	
+	array[topIndex] = std::move(element);
+	++topIndex;
 	
 	return true;
 }
