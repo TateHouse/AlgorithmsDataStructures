@@ -47,6 +47,8 @@ public:
 	std::vector<ElementType> removeAll() noexcept;
 	ConstBidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	BidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	ConstBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	BidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) noexcept;
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	const bool isEmpty() const noexcept;
@@ -314,6 +316,16 @@ DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<Eleme
 template<typename ElementType>
 DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
 	return std::find_if(begin(), end(), predicate);
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+	return std::find_if(crbegin(), crend(), predicate);
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) noexcept {
+	return std::find_if(rbegin(), rend(), predicate);
 }
 
 template<typename ElementType>
