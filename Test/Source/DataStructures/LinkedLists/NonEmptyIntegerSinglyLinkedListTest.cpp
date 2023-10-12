@@ -26,6 +26,12 @@ TEST_F(NonEmptyIntegerSinglyLinkedListTest,
 	EXPECT_THAT(otherSinglyLinkedList, testing::Eq(singlyLinkedList));
 }
 
+TEST_F(NonEmptyIntegerSinglyLinkedListTest, GivenNonEmptyIntegerSinglyLinkedList_WhenReverse_ThenElementsAreInExpectedOrder) {
+	singlyLinkedList.reverse();
+	
+	EXPECT_THAT(singlyLinkedList, testing::ElementsAre(50, 40, 30, 20, 10));
+}
+
 TEST_F(NonEmptyIntegerSinglyLinkedListTest,
        GivenNonEmptyIntegerSinglyLinkedList_WhenMoveConstruct_ThenNewSinglyLinkedListContainsElementsFromOriginal) {
 	const auto otherSinglyLinkedList {std::move(singlyLinkedList)};

@@ -46,6 +46,7 @@ public:
 	std::vector<ElementType> removeAll() noexcept;
 	ConstForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	ForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	void reverse() noexcept;
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	const bool isEmpty() const noexcept;
@@ -359,6 +360,28 @@ SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType
 template<typename ElementType>
 SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
 	return std::find_if(begin(), end(), predicate);
+}
+
+template<typename ElementType>
+void SinglyLinkedList<ElementType>::reverse() noexcept {
+	if (headNode == nullptr || headNode == tailNode) {
+		return;
+	}
+	
+	SinglyLinkedListNode<ElementType>* previousNode {nullptr};
+	SinglyLinkedListNode<ElementType>* currentNode {headNode};
+	SinglyLinkedListNode<ElementType>* nextNode {nullptr};
+	
+	while (currentNode != nullptr) {
+		nextNode = currentNode->getNextNode();
+		currentNode->setNextNode(previousNode);
+		previousNode = currentNode;
+		currentNode = nextNode;
+	}
+	
+	
+	tailNode = headNode;
+	headNode = previousNode;
 }
 
 template<typename ElementType>
