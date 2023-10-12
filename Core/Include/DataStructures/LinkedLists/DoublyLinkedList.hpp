@@ -17,6 +17,10 @@ public:
 	DoublyLinkedList(const DoublyLinkedList<ElementType>& other) noexcept;
 	DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept;
 	~DoublyLinkedList() noexcept;
+	
+public:
+	DoublyLinkedList<ElementType>& operator=(const DoublyLinkedList<ElementType>& other) noexcept;
+	DoublyLinkedList<ElementType>& operator=(DoublyLinkedList<ElementType>&& other) noexcept;
 
 public:
 	using value_type = ElementType;
@@ -62,6 +66,40 @@ DoublyLinkedList<ElementType>::DoublyLinkedList(DoublyLinkedList<ElementType>&& 
 	other.nodeCount = 0;
 	other.headNode = nullptr;
 	other.tailNode = nullptr;
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>& DoublyLinkedList<ElementType>::operator=(const DoublyLinkedList<ElementType>& other) noexcept {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	for (const auto& element: other) {
+		insertAtTail(element);
+	}
+	
+	return *this;
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>& DoublyLinkedList<ElementType>::operator=(DoublyLinkedList<ElementType>&& other) noexcept {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	nodeCount = other.nodeCount;
+	headNode = other.headNode;
+	tailNode = other.tailNode;
+	
+	other.nodeCount = 0;
+	other.headNode = nullptr;
+	other.tailNode = nullptr;
+	
+	return *this;
 }
 
 template<typename ElementType>
