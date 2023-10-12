@@ -43,8 +43,11 @@ public:
 
 public:
 	void insertAtHead(const ElementType& element) noexcept;
+	void insertAtHead(ElementType&& element) noexcept;
 	void insertAtTail(const ElementType& element) noexcept;
+	void insertAtTail(ElementType&& element) noexcept;
 	const bool insertAtIndex(const ElementType& element, const std::size_t index) noexcept;
+	const bool insertAtIndex(ElementType&& element, const std::size_t index) noexcept;
 	std::optional<ElementType> removeAtHead() noexcept;
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
@@ -184,8 +187,40 @@ void DoublyLinkedList<ElementType>::insertAtHead(const ElementType& element) noe
 }
 
 template<typename ElementType>
+void DoublyLinkedList<ElementType>::insertAtHead(ElementType&& element) noexcept {
+	auto* node {new DoublyLinkedListNode<ElementType>(std::move(element))};
+	
+	if (headNode == nullptr) {
+		headNode = node;
+		tailNode = node;
+	} else {
+		node->setNextNode(headNode);
+		headNode->setPreviousNode(node);
+		headNode = node;
+	}
+	
+	++nodeCount;
+}
+
+template<typename ElementType>
 void DoublyLinkedList<ElementType>::insertAtTail(const ElementType& element) noexcept {
 	auto* node {new DoublyLinkedListNode<ElementType>(element)};
+	
+	if (tailNode == nullptr) {
+		headNode = node;
+		tailNode = node;
+	} else {
+		node->setPreviousNode(tailNode);
+		tailNode->setNextNode(node);
+		tailNode = node;
+	}
+	
+	++nodeCount;
+}
+
+template<typename ElementType>
+void DoublyLinkedList<ElementType>::insertAtTail(ElementType&& element) noexcept {
+	auto* node {new DoublyLinkedListNode<ElementType>(std::move(element))};
 	
 	if (tailNode == nullptr) {
 		headNode = node;
@@ -216,6 +251,37 @@ const bool DoublyLinkedList<ElementType>::insertAtIndex(const ElementType& eleme
 	}
 	
 	auto* node {new DoublyLinkedListNode<ElementType>(element)};
+	auto* previousNode {headNode};
+	for (std::size_t currentIndex {0}; currentIndex < index - 1; ++currentIndex) {
+		previousNode = previousNode->getNextNode();
+	}
+	
+	node->setNextNode(previousNode->getNextNode());
+	node->setPreviousNode(previousNode);
+	node->getNextNode()->setPreviousNode(node);
+	previousNode->setNextNode(node);
+	++nodeCount;
+	
+	return true;
+}
+
+template<typename ElementType>
+const bool DoublyLinkedList<ElementType>::insertAtIndex(ElementType&& element, const std::size_t index) noexcept {
+	if (index > nodeCount) {
+		return false;
+	}
+	
+	if (index == 0 || headNode == nullptr) {
+		insertAtHead(std::move(element));
+		return true;
+	}
+	
+	if (index == nodeCount) {
+		insertAtTail(std::move(element));
+		return true;
+	}
+	
+	auto* node {new DoublyLinkedListNode<ElementType>(std::move(element))};
 	auto* previousNode {headNode};
 	for (std::size_t currentIndex {0}; currentIndex < index - 1; ++currentIndex) {
 		previousNode = previousNode->getNextNode();
