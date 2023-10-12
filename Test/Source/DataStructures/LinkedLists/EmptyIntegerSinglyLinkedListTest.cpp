@@ -129,9 +129,10 @@ TEST_F(EmptyIntegerSinglyLinkedListTest, WhenRemoveAll_ThenSizeIsNotDecremented)
 }
 
 TEST_F(EmptyIntegerSinglyLinkedListTest, GivenPredicate_WhenFindFirstConst_ThenReturnsConstEndIterator) {
-	const auto result {singlyLinkedList.findFirst(::Test::isTen)};
+	const auto constSinglyLinkedList {singlyLinkedList};
+	const auto result {constSinglyLinkedList.findFirst(::Test::isTen)};
 	
-	EXPECT_THAT(result, testing::Eq(singlyLinkedList.end()));
+	EXPECT_THAT(result, testing::Eq(singlyLinkedList.cend()));
 }
 
 TEST_F(EmptyIntegerSinglyLinkedListTest, GivenPredicate_WhenFindFirst_ThenReturnsEndIterator) {
