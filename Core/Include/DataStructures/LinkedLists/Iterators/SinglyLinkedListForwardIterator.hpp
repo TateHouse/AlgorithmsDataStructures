@@ -22,13 +22,10 @@ public:
 	const bool operator==(const SinglyLinkedListForwardIterator<ElementType>& other) const noexcept;
 
 public:
-	reference operator*() const;
-	pointer operator->() const;
-	SinglyLinkedListForwardIterator<ElementType>& operator++();
-	SinglyLinkedListForwardIterator<ElementType> operator++(int);
-
-private:
-	void validateNode(const std::string_view action) const;
+	reference operator*() const noexcept;
+	pointer operator->() const noexcept;
+	SinglyLinkedListForwardIterator<ElementType>& operator++() noexcept;
+	SinglyLinkedListForwardIterator<ElementType> operator++(int) noexcept;
 
 private:
 	SinglyLinkedListNode<ElementType>* node;
@@ -46,41 +43,29 @@ const bool SinglyLinkedListForwardIterator<ElementType>::operator==(const Singly
 }
 
 template<typename ElementType>
-ElementType& SinglyLinkedListForwardIterator<ElementType>::operator*() const {
-	validateNode("dereference");
-	
+ElementType& SinglyLinkedListForwardIterator<ElementType>::operator*() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return node->getElement();
 }
 
 template<typename ElementType>
-ElementType* SinglyLinkedListForwardIterator<ElementType>::operator->() const {
-	validateNode("dereference");
-	
+ElementType* SinglyLinkedListForwardIterator<ElementType>::operator->() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return &node->getElement();
 }
 
 template<typename ElementType>
-SinglyLinkedListForwardIterator<ElementType>& SinglyLinkedListForwardIterator<ElementType>::operator++() {
-	validateNode("increment");
-	
+SinglyLinkedListForwardIterator<ElementType>& SinglyLinkedListForwardIterator<ElementType>::operator++() noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	node = node->getNextNode();
 	return *this;
 }
 
 template<typename ElementType>
-SinglyLinkedListForwardIterator<ElementType> SinglyLinkedListForwardIterator<ElementType>::operator++(int) {
-	validateNode("increment");
-	
+SinglyLinkedListForwardIterator<ElementType> SinglyLinkedListForwardIterator<ElementType>::operator++(int) noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	auto iterator {*this};
 	node = node->getNextNode();
 	return iterator;
-}
-
-template<typename ElementType>
-void SinglyLinkedListForwardIterator<ElementType>::validateNode(const std::string_view action) const {
-	if (node == nullptr) {
-		const auto message {std::format("Cannot {} a nullptr.", action.data())};
-		throw std::runtime_error(message);
-	}
 }
 }

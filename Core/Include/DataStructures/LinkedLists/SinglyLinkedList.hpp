@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <functional>
 #include <optional>
 #include <vector>
@@ -40,8 +41,8 @@ public:
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
 	std::vector<ElementType> removeAll() noexcept;
-	ForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
 	ConstForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	ForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	const bool isEmpty() const noexcept;
@@ -245,7 +246,7 @@ std::optional<ElementType> SinglyLinkedList<ElementType>::removeAtIndex(const st
 		return std::nullopt;
 	}
 	
-	if (index == 0) {
+	if (index == 0 || headNode == nullptr) {
 		return removeAtHead();
 	}
 	
@@ -279,14 +280,13 @@ std::vector<ElementType> SinglyLinkedList<ElementType>::removeAll() noexcept {
 }
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
-	return std::find_if(begin(), end(), predicate);
+SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+	return std::find_if(cbegin(), cend(), predicate);
 }
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>::ConstForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(
-		const ElementType&)>& predicate) const noexcept {
-	return std::find_if(cbegin(), cend(), predicate);
+SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
+	return std::find_if(begin(), end(), predicate);
 }
 
 template<typename ElementType>
@@ -296,7 +296,7 @@ const bool SinglyLinkedList<ElementType>::contains(const std::function<bool(cons
 
 template<typename ElementType>
 const bool SinglyLinkedList<ElementType>::containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept {
-	return std::all_of(predicates.cbegin(), predicates.cend(), [this](const auto& predicate) {
+	return std::ranges::all_of(predicates, [this](const auto& predicate) {
 		return contains(predicate);
 	});
 }

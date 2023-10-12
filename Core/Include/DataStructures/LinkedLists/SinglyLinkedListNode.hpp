@@ -28,17 +28,17 @@ SinglyLinkedListNode<ElementType>::SinglyLinkedListNode(const ElementType& eleme
 
 template<typename ElementType>
 const bool SinglyLinkedListNode<ElementType>::operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept {
-	return this->element == other.element;
+	return element == other.element;
 }
 
 template<typename ElementType>
 ElementType& SinglyLinkedListNode<ElementType>::getElement() noexcept {
-	return this->element;
+	return element;
 }
 
 template<typename ElementType>
 const ElementType& SinglyLinkedListNode<ElementType>::getElement() const noexcept {
-	return this->element;
+	return element;
 }
 
 template<typename ElementType>
