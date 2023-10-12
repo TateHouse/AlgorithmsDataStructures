@@ -314,7 +314,7 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtHead() noexcep
 		headNode->setPreviousNode(nullptr);
 	}
 	
-	return element;
+	return std::move(element);
 }
 
 template<typename ElementType>
@@ -335,7 +335,7 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtTail() noexcep
 	tailNode->setNextNode(nullptr);
 	--nodeCount;
 	
-	return element;
+	return std::move(element);
 }
 
 template<typename ElementType>
@@ -364,7 +364,7 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtIndex(const st
 	delete node;
 	--nodeCount;
 	
-	return element;
+	return std::move(element);
 }
 
 template<typename ElementType>
