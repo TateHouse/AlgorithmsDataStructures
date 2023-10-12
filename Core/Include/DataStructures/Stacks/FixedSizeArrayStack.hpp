@@ -23,8 +23,8 @@ public:
 	std::optional<ElementType> pop() noexcept;
 	const ElementType* const getTop() const noexcept;
 	const bool isEmpty() const noexcept;
+	const bool isFull() const noexcept;
 	const std::size_t getSize() const noexcept;
-	
 
 private:
 	std::array<ElementType, Size> array {};
@@ -52,7 +52,7 @@ const bool FixedSizeArrayStack<ElementType, Size>::operator==(const FixedSizeArr
 
 template<typename ElementType, std::size_t Size>
 const bool FixedSizeArrayStack<ElementType, Size>::push(const ElementType& element) noexcept {
-	if (topIndex == Size) {
+	if (isFull()) {
 		return false;
 	}
 	
@@ -64,7 +64,7 @@ const bool FixedSizeArrayStack<ElementType, Size>::push(const ElementType& eleme
 
 template<typename ElementType, std::size_t Size>
 const bool FixedSizeArrayStack<ElementType, Size>::push(ElementType&& element) noexcept {
-	if (topIndex == Size) {
+	if (isFull()) {
 		return false;
 	}
 	
@@ -97,6 +97,11 @@ const ElementType* const FixedSizeArrayStack<ElementType, Size>::getTop() const 
 template<typename ElementType, std::size_t Size>
 const bool FixedSizeArrayStack<ElementType, Size>::isEmpty() const noexcept {
 	return topIndex == 0;
+}
+
+template<typename ElementType, std::size_t Size>
+const bool FixedSizeArrayStack<ElementType, Size>::isFull() const noexcept {
+	return topIndex == Size;
 }
 
 template<typename ElementType, std::size_t Size>
