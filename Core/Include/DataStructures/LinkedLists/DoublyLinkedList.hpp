@@ -370,10 +370,19 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtIndex(const st
 template<typename ElementType>
 std::vector<ElementType> DoublyLinkedList<ElementType>::removeAll() noexcept {
 	std::vector<ElementType> elements {};
+	elements.reserve(nodeCount);
 	
-	while (headNode != nullptr) {
-		elements.emplace_back(removeAtHead().value());
+	auto currentNode {headNode};
+	while (currentNode != nullptr) {
+		elements.emplace_back(currentNode->getElement());
+		auto* node {currentNode};
+		currentNode = currentNode->getNextNode();
+		delete node;
 	}
+	
+	nodeCount = 0;
+	headNode = nullptr;
+	tailNode = nullptr;
 	
 	return elements;
 }
