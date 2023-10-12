@@ -2,6 +2,7 @@
 
 #include <array>
 #include <optional>
+#include <vector>
 
 namespace Core::DataStructures::Stacks {
 template<typename ElementType, std::size_t Size>
@@ -21,6 +22,7 @@ public:
 	const bool push(const ElementType& element) noexcept;
 	const bool push(ElementType&& element) noexcept;
 	std::optional<ElementType> pop() noexcept;
+	std::vector<ElementType> popAll() noexcept;
 	const ElementType* const getTop() const noexcept;
 	const bool isEmpty() const noexcept;
 	const bool isFull() const noexcept;
@@ -83,6 +85,19 @@ std::optional<ElementType> FixedSizeArrayStack<ElementType, Size>::pop() noexcep
 	--topIndex;
 	
 	return std::move(array[topIndex]);
+}
+
+template<typename ElementType, std::size_t Size>
+std::vector<ElementType> FixedSizeArrayStack<ElementType, Size>::popAll() noexcept {
+	std::vector<ElementType> elements {};
+	elements.reserve(topIndex);
+	
+	while (!isEmpty()) {
+		elements.emplace_back(array[topIndex - 1]);
+		--topIndex;
+	}
+	
+	return elements;
 }
 
 template<typename ElementType, std::size_t Size>
