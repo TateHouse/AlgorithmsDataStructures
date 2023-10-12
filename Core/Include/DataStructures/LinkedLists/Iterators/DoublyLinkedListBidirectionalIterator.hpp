@@ -22,15 +22,12 @@ public:
 	const bool operator==(const DoublyLinkedListBidirectionalIterator<ElementType>& other) const noexcept;
 
 public:
-	reference operator*() const;
-	pointer operator->() const;
-	DoublyLinkedListBidirectionalIterator<ElementType>& operator++();
-	DoublyLinkedListBidirectionalIterator<ElementType> operator++(int);
-	DoublyLinkedListBidirectionalIterator<ElementType>& operator--();
-	DoublyLinkedListBidirectionalIterator<ElementType> operator--(int);
-
-private:
-	void validateNode(const std::string_view action) const;
+	reference operator*() const noexcept;
+	pointer operator->() const noexcept;
+	DoublyLinkedListBidirectionalIterator<ElementType>& operator++() noexcept;
+	DoublyLinkedListBidirectionalIterator<ElementType> operator++(int) noexcept;
+	DoublyLinkedListBidirectionalIterator<ElementType>& operator--() noexcept;
+	DoublyLinkedListBidirectionalIterator<ElementType> operator--(int) noexcept;
 
 private:
 	DoublyLinkedListNode<ElementType>* node;
@@ -48,57 +45,44 @@ const bool DoublyLinkedListBidirectionalIterator<ElementType>::operator==(const 
 }
 
 template<typename ElementType>
-ElementType& DoublyLinkedListBidirectionalIterator<ElementType>::operator*() const {
-	validateNode("dereference");
-	
+ElementType& DoublyLinkedListBidirectionalIterator<ElementType>::operator*() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return node->getElement();
 }
 
 template<typename ElementType>
-ElementType* DoublyLinkedListBidirectionalIterator<ElementType>::operator->() const {
-	validateNode("dereference");
-	
+ElementType* DoublyLinkedListBidirectionalIterator<ElementType>::operator->() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return &node->getElement();
 }
 
 template<typename ElementType>
-DoublyLinkedListBidirectionalIterator<ElementType>& DoublyLinkedListBidirectionalIterator<ElementType>::operator++() {
-	validateNode("increment");
-	
+DoublyLinkedListBidirectionalIterator<ElementType>& DoublyLinkedListBidirectionalIterator<ElementType>::operator++() noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	node = node->getNextNode();
 	return *this;
 }
 
 template<typename ElementType>
-DoublyLinkedListBidirectionalIterator<ElementType> DoublyLinkedListBidirectionalIterator<ElementType>::operator++(int) {
-	validateNode("increment");
-	
+DoublyLinkedListBidirectionalIterator<ElementType> DoublyLinkedListBidirectionalIterator<ElementType>::operator++(int) noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	const auto iterator {*this};
 	node = node->getNextNode();
 	return iterator;
 }
 
 template<typename ElementType>
-DoublyLinkedListBidirectionalIterator<ElementType>& DoublyLinkedListBidirectionalIterator<ElementType>::operator--() {
-	validateNode("decrement");
-	
+DoublyLinkedListBidirectionalIterator<ElementType>& DoublyLinkedListBidirectionalIterator<ElementType>::operator--() noexcept {
+	assert(node != nullptr && "Cannot decrement a null iterator.");
 	node = node->getPreviousNode();
 	return *this;
 }
 
 template<typename ElementType>
-DoublyLinkedListBidirectionalIterator<ElementType> DoublyLinkedListBidirectionalIterator<ElementType>::operator--(int) {
-	validateNode("decrement");
-	
+DoublyLinkedListBidirectionalIterator<ElementType> DoublyLinkedListBidirectionalIterator<ElementType>::operator--(int) noexcept {
+	assert(node != nullptr && "Cannot decrement a null iterator.");
 	const auto iterator {*this};
 	node = node->getPreviousNode();
 	return iterator;
-}
-
-template<typename ElementType>
-void DoublyLinkedListBidirectionalIterator<ElementType>::validateNode(const std::string_view action) const {
-	if (node == nullptr) {
-		throw std::runtime_error {std::format("Cannot {} a nullptr.", action)};
-	}
 }
 }

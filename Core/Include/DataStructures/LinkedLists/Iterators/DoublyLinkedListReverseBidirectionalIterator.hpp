@@ -20,12 +20,12 @@ public:
 	const bool operator==(const DoublyLinkedListReverseBidirectionalIterator<ElementType>& other) const noexcept;
 
 public:
-	reference operator*() const;
-	pointer operator->() const;
-	DoublyLinkedListReverseBidirectionalIterator<ElementType>& operator++();
-	DoublyLinkedListReverseBidirectionalIterator<ElementType> operator++(int);
-	DoublyLinkedListReverseBidirectionalIterator<ElementType>& operator--();
-	DoublyLinkedListReverseBidirectionalIterator<ElementType> operator--(int);
+	reference operator*() const noexcept;
+	pointer operator->() const noexcept;
+	DoublyLinkedListReverseBidirectionalIterator<ElementType>& operator++() noexcept;
+	DoublyLinkedListReverseBidirectionalIterator<ElementType> operator++(int) noexcept;
+	DoublyLinkedListReverseBidirectionalIterator<ElementType>& operator--() noexcept;
+	DoublyLinkedListReverseBidirectionalIterator<ElementType> operator--(int) noexcept;
 
 private:
 	DoublyLinkedListNode<ElementType>* node;
@@ -43,37 +43,42 @@ const bool DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator==
 }
 
 template<typename ElementType>
-DoublyLinkedListReverseBidirectionalIterator<ElementType>::reference DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator*() const {
+DoublyLinkedListReverseBidirectionalIterator<ElementType>::reference DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator*() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return node->getElement();
 }
 
 template<typename ElementType>
-DoublyLinkedListReverseBidirectionalIterator<ElementType>::pointer DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator->() const {
+DoublyLinkedListReverseBidirectionalIterator<ElementType>::pointer DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator->() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return &node->getElement();
 }
 
 template<typename ElementType>
-DoublyLinkedListReverseBidirectionalIterator<ElementType>& DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator++() {
+DoublyLinkedListReverseBidirectionalIterator<ElementType>& DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator++() noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	node = node->getPreviousNode();
 	return *this;
 }
 
 template<typename ElementType>
-DoublyLinkedListReverseBidirectionalIterator<ElementType> DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator++(
-		int) {
+DoublyLinkedListReverseBidirectionalIterator<ElementType> DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator++(int) noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	auto iterator {*this};
 	node = node->getPreviousNode();
 	return iterator;
 }
 
 template<typename ElementType>
-DoublyLinkedListReverseBidirectionalIterator<ElementType>& DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator--() {
+DoublyLinkedListReverseBidirectionalIterator<ElementType>& DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator--() noexcept {
+	assert(node != nullptr && "Cannot decrement a null iterator.");
 	node = node->getNextNode();
 	return *this;
 }
 
 template<typename ElementType>
-DoublyLinkedListReverseBidirectionalIterator<ElementType> DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator--(int) {
+DoublyLinkedListReverseBidirectionalIterator<ElementType> DoublyLinkedListReverseBidirectionalIterator<ElementType>::operator--(int) noexcept {
+	assert(node != nullptr && "Cannot decrement a null iterator.");
 	auto iterator {*this};
 	node = node->getNextNode();
 	return iterator;

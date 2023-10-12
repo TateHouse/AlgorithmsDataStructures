@@ -22,15 +22,12 @@ public:
 	const bool operator==(const DoublyLinkedListConstBidirectionalIterator<ElementType>& other) const noexcept;
 
 public:
-	reference operator*() const;
-	pointer operator->() const;
-	const DoublyLinkedListConstBidirectionalIterator<ElementType>& operator++();
-	const DoublyLinkedListConstBidirectionalIterator<ElementType> operator++(int);
-	const DoublyLinkedListConstBidirectionalIterator<ElementType>& operator--();
-	const DoublyLinkedListConstBidirectionalIterator<ElementType> operator--(int);
-
-private:
-	void validateNode(const std::string_view action) const;
+	reference operator*() const noexcept;
+	pointer operator->() const noexcept;
+	const DoublyLinkedListConstBidirectionalIterator<ElementType>& operator++() noexcept;
+	const DoublyLinkedListConstBidirectionalIterator<ElementType> operator++(int) noexcept;
+	const DoublyLinkedListConstBidirectionalIterator<ElementType>& operator--() noexcept;
+	const DoublyLinkedListConstBidirectionalIterator<ElementType> operator--(int) noexcept;
 
 private:
 	DoublyLinkedListNode<ElementType>* node;
@@ -48,59 +45,44 @@ const bool DoublyLinkedListConstBidirectionalIterator<ElementType>::operator==(c
 }
 
 template<typename ElementType>
-const ElementType& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator*() const {
-	validateNode("dereference");
-	
+const ElementType& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator*() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return node->getElement();
 }
 
 template<typename ElementType>
-const ElementType* const DoublyLinkedListConstBidirectionalIterator<ElementType>::operator->() const {
-	validateNode("dereference");
-	
+const ElementType* const DoublyLinkedListConstBidirectionalIterator<ElementType>::operator->() const noexcept {
+	assert(node != nullptr && "Cannot dereference a null iterator.");
 	return &node->getElement();
 }
 
 template<typename ElementType>
-const DoublyLinkedListConstBidirectionalIterator<ElementType>& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator++() {
-	validateNode("increment");
-	
+const DoublyLinkedListConstBidirectionalIterator<ElementType>& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator++() noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	node = node->getNextNode();
 	return *this;
 }
 
 template<typename ElementType>
-const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListConstBidirectionalIterator<ElementType>::operator++(
-		int) {
-	validateNode("increment");
-	
+const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListConstBidirectionalIterator<ElementType>::operator++(int) noexcept {
+	assert(node != nullptr && "Cannot increment a null iterator.");
 	const auto iterator {*this};
 	node = node->getNextNode();
 	return iterator;
 }
 
 template<typename ElementType>
-const DoublyLinkedListConstBidirectionalIterator<ElementType>& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator--() {
-	validateNode("decrement");
-	
+const DoublyLinkedListConstBidirectionalIterator<ElementType>& DoublyLinkedListConstBidirectionalIterator<ElementType>::operator--() noexcept {
+	assert(node != nullptr && "Cannot decrement a null iterator.");
 	node = node->getPreviousNode();
 	return *this;
 }
 
 template<typename ElementType>
-const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListConstBidirectionalIterator<ElementType>::operator--(
-		int) {
-	validateNode("decrement");
-	
+const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListConstBidirectionalIterator<ElementType>::operator--(int) noexcept {
+	assert(node != nullptr && "Cannot decrement a null iterator.");
 	const auto iterator {*this};
 	node = node->getPreviousNode();
 	return iterator;
-}
-
-template<typename ElementType>
-void DoublyLinkedListConstBidirectionalIterator<ElementType>::validateNode(const std::string_view action) const {
-	if (node == nullptr) {
-		throw std::runtime_error {std::format("Cannot {} a nullptr.", action)};
-	}
 }
 }
