@@ -11,6 +11,8 @@ public:
 	~DoublyLinkedListNode() noexcept = default;
 
 public:
+	DoublyLinkedListNode<ElementType>& operator=(const DoublyLinkedListNode<ElementType>& other) noexcept = default;
+	DoublyLinkedListNode<ElementType>& operator=(DoublyLinkedListNode<ElementType>&& other) noexcept = default;
 	const bool operator==(const DoublyLinkedListNode<ElementType>& other) const noexcept;
 
 public:
