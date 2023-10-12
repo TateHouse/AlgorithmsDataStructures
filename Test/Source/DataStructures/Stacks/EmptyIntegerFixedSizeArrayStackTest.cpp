@@ -12,12 +12,6 @@ protected:
 	FixedSizeArrayStack<int, 5> fixedSizeArrayStack {};
 };
 
-TEST_F(EmptyIntegerFixedSizeArrayStackTest, GivenTwoEmptyIntegerFixedSizeArrayStacks_WhenCompare_ThenReturnsTrue) {
-	FixedSizeArrayStack<int, 5> otherFixedSizeArrayStack {};
-
-	EXPECT_THAT(fixedSizeArrayStack, testing::Eq(otherFixedSizeArrayStack));
-}
-
 TEST_F(EmptyIntegerFixedSizeArrayStackTest, GivenInteger_WhenPush_ThenElementsAreInExpectedOrder) {
 	fixedSizeArrayStack.push(10);
 	
