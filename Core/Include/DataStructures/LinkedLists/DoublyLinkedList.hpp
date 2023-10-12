@@ -21,6 +21,7 @@ public:
 public:
 	DoublyLinkedList<ElementType>& operator=(const DoublyLinkedList<ElementType>& other) noexcept;
 	DoublyLinkedList<ElementType>& operator=(DoublyLinkedList<ElementType>&& other) noexcept;
+	const bool operator==(const DoublyLinkedList<ElementType>& other) const noexcept;
 
 public:
 	using value_type = ElementType;
@@ -100,6 +101,15 @@ DoublyLinkedList<ElementType>& DoublyLinkedList<ElementType>::operator=(DoublyLi
 	other.tailNode = nullptr;
 	
 	return *this;
+}
+
+template<typename ElementType>
+const bool DoublyLinkedList<ElementType>::operator==(const DoublyLinkedList<ElementType>& other) const noexcept {
+	if (nodeCount != other.nodeCount) {
+		return false;
+	}
+	
+	return std::equal(cbegin(), cend(), other.cbegin(), other.cend());
 }
 
 template<typename ElementType>
