@@ -13,6 +13,11 @@ namespace Core::DataStructures::LinkedLists {
 template<typename ElementType>
 class DoublyLinkedList final {
 public:
+	DoublyLinkedList() noexcept = default;
+	DoublyLinkedList(const DoublyLinkedList<ElementType>& other) noexcept;
+	DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept;
+
+public:
 	using value_type = ElementType;
 	using ConstBidirectionalIterator = Iterators::DoublyLinkedListConstBidirectionalIterator<ElementType>;
 	using BidirectionalIterator = Iterators::DoublyLinkedListBidirectionalIterator<ElementType>;
@@ -42,6 +47,21 @@ private:
 	DoublyLinkedListNode<ElementType>* headNode {nullptr};
 	DoublyLinkedListNode<ElementType>* tailNode {nullptr};
 };
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::DoublyLinkedList(const DoublyLinkedList<ElementType>& other) noexcept {
+	for (const auto& element: other) {
+		insertAtTail(element);
+	}
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept:
+		nodeCount {other.NodeCount}, headNode {other.headNode}, tailNode {other.tailNode} {
+	other.nodeCount = 0;
+	other.headNode = nullptr;
+	other.tailNode = nullptr;
+}
 
 template<typename ElementType>
 DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::cbegin() const noexcept {
