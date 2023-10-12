@@ -22,6 +22,7 @@ public:
 	const bool push(ElementType&& element) noexcept;
 	std::optional<ElementType> pop() noexcept;
 	const ElementType* const getTop() const noexcept;
+	const std::size_t getSize() const noexcept;
 
 private:
 	std::array<ElementType, Size> array {};
@@ -89,5 +90,10 @@ const ElementType* const FixedSizeArrayStack<ElementType, Size>::getTop() const 
 	}
 	
 	return &array[topIndex - 1];
+}
+
+template<typename ElementType, std::size_t Size>
+const std::size_t FixedSizeArrayStack<ElementType, Size>::getSize() const noexcept {
+	return topIndex;
 }
 }
