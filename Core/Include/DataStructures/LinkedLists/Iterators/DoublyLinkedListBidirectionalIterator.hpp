@@ -73,7 +73,7 @@ template<typename ElementType>
 DoublyLinkedListBidirectionalIterator<ElementType> DoublyLinkedListBidirectionalIterator<ElementType>::operator++(int) {
 	validateNode("increment");
 	
-	const auto iterator = *this;
+	const auto iterator {*this};
 	node = node->getNext();
 	return iterator;
 }
@@ -90,7 +90,7 @@ template<typename ElementType>
 DoublyLinkedListBidirectionalIterator<ElementType> DoublyLinkedListBidirectionalIterator<ElementType>::operator--(int) {
 	validateNode("decrement");
 	
-	const auto iterator = *this;
+	const auto iterator {*this};
 	node = node->getPrevious();
 	return iterator;
 }

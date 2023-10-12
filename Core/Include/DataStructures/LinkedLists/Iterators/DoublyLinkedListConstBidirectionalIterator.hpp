@@ -74,7 +74,7 @@ const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListCo
 		int) {
 	validateNode("increment");
 	
-	const auto iterator = *this;
+	const auto iterator {*this};
 	node = node->getNext();
 	return iterator;
 }
@@ -92,7 +92,7 @@ const DoublyLinkedListConstBidirectionalIterator<ElementType> DoublyLinkedListCo
 		int) {
 	validateNode("decrement");
 	
-	const auto iterator = *this;
+	const auto iterator {*this};
 	node = node->getPrevious();
 	return iterator;
 }
