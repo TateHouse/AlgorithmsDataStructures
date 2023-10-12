@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <optional>
 
 namespace Core::DataStructures::Stacks {
 template<typename ElementType, std::size_t Size>
@@ -19,7 +20,8 @@ public:
 public:
 	const bool push(const ElementType& element) noexcept;
 	const bool push(ElementType&& element) noexcept;
-
+	std::optional<ElementType> pop() noexcept;
+	
 private:
 	std::array<ElementType, Size> array {};
 	std::size_t topIndex {0};
@@ -66,5 +68,16 @@ const bool FixedSizeArrayStack<ElementType, Size>::push(ElementType&& element) n
 	++topIndex;
 	
 	return true;
+}
+
+template<typename ElementType, std::size_t Size>
+std::optional<ElementType> FixedSizeArrayStack<ElementType, Size>::pop() noexcept {
+	if (topIndex == 0) {
+		return std::nullopt;
+	}
+	
+	--topIndex;
+	
+	return std::move(array[topIndex]);
 }
 }
