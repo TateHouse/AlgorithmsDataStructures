@@ -30,8 +30,12 @@ public:
 	
 	ConstBidirectionalIterator cbegin() const noexcept;
 	ConstBidirectionalIterator cend() const noexcept;
+	ConstBidirectionalIterator crbegin() const noexcept;
+	ConstBidirectionalIterator crend() const noexcept;
 	BidirectionalIterator begin() const noexcept;
 	BidirectionalIterator end() const noexcept;
+	BidirectionalIterator rbegin() const noexcept;
+	BidirectionalIterator rend() const noexcept;
 
 public:
 	void insertAtHead(const ElementType& element) noexcept;
@@ -128,12 +132,32 @@ DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<Eleme
 }
 
 template<typename ElementType>
+DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::crbegin() const noexcept {
+	return ConstBidirectionalIterator(tailNode);
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::crend() const noexcept {
+	return ConstBidirectionalIterator(nullptr);
+}
+
+template<typename ElementType>
 DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::begin() const noexcept {
 	return BidirectionalIterator(headNode);
 }
 
 template<typename ElementType>
 DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::end() const noexcept {
+	return BidirectionalIterator(nullptr);
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::rbegin() const noexcept {
+	return BidirectionalIterator(tailNode);
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::rend() const noexcept {
 	return BidirectionalIterator(nullptr);
 }
 
