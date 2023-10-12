@@ -16,6 +16,7 @@ public:
 	DoublyLinkedList() noexcept = default;
 	DoublyLinkedList(const DoublyLinkedList<ElementType>& other) noexcept;
 	DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept;
+	~DoublyLinkedList() noexcept;
 
 public:
 	using value_type = ElementType;
@@ -61,6 +62,11 @@ DoublyLinkedList<ElementType>::DoublyLinkedList(DoublyLinkedList<ElementType>&& 
 	other.nodeCount = 0;
 	other.headNode = nullptr;
 	other.tailNode = nullptr;
+}
+
+template<typename ElementType>
+DoublyLinkedList<ElementType>::~DoublyLinkedList() noexcept {
+	removeAll();
 }
 
 template<typename ElementType>
