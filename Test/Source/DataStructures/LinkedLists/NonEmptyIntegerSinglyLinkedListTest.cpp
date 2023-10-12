@@ -98,13 +98,13 @@ TEST_F(NonEmptyIntegerSinglyLinkedListTest, GivenTwoEqualNonEmptyIntegerSinglyLi
 }
 
 TEST_F(NonEmptyIntegerSinglyLinkedListTest, GivenInteger_WhenInsertAtHead_ThenElementsAreInExpectedOrder) {
-	singlyLinkedList.insertAtHead(60);
+	singlyLinkedList.insertAtHead(5);
 	
-	EXPECT_THAT(singlyLinkedList, testing::ElementsAre(60, 10, 20, 30, 40, 50));
+	EXPECT_THAT(singlyLinkedList, testing::ElementsAre(5, 10, 20, 30, 40, 50));
 }
 
 TEST_F(NonEmptyIntegerSinglyLinkedListTest, GivenInteger_WhenInsertAtHead_ThenSizeInIncremented) {
-	singlyLinkedList.insertAtHead(60);
+	singlyLinkedList.insertAtHead(5);
 	const auto nodeCount {singlyLinkedList.getNodeCount()};
 	
 	EXPECT_THAT(nodeCount, testing::Eq(6));
@@ -137,14 +137,14 @@ TEST_F(NonEmptyIntegerSinglyLinkedListTest, GivenIntegerAndInvalidIndex_WhenInse
 }
 
 TEST_F(NonEmptyIntegerSinglyLinkedListTest, GivenIntegerAndValidIndex_WhenInsertAtIndex_ThenSizeInIncremented) {
-	singlyLinkedList.insertAtIndex(60, 5);
+	singlyLinkedList.insertAtIndex(35, 3);
 	const auto nodeCount {singlyLinkedList.getNodeCount()};
 	
 	EXPECT_THAT(nodeCount, testing::Eq(6));
 }
 
 TEST_F(NonEmptyIntegerSinglyLinkedListTest, GivenIntegerAndValidIndex_WhenInsertAtIndex_ThenReturnsTrue) {
-	const auto result {singlyLinkedList.insertAtIndex(60, 5)};
+	const auto result {singlyLinkedList.insertAtIndex(35, 3)};
 	
 	EXPECT_THAT(result, testing::IsTrue());
 }
