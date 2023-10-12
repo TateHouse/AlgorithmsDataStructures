@@ -6,7 +6,9 @@
 #include <vector>
 
 #include "DataStructures/LinkedLists/Iterators/DoublyLinkedListConstBidirectionalIterator.hpp"
+#include "DataStructures/LinkedLists/Iterators/DoublyLinkedListConstReverseBidirectionalIterator.hpp"
 #include "DataStructures/LinkedLists/Iterators/DoublyLinkedListBidirectionalIterator.hpp"
+#include "DataStructures/LinkedLists/Iterators/DoublyLinkedListReverseBidirectionalIterator.hpp"
 #include "DataStructures/LinkedLists/DoublyLinkedListNode.hpp"
 
 namespace Core::DataStructures::LinkedLists {
@@ -17,7 +19,7 @@ public:
 	DoublyLinkedList(const DoublyLinkedList<ElementType>& other) noexcept;
 	DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept;
 	~DoublyLinkedList() noexcept;
-	
+
 public:
 	DoublyLinkedList<ElementType>& operator=(const DoublyLinkedList<ElementType>& other) noexcept;
 	DoublyLinkedList<ElementType>& operator=(DoublyLinkedList<ElementType>&& other) noexcept;
@@ -26,16 +28,18 @@ public:
 public:
 	using value_type = ElementType;
 	using ConstBidirectionalIterator = Iterators::DoublyLinkedListConstBidirectionalIterator<ElementType>;
+	using ConstReverseBidirectionalIterator = Iterators::DoublyLinkedListConstReverseBidirectionalIterator<ElementType>;
 	using BidirectionalIterator = Iterators::DoublyLinkedListBidirectionalIterator<ElementType>;
+	using ReverseBidirectionalIterator = Iterators::DoublyLinkedListReverseBidirectionalIterator<ElementType>;
 	
 	ConstBidirectionalIterator cbegin() const noexcept;
 	ConstBidirectionalIterator cend() const noexcept;
-	ConstBidirectionalIterator crbegin() const noexcept;
-	ConstBidirectionalIterator crend() const noexcept;
+	ConstReverseBidirectionalIterator crbegin() const noexcept;
+	ConstReverseBidirectionalIterator crend() const noexcept;
 	BidirectionalIterator begin() const noexcept;
 	BidirectionalIterator end() const noexcept;
-	BidirectionalIterator rbegin() const noexcept;
-	BidirectionalIterator rend() const noexcept;
+	ReverseBidirectionalIterator rbegin() const noexcept;
+	ReverseBidirectionalIterator rend() const noexcept;
 
 public:
 	void insertAtHead(const ElementType& element) noexcept;
@@ -47,8 +51,8 @@ public:
 	std::vector<ElementType> removeAll() noexcept;
 	ConstBidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	BidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
-	ConstBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept;
-	BidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	ConstReverseBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	ReverseBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) noexcept;
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	const bool isEmpty() const noexcept;
@@ -134,13 +138,13 @@ DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<Eleme
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::crbegin() const noexcept {
-	return ConstBidirectionalIterator(tailNode);
+DoublyLinkedList<ElementType>::ConstReverseBidirectionalIterator DoublyLinkedList<ElementType>::crbegin() const noexcept {
+	return ConstReverseBidirectionalIterator(tailNode);
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::crend() const noexcept {
-	return ConstBidirectionalIterator(nullptr);
+DoublyLinkedList<ElementType>::ConstReverseBidirectionalIterator DoublyLinkedList<ElementType>::crend() const noexcept {
+	return ConstReverseBidirectionalIterator(nullptr);
 }
 
 template<typename ElementType>
@@ -154,13 +158,13 @@ DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementTyp
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::rbegin() const noexcept {
-	return BidirectionalIterator(tailNode);
+DoublyLinkedList<ElementType>::ReverseBidirectionalIterator DoublyLinkedList<ElementType>::rbegin() const noexcept {
+	return ReverseBidirectionalIterator(tailNode);
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::rend() const noexcept {
-	return BidirectionalIterator(nullptr);
+DoublyLinkedList<ElementType>::ReverseBidirectionalIterator DoublyLinkedList<ElementType>::rend() const noexcept {
+	return ReverseBidirectionalIterator(nullptr);
 }
 
 template<typename ElementType>
@@ -319,12 +323,12 @@ DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementTyp
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+DoublyLinkedList<ElementType>::ConstReverseBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept {
 	return std::find_if(crbegin(), crend(), predicate);
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) noexcept {
+DoublyLinkedList<ElementType>::ReverseBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) noexcept {
 	return std::find_if(rbegin(), rend(), predicate);
 }
 
