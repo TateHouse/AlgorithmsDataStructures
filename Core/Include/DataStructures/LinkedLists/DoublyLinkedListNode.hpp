@@ -8,6 +8,7 @@ public:
 	explicit DoublyLinkedListNode(ElementType&& element) noexcept;
 	DoublyLinkedListNode(const DoublyLinkedListNode<ElementType>& other) noexcept = default;
 	DoublyLinkedListNode(DoublyLinkedListNode<ElementType>&& other) noexcept = default;
+	~DoublyLinkedListNode() noexcept = default;
 
 public:
 	const bool operator==(const DoublyLinkedListNode<ElementType>& other) const noexcept;
