@@ -5,8 +5,14 @@ template<typename ElementType>
 class DoublyLinkedListNode final {
 public:
 	explicit DoublyLinkedListNode(const ElementType& element) noexcept;
+	explicit DoublyLinkedListNode(ElementType&& element) noexcept;
+	DoublyLinkedListNode(const DoublyLinkedListNode<ElementType>& other) noexcept = default;
+	DoublyLinkedListNode(DoublyLinkedListNode<ElementType>&& other) noexcept = default;
+	~DoublyLinkedListNode() noexcept = default;
 
 public:
+	DoublyLinkedListNode<ElementType>& operator=(const DoublyLinkedListNode<ElementType>& other) noexcept = default;
+	DoublyLinkedListNode<ElementType>& operator=(DoublyLinkedListNode<ElementType>&& other) noexcept = default;
 	const bool operator==(const DoublyLinkedListNode<ElementType>& other) const noexcept;
 
 public:
@@ -27,6 +33,11 @@ private:
 
 template<typename ElementType>
 DoublyLinkedListNode<ElementType>::DoublyLinkedListNode(const ElementType& element) noexcept : element(element) {
+
+}
+
+template<typename ElementType>
+DoublyLinkedListNode<ElementType>::DoublyLinkedListNode(ElementType&& element) noexcept : element {std::move(element)} {
 
 }
 
