@@ -42,12 +42,12 @@ public:
 	ReverseBidirectionalIterator rend() const noexcept;
 
 public:
-	void insertAtHead(const ElementType& element) noexcept;
-	void insertAtHead(ElementType&& element) noexcept;
-	void insertAtTail(const ElementType& element) noexcept;
-	void insertAtTail(ElementType&& element) noexcept;
-	const bool insertAtIndex(const ElementType& element, const std::size_t index) noexcept;
-	const bool insertAtIndex(ElementType&& element, const std::size_t index) noexcept;
+	void insertAtHead(const ElementType& element);
+	void insertAtHead(ElementType&& element);
+	void insertAtTail(const ElementType& element);
+	void insertAtTail(ElementType&& element);
+	const bool insertAtIndex(const ElementType& element, const std::size_t index);
+	const bool insertAtIndex(ElementType&& element, const std::size_t index);
 	std::optional<ElementType> removeAtHead() noexcept;
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
@@ -171,7 +171,7 @@ DoublyLinkedList<ElementType>::ReverseBidirectionalIterator DoublyLinkedList<Ele
 }
 
 template<typename ElementType>
-void DoublyLinkedList<ElementType>::insertAtHead(const ElementType& element) noexcept {
+void DoublyLinkedList<ElementType>::insertAtHead(const ElementType& element) {
 	auto* node {new DoublyLinkedListNode<ElementType>(element)};
 	
 	if (headNode == nullptr) {
@@ -187,7 +187,7 @@ void DoublyLinkedList<ElementType>::insertAtHead(const ElementType& element) noe
 }
 
 template<typename ElementType>
-void DoublyLinkedList<ElementType>::insertAtHead(ElementType&& element) noexcept {
+void DoublyLinkedList<ElementType>::insertAtHead(ElementType&& element) {
 	auto* node {new DoublyLinkedListNode<ElementType>(std::move(element))};
 	
 	if (headNode == nullptr) {
@@ -203,7 +203,7 @@ void DoublyLinkedList<ElementType>::insertAtHead(ElementType&& element) noexcept
 }
 
 template<typename ElementType>
-void DoublyLinkedList<ElementType>::insertAtTail(const ElementType& element) noexcept {
+void DoublyLinkedList<ElementType>::insertAtTail(const ElementType& element) {
 	auto* node {new DoublyLinkedListNode<ElementType>(element)};
 	
 	if (tailNode == nullptr) {
@@ -219,7 +219,7 @@ void DoublyLinkedList<ElementType>::insertAtTail(const ElementType& element) noe
 }
 
 template<typename ElementType>
-void DoublyLinkedList<ElementType>::insertAtTail(ElementType&& element) noexcept {
+void DoublyLinkedList<ElementType>::insertAtTail(ElementType&& element) {
 	auto* node {new DoublyLinkedListNode<ElementType>(std::move(element))};
 	
 	if (tailNode == nullptr) {
@@ -235,7 +235,7 @@ void DoublyLinkedList<ElementType>::insertAtTail(ElementType&& element) noexcept
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) noexcept {
+const bool DoublyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) {
 	if (index > nodeCount) {
 		return false;
 	}
@@ -266,7 +266,7 @@ const bool DoublyLinkedList<ElementType>::insertAtIndex(const ElementType& eleme
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::insertAtIndex(ElementType&& element, const std::size_t index) noexcept {
+const bool DoublyLinkedList<ElementType>::insertAtIndex(ElementType&& element, const std::size_t index) {
 	if (index > nodeCount) {
 		return false;
 	}

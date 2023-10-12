@@ -34,9 +34,9 @@ public:
 	ForwardIterator end() const noexcept;
 
 public:
-	void insertAtHead(const ElementType& element) noexcept;
-	void insertAtTail(const ElementType& element) noexcept;
-	const bool insertAtIndex(const ElementType& element, const std::size_t index) noexcept;
+	void insertAtHead(const ElementType& element);
+	void insertAtTail(const ElementType& element);
+	const bool insertAtIndex(const ElementType& element, const std::size_t index);
 	std::optional<ElementType> removeAtHead() noexcept;
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
@@ -138,7 +138,7 @@ SinglyLinkedList<ElementType>::ForwardIterator SinglyLinkedList<ElementType>::en
 }
 
 template<typename ElementType>
-void SinglyLinkedList<ElementType>::insertAtHead(const ElementType& element) noexcept {
+void SinglyLinkedList<ElementType>::insertAtHead(const ElementType& element) {
 	auto* node {new SinglyLinkedListNode<ElementType> {element}};
 	
 	if (headNode == nullptr) {
@@ -153,7 +153,7 @@ void SinglyLinkedList<ElementType>::insertAtHead(const ElementType& element) noe
 }
 
 template<typename ElementType>
-void SinglyLinkedList<ElementType>::insertAtTail(const ElementType& element) noexcept {
+void SinglyLinkedList<ElementType>::insertAtTail(const ElementType& element) {
 	auto* node {new SinglyLinkedListNode<ElementType> {element}};
 	
 	if (headNode == nullptr) {
@@ -168,7 +168,7 @@ void SinglyLinkedList<ElementType>::insertAtTail(const ElementType& element) noe
 }
 
 template<typename ElementType>
-const bool SinglyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) noexcept {
+const bool SinglyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) {
 	if (index > nodeCount) {
 		return false;
 	}
