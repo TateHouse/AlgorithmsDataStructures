@@ -9,7 +9,8 @@ public:
 	FixedSizeArrayStack() noexcept = default;
 	FixedSizeArrayStack(const FixedSizeArrayStack<ElementType, Size>& other) noexcept = default;
 	FixedSizeArrayStack(FixedSizeArrayStack<ElementType, Size>&& other) noexcept = default;
-
+	~FixedSizeArrayStack() noexcept = default;
+	
 private:
 	std::array<ElementType, Size> array {};
 	std::size_t topIndex {0};
