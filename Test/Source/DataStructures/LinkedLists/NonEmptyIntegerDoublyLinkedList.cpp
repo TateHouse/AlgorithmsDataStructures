@@ -326,6 +326,12 @@ TEST_F(NonEmptyIntegerDoublyLinkedList, GivenPredicateMatchingNoElements_WhenFin
 	EXPECT_THAT(result, testing::Eq(doublyLinkedList.rend()));
 }
 
+TEST_F(NonEmptyIntegerDoublyLinkedList, GivenNonEmptyIntegerDoublyLinkedList_WhenReverse_ThenElementsAreInExpectedOrder) {
+	doublyLinkedList.reverse();
+	
+	EXPECT_THAT(doublyLinkedList, testing::ElementsAre(50, 40, 30, 20, 10));
+}
+
 TEST_F(NonEmptyIntegerDoublyLinkedList, GivenPredicateMatchingAtLeastOneElement_WhenContains_ThenReturnsTrue) {
 	const auto result {doublyLinkedList.contains(::Test::isThirty)};
 	

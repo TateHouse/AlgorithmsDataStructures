@@ -56,6 +56,7 @@ public:
 	BidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
 	ConstReverseBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	ReverseBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	void reverse() noexcept;
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	const bool isEmpty() const noexcept;
@@ -405,6 +406,26 @@ DoublyLinkedList<ElementType>::ConstReverseBidirectionalIterator DoublyLinkedLis
 template<typename ElementType>
 DoublyLinkedList<ElementType>::ReverseBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) noexcept {
 	return std::find_if(rbegin(), rend(), predicate);
+}
+
+template<typename ElementType>
+void DoublyLinkedList<ElementType>::reverse() noexcept {
+	if (headNode == nullptr || tailNode == nullptr) {
+		return;
+	}
+	
+	DoublyLinkedListNode<ElementType>* currentNode {headNode};
+	DoublyLinkedListNode<ElementType>* tempNode {nullptr};
+	while (currentNode != nullptr) {
+		tempNode = currentNode->getPreviousNode();
+		currentNode->setPreviousNode(currentNode->getNextNode());
+		currentNode->setNextNode(tempNode);
+		currentNode = currentNode->getPreviousNode();
+	}
+	
+	tempNode = headNode;
+	headNode = tailNode;
+	tailNode = tempNode;
 }
 
 template<typename ElementType>
