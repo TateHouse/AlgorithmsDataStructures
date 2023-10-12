@@ -22,7 +22,9 @@ public:
 	const bool push(ElementType&& element) noexcept;
 	std::optional<ElementType> pop() noexcept;
 	const ElementType* const getTop() const noexcept;
+	const bool isEmpty() const noexcept;
 	const std::size_t getSize() const noexcept;
+	
 
 private:
 	std::array<ElementType, Size> array {};
@@ -74,7 +76,7 @@ const bool FixedSizeArrayStack<ElementType, Size>::push(ElementType&& element) n
 
 template<typename ElementType, std::size_t Size>
 std::optional<ElementType> FixedSizeArrayStack<ElementType, Size>::pop() noexcept {
-	if (topIndex == 0) {
+	if (isEmpty()) {
 		return std::nullopt;
 	}
 	
@@ -90,6 +92,11 @@ const ElementType* const FixedSizeArrayStack<ElementType, Size>::getTop() const 
 	}
 	
 	return &array[topIndex - 1];
+}
+
+template<typename ElementType, std::size_t Size>
+const bool FixedSizeArrayStack<ElementType, Size>::isEmpty() const noexcept {
+	return topIndex == 0;
 }
 
 template<typename ElementType, std::size_t Size>
