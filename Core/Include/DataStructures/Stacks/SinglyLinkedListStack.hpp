@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <vector>
 
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
 
@@ -17,11 +18,12 @@ public:
 	SinglyLinkedListStack<ElementType>& operator=(const SinglyLinkedListStack<ElementType>& other) noexcept = default;
 	SinglyLinkedListStack<ElementType>& operator=(SinglyLinkedListStack<ElementType>&& other) noexcept = default;
 	const bool operator==(const SinglyLinkedListStack<ElementType>& other) const noexcept;
-	
+
 public:
 	void push(const ElementType& element);
 	void push(ElementType&& element);
 	std::optional<ElementType> pop() noexcept;
+	std::vector<ElementType> popAll() noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -51,5 +53,8 @@ std::optional<ElementType> SinglyLinkedListStack<ElementType>::pop() noexcept {
 	return singlyLinkedList.removeAtFront();
 }
 
-
+template<typename ElementType>
+std::vector<ElementType> SinglyLinkedListStack<ElementType>::popAll() noexcept {
+	return singlyLinkedList.removeAll();
+}
 }
