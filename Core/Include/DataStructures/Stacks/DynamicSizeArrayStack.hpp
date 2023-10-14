@@ -21,6 +21,7 @@ public:
 	void push(const ElementType& element) noexcept;
 	void push(ElementType&& element) noexcept;
 	std::optional<ElementType> pop() noexcept;
+	std::vector<ElementType> popAll() noexcept;
 
 private:
 	std::vector<ElementType> vector {};
@@ -64,5 +65,12 @@ std::optional<ElementType> DynamicSizeArrayStack<ElementType>::pop() noexcept {
 	const auto element {std::move(vector.back())};
 	vector.pop_back();
 	return element;
+}
+
+template<typename ElementType>
+std::vector<ElementType> DynamicSizeArrayStack<ElementType>::popAll() noexcept {
+	std::vector<ElementType> elements {};
+	elements.swap(vector);
+	return elements;
 }
 }
