@@ -43,17 +43,17 @@ const bool SinglyLinkedListStack<ElementType>::operator==(const SinglyLinkedList
 
 template<typename ElementType>
 void SinglyLinkedListStack<ElementType>::push(const ElementType& element) noexcept {
-	singlyLinkedList.insertAtFront(element);
+	singlyLinkedList.insertAtHead(element);
 }
 
 template<typename ElementType>
 void SinglyLinkedListStack<ElementType>::push(ElementType&& element) noexcept {
-	singlyLinkedList.insertAtFront(std::move(element));
+	singlyLinkedList.insertAtHead(std::move(element));
 }
 
 template<typename ElementType>
 std::optional<ElementType> SinglyLinkedListStack<ElementType>::pop() noexcept {
-	return singlyLinkedList.removeAtFront();
+	return singlyLinkedList.removeAtHead();
 }
 
 template<typename ElementType>
@@ -77,6 +77,6 @@ const bool SinglyLinkedListStack<ElementType>::isEmpty() const noexcept {
 
 template<typename ElementType>
 const std::size_t SinglyLinkedListStack<ElementType>::getSize() const noexcept {
-	return singlyLinkedList.getSize();
+	return singlyLinkedList.getNodeCount();
 }
 }
