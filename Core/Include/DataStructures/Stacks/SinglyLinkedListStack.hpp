@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
 
 namespace Core::DataStructures::Stacks {
@@ -19,6 +21,7 @@ public:
 public:
 	void push(const ElementType& element) noexcept;
 	void push(ElementType&& element) noexcept;
+	std::optional<ElementType> pop() noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -41,5 +44,10 @@ void SinglyLinkedListStack<ElementType>::push(const ElementType& element) noexce
 template<typename ElementType>
 void SinglyLinkedListStack<ElementType>::push(ElementType&& element) noexcept {
 	singlyLinkedList.insertAtFront(std::move(element));
+}
+
+template<typename ElementType>
+std::optional<ElementType> SinglyLinkedListStack<ElementType>::pop() noexcept {
+	return singlyLinkedList.removeAtFront();
 }
 }
