@@ -26,6 +26,7 @@ public:
 	std::vector<ElementType> popAll() noexcept;
 	const ElementType* const getTop() const noexcept;
 	const bool isEmpty() const noexcept;
+	const std::size_t getSize() const noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -72,5 +73,10 @@ const ElementType* const SinglyLinkedListStack<ElementType>::getTop() const noex
 template<typename ElementType>
 const bool SinglyLinkedListStack<ElementType>::isEmpty() const noexcept {
 	return singlyLinkedList.isEmpty();
+}
+
+template<typename ElementType>
+const std::size_t SinglyLinkedListStack<ElementType>::getSize() const noexcept {
+	return singlyLinkedList.getSize();
 }
 }
