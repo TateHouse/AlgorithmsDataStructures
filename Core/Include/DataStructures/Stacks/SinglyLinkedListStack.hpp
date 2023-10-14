@@ -42,12 +42,12 @@ const bool SinglyLinkedListStack<ElementType>::operator==(const SinglyLinkedList
 }
 
 template<typename ElementType>
-void SinglyLinkedListStack<ElementType>::push(const ElementType& element) noexcept {
+void SinglyLinkedListStack<ElementType>::push(const ElementType& element) {
 	singlyLinkedList.insertAtHead(element);
 }
 
 template<typename ElementType>
-void SinglyLinkedListStack<ElementType>::push(ElementType&& element) noexcept {
+void SinglyLinkedListStack<ElementType>::push(ElementType&& element) {
 	singlyLinkedList.insertAtHead(std::move(element));
 }
 
