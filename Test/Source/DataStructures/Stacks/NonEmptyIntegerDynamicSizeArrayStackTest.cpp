@@ -47,7 +47,7 @@ TEST_F(NonEmptyIntegerDynamicSizeArrayStackTest, WhenPop_ThenSizeIsDecremented) 
 TEST_F(NonEmptyIntegerDynamicSizeArrayStackTest, WhenPopAll_ThenReturnsElementsInExpectedOrder) {
 	const auto result {dynamicSizeArrayStack.popAll()};
 	
-	EXPECT_THAT(result, testing::ElementsAre(10, 20, 30, 40));
+	EXPECT_THAT(result, testing::ElementsAre(40, 30, 20, 10));
 }
 
 TEST_F(NonEmptyIntegerDynamicSizeArrayStackTest, WhenPopAll_ThenSizeIsZero) {

@@ -74,6 +74,7 @@ template<typename ElementType>
 std::vector<ElementType> DynamicSizeArrayStack<ElementType>::popAll() noexcept {
 	std::vector<ElementType> elements {};
 	elements.swap(vector);
+	std::ranges::reverse(elements);
 	return elements;
 }
 
