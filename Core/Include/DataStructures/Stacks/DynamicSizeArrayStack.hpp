@@ -24,6 +24,7 @@ public:
 	std::vector<ElementType> popAll() noexcept;
 	const ElementType* const getTop() const noexcept;
 	const bool isEmpty() const noexcept;
+	const std::size_t getSize() const noexcept;
 
 private:
 	std::vector<ElementType> vector {};
@@ -88,5 +89,10 @@ const ElementType* const DynamicSizeArrayStack<ElementType>::getTop() const noex
 template<typename ElementType>
 const bool DynamicSizeArrayStack<ElementType>::isEmpty() const noexcept {
 	return vector.empty();
+}
+
+template<typename ElementType>
+const std::size_t DynamicSizeArrayStack<ElementType>::getSize() const noexcept {
+	return vector.size();
 }
 }
