@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <vector>
 
 namespace Core::DataStructures::Stacks {
@@ -19,6 +20,7 @@ public:
 public:
 	void push(const ElementType& element) noexcept;
 	void push(ElementType&& element) noexcept;
+	std::optional<ElementType> pop() noexcept;
 
 private:
 	std::vector<ElementType> vector {};
@@ -51,5 +53,16 @@ void DynamicSizeArrayStack<ElementType>::push(const ElementType& element) noexce
 template<typename ElementType>
 void DynamicSizeArrayStack<ElementType>::push(ElementType&& element) noexcept {
 	vector.emplace_back(std::move(element));
+}
+
+template<typename ElementType>
+std::optional<ElementType> DynamicSizeArrayStack<ElementType>::pop() noexcept {
+	if (vector.empty()) {
+		return std::nullopt;
+	}
+	
+	const auto element {std::move(vector.back())};
+	vector.pop_back();
+	return element;
 }
 }
