@@ -24,6 +24,7 @@ public:
 	void push(ElementType&& element);
 	std::optional<ElementType> pop() noexcept;
 	std::vector<ElementType> popAll() noexcept;
+	const ElementType* const getTop() const noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -56,5 +57,14 @@ std::optional<ElementType> SinglyLinkedListStack<ElementType>::pop() noexcept {
 template<typename ElementType>
 std::vector<ElementType> SinglyLinkedListStack<ElementType>::popAll() noexcept {
 	return singlyLinkedList.removeAll();
+}
+
+template<typename ElementType>
+const ElementType* const SinglyLinkedListStack<ElementType>::getTop() const noexcept {
+	if (singlyLinkedList.isEmpty()) {
+		return nullptr;
+	}
+	
+	return &(*singlyLinkedList.cbegin());
 }
 }
