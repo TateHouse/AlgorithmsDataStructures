@@ -9,6 +9,7 @@ public:
 	SinglyLinkedListStack() noexcept = default;
 	SinglyLinkedListStack(const SinglyLinkedListStack<ElementType>& other) noexcept = default;
 	SinglyLinkedListStack(SinglyLinkedListStack<ElementType>&& other) noexcept = default;
+	~SinglyLinkedListStack() noexcept = default;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
