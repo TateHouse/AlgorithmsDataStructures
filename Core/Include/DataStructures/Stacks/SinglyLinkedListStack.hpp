@@ -19,8 +19,8 @@ public:
 	const bool operator==(const SinglyLinkedListStack<ElementType>& other) const noexcept;
 	
 public:
-	void push(const ElementType& element) noexcept;
-	void push(ElementType&& element) noexcept;
+	void push(const ElementType& element);
+	void push(ElementType&& element);
 	std::optional<ElementType> pop() noexcept;
 
 private:
@@ -50,4 +50,6 @@ template<typename ElementType>
 std::optional<ElementType> SinglyLinkedListStack<ElementType>::pop() noexcept {
 	return singlyLinkedList.removeAtFront();
 }
+
+
 }
