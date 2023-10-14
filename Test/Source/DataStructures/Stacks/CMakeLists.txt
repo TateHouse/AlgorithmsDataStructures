@@ -5,6 +5,7 @@ SET(SOURCE_FILES
 		EmptyIntegerFixedSizeArrayStackTest.cpp
 		EmptyIntegerSinglyLinkedListStackTest.cpp
 		NonEmptyIntegerFixedSizeArrayStackTest.cpp
-		NonEmptyIntegerDynamicSizeArrayStackTest.cpp)
+		NonEmptyIntegerDynamicSizeArrayStackTest.cpp
+		NonEmptyIntegerSinglyLinkedListStackTest.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
