@@ -339,7 +339,7 @@ std::vector<ElementType> SinglyLinkedList<ElementType>::removeAll() noexcept {
 	
 	auto currentNode {headNode};
 	while (currentNode != nullptr) {
-		elements.push_back(currentNode->getElement());
+		elements.emplace_back(std::move(currentNode->getElement()));
 		auto* node {currentNode};
 		currentNode = currentNode->getNextNode();
 		delete node;
