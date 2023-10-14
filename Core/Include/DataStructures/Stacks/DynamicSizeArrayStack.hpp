@@ -9,6 +9,7 @@ public:
 	DynamicSizeArrayStack() noexcept = default;
 	DynamicSizeArrayStack(const DynamicSizeArrayStack<ElementType>& other) noexcept = default;
 	DynamicSizeArrayStack(DynamicSizeArrayStack<ElementType>&& other) noexcept = default;
+	~DynamicSizeArrayStack() noexcept = default;
 
 private:
 	std::vector<ElementType> vector {};
