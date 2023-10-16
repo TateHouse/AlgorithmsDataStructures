@@ -31,6 +31,12 @@ TEST_F(NonEmptyIntegerFixedSizeArrayStackTest, GivenInteger_WhenPushAndStackIsNo
 	EXPECT_THAT(size, testing::Eq(5));
 }
 
+TEST_F(NonEmptyIntegerFixedSizeArrayStackTest, GivenInteger_WhenPushAndStackIsNotFull_ThenReturnsTrue) {
+	const auto result {fixedSizeArrayStack.push(50)};
+	
+	EXPECT_THAT(result, testing::IsTrue());
+}
+
 TEST_F(NonEmptyIntegerFixedSizeArrayStackTest, GivenInteger_WhenPushAndStackIsFull_ThenReturnsFalse) {
 	fixedSizeArrayStack.push(50);
 	const auto result {fixedSizeArrayStack.push(60)};

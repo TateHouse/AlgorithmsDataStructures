@@ -18,7 +18,7 @@ TEST_F(EmptyIntegerFixedSizeArrayStackTest, GivenInteger_WhenPush_ThenElementsAr
 	EXPECT_THAT(fixedSizeArrayStack.getTop(), testing::Pointee(10));
 }
 
-TEST_F(EmptyIntegerFixedSizeArrayStackTest, GivenInteger_WhenPush_ThenSizeInIncremented) {
+TEST_F(EmptyIntegerFixedSizeArrayStackTest, GivenInteger_WhenPush_ThenSizeIsIncremented) {
 	fixedSizeArrayStack.push(10);
 	const auto size {fixedSizeArrayStack.getSize()};
 	
