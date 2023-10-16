@@ -24,6 +24,7 @@ public:
 	const ElementType* const getFront() const noexcept;
 	const ElementType* const getBack() const noexcept;
 	const bool isEmpty() const noexcept;
+	const bool isFull() const noexcept;
 
 private:
 	std::array<ElementType, Size> array {};
@@ -53,7 +54,7 @@ const bool FixedSizeCircularArrayQueue<ElementType, Size>::operator==(const Fixe
 
 template<typename ElementType, std::size_t Size>
 const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(const ElementType& element) noexcept {
-	if (elementCount == Size) {
+	if (isFull()) {
 		return false;
 	}
 	
@@ -66,7 +67,7 @@ const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(const Element
 
 template<typename ElementType, std::size_t Size>
 const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(ElementType&& element) noexcept {
-	if (elementCount == Size) {
+	if (isFull()) {
 		return false;
 	}
 	
@@ -111,5 +112,10 @@ const ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getBack
 template<typename ElementType, std::size_t Size>
 const bool FixedSizeCircularArrayQueue<ElementType, Size>::isEmpty() const noexcept {
 	return elementCount == 0;
+}
+
+template<typename ElementType, std::size_t Size>
+const bool FixedSizeCircularArrayQueue<ElementType, Size>::isFull() const noexcept {
+	return elementCount == Size;
 }
 }
