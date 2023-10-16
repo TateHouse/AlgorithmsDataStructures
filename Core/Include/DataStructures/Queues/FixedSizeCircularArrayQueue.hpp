@@ -9,6 +9,7 @@ public:
 	FixedSizeCircularArrayQueue() noexcept = default;
 	FixedSizeCircularArrayQueue(const FixedSizeCircularArrayQueue<ElementType, Size>& other) noexcept = default;
 	FixedSizeCircularArrayQueue(FixedSizeCircularArrayQueue<ElementType, Size>&& other) noexcept = default;
+	~FixedSizeCircularArrayQueue() noexcept = default;
 
 private:
 	std::array<ElementType, Size> array {};
