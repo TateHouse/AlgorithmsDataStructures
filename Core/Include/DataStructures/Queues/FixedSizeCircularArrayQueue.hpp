@@ -22,6 +22,7 @@ public:
 	const bool enqueue(ElementType&& element) noexcept;
 	std::optional<ElementType> dequeue() noexcept;
 	const ElementType* const getFront() const noexcept;
+	const ElementType* const getBack() const noexcept;
 
 private:
 	std::array<ElementType, Size> array {};
@@ -95,5 +96,14 @@ const ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getFron
 	}
 	
 	return &array[frontIndex];
+}
+
+template<typename ElementType, std::size_t Size>
+const ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getBack() const noexcept {
+	if (elementCount == 0) {
+		return nullptr;
+	}
+	
+	return &array[backIndex];
 }
 }
