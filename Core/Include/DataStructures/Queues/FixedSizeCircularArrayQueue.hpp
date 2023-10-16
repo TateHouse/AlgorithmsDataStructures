@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <optional>
 
 namespace Core::DataStructures::Queues {
 template<typename ElementType, std::size_t Size>
@@ -19,6 +20,7 @@ public:
 public:
 	const bool enqueue(const ElementType& element) noexcept;
 	const bool enqueue(ElementType&& element) noexcept;
+	std::optional<ElementType> dequeue() noexcept;
 
 private:
 	std::array<ElementType, Size> array {};
@@ -70,5 +72,18 @@ const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(ElementType&&
 	++elementCount;
 	
 	return true;
+}
+
+template<typename ElementType, std::size_t Size>
+std::optional<ElementType> FixedSizeCircularArrayQueue<ElementType, Size>::dequeue() noexcept {
+	if (elementCount == 0) {
+		return std::nullopt;
+	}
+	
+	const auto element {std::move(array[frontIndex])};
+	frontIndex = (frontIndex + 1) % Size;
+	--elementCount;
+	
+	return element;
 }
 }
