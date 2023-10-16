@@ -16,6 +16,10 @@ public:
 	FixedSizeCircularArrayQueue<ElementType, Size>& operator=(FixedSizeCircularArrayQueue<ElementType, Size>&& other) noexcept = default;
 	const bool operator==(const FixedSizeCircularArrayQueue<ElementType, Size>& other) const noexcept;
 
+public:
+	const bool enqueue(const ElementType& element) noexcept;
+	const bool enqueue(ElementType&& element) noexcept;
+
 private:
 	std::array<ElementType, Size> array {};
 	std::size_t elementCount {0};
@@ -38,6 +42,32 @@ const bool FixedSizeCircularArrayQueue<ElementType, Size>::operator==(const Fixe
 			return false;
 		}
 	}
+	
+	return true;
+}
+
+template<typename ElementType, std::size_t Size>
+const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(const ElementType& element) noexcept {
+	if (elementCount == Size) {
+		return false;
+	}
+	
+	backIndex = (backIndex + 1) % Size;
+	array[backIndex] = element;
+	++elementCount;
+	
+	return true;
+}
+
+template<typename ElementType, std::size_t Size>
+const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(ElementType&& element) noexcept {
+	if (elementCount == Size) {
+		return false;
+	}
+	
+	backIndex = (backIndex + 1) % Size;
+	array[backIndex] = std::move(element);
+	++elementCount;
 	
 	return true;
 }
