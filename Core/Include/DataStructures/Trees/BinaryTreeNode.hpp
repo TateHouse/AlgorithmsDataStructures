@@ -16,13 +16,15 @@ public:
 	BinaryTreeNode<ElementType>& operator=(const BinaryTreeNode<ElementType>& other) noexcept = default;
 	BinaryTreeNode<ElementType>& operator=(BinaryTreeNode<ElementType>&& other) noexcept = default;
 	const bool operator==(const BinaryTreeNode<ElementType>& other) const noexcept;
-	
+
 public:
 	ElementType& getElement() noexcept;
 	const ElementType& getElement() const noexcept;
 	BinaryTreeNode<ElementType>* getLeftChild() noexcept;
 	const BinaryTreeNode<ElementType>* getLeftChild() const noexcept;
-	
+	BinaryTreeNode<ElementType>* getRightChild() noexcept;
+	const BinaryTreeNode<ElementType>* getRightChild() const noexcept;
+
 private:
 	static const bool areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
 	                                   const BinaryTreeNode<ElementType>* rightChild) noexcept;
@@ -74,8 +76,18 @@ const BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getLeftChild() c
 }
 
 template<typename ElementType>
+BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getRightChild() noexcept {
+	return rightChild;
+}
+
+template<typename ElementType>
+const BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getRightChild() const noexcept {
+	return rightChild;
+}
+
+template<typename ElementType>
 const bool BinaryTreeNode<ElementType>::areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
-                                                                const BinaryTreeNode<ElementType>* rightChild) noexcept {
+                                                         const BinaryTreeNode<ElementType>* rightChild) noexcept {
 	if (leftChild == nullptr && rightChild == nullptr) {
 		return true;
 	}
