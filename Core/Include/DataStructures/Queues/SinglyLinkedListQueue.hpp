@@ -16,6 +16,10 @@ public:
 	SinglyLinkedListQueue<ElementType>& operator=(SinglyLinkedListQueue<ElementType>&& other) noexcept = default;
 	const bool operator==(const SinglyLinkedListQueue<ElementType>& other) const noexcept;
 
+public:
+	void enqueue(const ElementType& element);
+	void enqueue(ElementType&& element);
+
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
 };
@@ -23,5 +27,15 @@ private:
 template<typename ElementType>
 const bool SinglyLinkedListQueue<ElementType>::operator==(const SinglyLinkedListQueue<ElementType>& other) const noexcept {
 	return singlyLinkedList == other.singlyLinkedList;
+}
+
+template<typename ElementType>
+void SinglyLinkedListQueue<ElementType>::enqueue(const ElementType& element) {
+	singlyLinkedList.insertAtTail(element);
+}
+
+template<typename ElementType>
+void SinglyLinkedListQueue<ElementType>::enqueue(ElementType&& element) {
+	singlyLinkedList.insertAtTail(std::move(element));
 }
 }
