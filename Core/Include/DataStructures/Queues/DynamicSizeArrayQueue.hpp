@@ -73,7 +73,8 @@ std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() noexcep
 	const ElementType element {std::move(vector[frontIndex])};
 	++frontIndex;
 	
-	if (frontIndex * 2 >= getSize()) {
+	static constexpr std::size_t SHRINK_THRESHOLD_MULTIPLIER {2};
+	if (const std::size_t shrinkThreshold {frontIndex * SHRINK_THRESHOLD_MULTIPLIER}; shrinkThreshold >= getSize()) {
 		vector.erase(vector.begin(), vector.begin() + frontIndex);
 		backIndex -= frontIndex;
 		frontIndex = 0;
