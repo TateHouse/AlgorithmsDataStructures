@@ -16,6 +16,7 @@ TEST_F(EmptyIntegerDynamicSizeArrayQueueTest, GivenInteger_WhenEnqueue_ThenEleme
 	dynamicSizeArrayQueue.enqueue(10);
 	
 	EXPECT_THAT(dynamicSizeArrayQueue.getFront(), testing::Pointee(10));
+	EXPECT_THAT(dynamicSizeArrayQueue.getBack(), testing::Pointee(10));
 }
 
 TEST_F(EmptyIntegerDynamicSizeArrayQueueTest, GivenInteger_WhenEnqueue_ThenSizeIsIncremented) {

@@ -74,7 +74,7 @@ const ElementType* const SinglyLinkedListQueue<ElementType>::getBack() const noe
 	}
 	
 	auto iterator {singlyLinkedList.cbegin()};
-	auto nodeCount {singlyLinkedList.getSize()};
+	auto nodeCount {singlyLinkedList.getNodeCount()};
 	std::advance(iterator, nodeCount - 1);
 	
 	return &(*iterator);
@@ -87,6 +87,6 @@ const bool SinglyLinkedListQueue<ElementType>::isEmpty() const noexcept {
 
 template<typename ElementType>
 const std::size_t SinglyLinkedListQueue<ElementType>::getSize() const noexcept {
-	return singlyLinkedList.getSize();
+	return singlyLinkedList.getNodeCount();
 }
 }
