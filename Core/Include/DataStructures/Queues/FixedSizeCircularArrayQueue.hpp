@@ -22,7 +22,7 @@ public:
 	const bool enqueue(const ElementType& element) noexcept;
 	const bool enqueue(ElementType&& element) noexcept;
 	std::optional<ElementType> dequeue() noexcept;
-	std::vector<ElementType> dequeueAll() noexcept;
+	std::vector<ElementType> dequeueAll();
 	const ElementType* const getFront() const noexcept;
 	const ElementType* const getBack() const noexcept;
 	const bool isEmpty() const noexcept;
@@ -95,7 +95,7 @@ std::optional<ElementType> FixedSizeCircularArrayQueue<ElementType, Size>::deque
 }
 
 template<typename ElementType, std::size_t Size>
-std::vector<ElementType> FixedSizeCircularArrayQueue<ElementType, Size>::dequeueAll() noexcept {
+std::vector<ElementType> FixedSizeCircularArrayQueue<ElementType, Size>::dequeueAll() {
 	std::vector<ElementType> elements {};
 	
 	while (!isEmpty()) {

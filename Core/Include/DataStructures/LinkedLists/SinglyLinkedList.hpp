@@ -43,7 +43,7 @@ public:
 	std::optional<ElementType> removeAtHead() noexcept;
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
-	std::vector<ElementType> removeAll() noexcept;
+	std::vector<ElementType> removeAll();
 	ConstForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	ForwardIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
 	void reverse() noexcept;
@@ -333,7 +333,7 @@ std::optional<ElementType> SinglyLinkedList<ElementType>::removeAtIndex(const st
 }
 
 template<typename ElementType>
-std::vector<ElementType> SinglyLinkedList<ElementType>::removeAll() noexcept {
+std::vector<ElementType> SinglyLinkedList<ElementType>::removeAll() {
 	std::vector<ElementType> elements {};
 	elements.reserve(nodeCount);
 	

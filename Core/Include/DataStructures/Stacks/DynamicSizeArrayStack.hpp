@@ -18,10 +18,10 @@ public:
 	const bool operator==(const DynamicSizeArrayStack<ElementType>& other) const noexcept;
 
 public:
-	void push(const ElementType& element) noexcept;
-	void push(ElementType&& element) noexcept;
-	std::optional<ElementType> pop() noexcept;
-	std::vector<ElementType> popAll() noexcept;
+	void push(const ElementType& element);
+	void push(ElementType&& element);
+	std::optional<ElementType> pop();
+	std::vector<ElementType> popAll();
 	const ElementType* const getTop() const noexcept;
 	const bool isEmpty() const noexcept;
 	const std::size_t getSize() const noexcept;
@@ -50,17 +50,17 @@ const bool DynamicSizeArrayStack<ElementType>::operator==(const DynamicSizeArray
 }
 
 template<typename ElementType>
-void DynamicSizeArrayStack<ElementType>::push(const ElementType& element) noexcept {
+void DynamicSizeArrayStack<ElementType>::push(const ElementType& element) {
 	vector.emplace_back(element);
 }
 
 template<typename ElementType>
-void DynamicSizeArrayStack<ElementType>::push(ElementType&& element) noexcept {
+void DynamicSizeArrayStack<ElementType>::push(ElementType&& element) {
 	vector.emplace_back(std::move(element));
 }
 
 template<typename ElementType>
-std::optional<ElementType> DynamicSizeArrayStack<ElementType>::pop() noexcept {
+std::optional<ElementType> DynamicSizeArrayStack<ElementType>::pop() {
 	if (vector.empty()) {
 		return std::nullopt;
 	}
@@ -71,7 +71,7 @@ std::optional<ElementType> DynamicSizeArrayStack<ElementType>::pop() noexcept {
 }
 
 template<typename ElementType>
-std::vector<ElementType> DynamicSizeArrayStack<ElementType>::popAll() noexcept {
+std::vector<ElementType> DynamicSizeArrayStack<ElementType>::popAll() {
 	std::vector<ElementType> elements {};
 	elements.swap(vector);
 	std::ranges::reverse(elements);

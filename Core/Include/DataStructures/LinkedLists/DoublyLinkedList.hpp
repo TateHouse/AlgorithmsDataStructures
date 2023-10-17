@@ -51,7 +51,7 @@ public:
 	std::optional<ElementType> removeAtHead() noexcept;
 	std::optional<ElementType> removeAtTail() noexcept;
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
-	std::vector<ElementType> removeAll() noexcept;
+	std::vector<ElementType> removeAll();
 	ConstBidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	BidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
 	ConstReverseBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept;
@@ -369,7 +369,7 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtIndex(const st
 }
 
 template<typename ElementType>
-std::vector<ElementType> DoublyLinkedList<ElementType>::removeAll() noexcept {
+std::vector<ElementType> DoublyLinkedList<ElementType>::removeAll() {
 	std::vector<ElementType> elements {};
 	elements.reserve(nodeCount);
 	
