@@ -25,6 +25,7 @@ public:
 	std::optional<ElementType> dequeue();
 	std::vector<ElementType> dequeueAll();
 	const ElementType* const getFront() const noexcept;
+	const ElementType* const getBack() const noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -62,5 +63,18 @@ const ElementType* const SinglyLinkedListQueue<ElementType>::getFront() const no
 	}
 	
 	return &(*singlyLinkedList.cbegin());
+}
+
+template<typename ElementType>
+const ElementType* const SinglyLinkedListQueue<ElementType>::getBack() const noexcept {
+	if (singlyLinkedList.isEmpty()) {
+		return nullptr;
+	}
+	
+	auto iterator {singlyLinkedList.cbegin()};
+	auto nodeCount {singlyLinkedList.getSize()};
+	std::advance(iterator, nodeCount - 1);
+	
+	return &(*iterator);
 }
 }
