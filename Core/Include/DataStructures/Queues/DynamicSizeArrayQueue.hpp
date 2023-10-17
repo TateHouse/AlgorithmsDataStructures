@@ -39,12 +39,12 @@ const bool DynamicSizeArrayQueue<ElementType>::operator==(const DynamicSizeArray
 		return true;
 	}
 	
-	if (vector.size() != other.vector.size()) {
+	if (getSize() != other.getSize()) {
 		return false;
 	}
 	
-	for (std::size_t index {0}; index < vector.size(); ++index) {
-		if (vector[index] != other.vector[index]) {
+	for (std::size_t index {0}; index < getSize(); ++index) {
+		if (vector[frontIndex + index] != other.vector[other.frontIndex + index]) {
 			return false;
 		}
 	}
@@ -123,6 +123,6 @@ const bool DynamicSizeArrayQueue<ElementType>::isEmpty() const noexcept {
 
 template<typename ElementType>
 const std::size_t DynamicSizeArrayQueue<ElementType>::getSize() const noexcept {
-	return isEmpty() ? 0 : (backIndex - frontIndex + 1);
+	return isEmpty() ? 0 : (backIndex - frontIndex);
 }
 }
