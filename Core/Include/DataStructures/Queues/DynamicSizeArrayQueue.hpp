@@ -25,7 +25,8 @@ public:
 	const ElementType* const getFront() const noexcept;
 	const ElementType* const getBack() const noexcept;
 	const bool isEmpty() const noexcept;
-	
+	const std::size_t getSize() const noexcept;
+
 private:
 	std::vector<ElementType> vector {};
 	std::size_t frontIndex {0};
@@ -72,7 +73,7 @@ std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() noexcep
 	const ElementType element {std::move(vector[frontIndex])};
 	++frontIndex;
 	
-	if (frontIndex * 2 >= (backIndex - frontIndex + 1)) {
+	if (frontIndex * 2 >= getSize()) {
 		vector.erase(vector.begin(), vector.begin() + frontIndex);
 		backIndex -= frontIndex;
 		frontIndex = 0;
@@ -123,5 +124,10 @@ const ElementType* const DynamicSizeArrayQueue<ElementType>::getBack() const noe
 template<typename ElementType>
 const bool DynamicSizeArrayQueue<ElementType>::isEmpty() const noexcept {
 	return frontIndex == backIndex;
+}
+
+template<typename ElementType>
+const std::size_t DynamicSizeArrayQueue<ElementType>::getSize() const noexcept {
+	return isEmpty() ? 0 : (backIndex - frontIndex + 1);
 }
 }
