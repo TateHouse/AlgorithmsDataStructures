@@ -5,6 +5,9 @@ template<typename ElementType>
 class SinglyLinkedListNode final {
 public:
 	explicit SinglyLinkedListNode(const ElementType& element) noexcept;
+	explicit SinglyLinkedListNode(ElementType&& element) noexcept;
+	SinglyLinkedListNode(const SinglyLinkedListNode<ElementType>& other) noexcept = default;
+	SinglyLinkedListNode(SinglyLinkedListNode<ElementType>&& other) noexcept = default;
 
 public:
 	const bool operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept;
@@ -23,6 +26,11 @@ private:
 
 template<typename ElementType>
 SinglyLinkedListNode<ElementType>::SinglyLinkedListNode(const ElementType& element) noexcept : element(element) {
+
+}
+
+template<typename ElementType>
+SinglyLinkedListNode<ElementType>::SinglyLinkedListNode(ElementType&& element) noexcept : element(std::move(element)) {
 
 }
 
