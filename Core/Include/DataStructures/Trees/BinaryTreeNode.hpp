@@ -22,6 +22,7 @@ public:
 	const ElementType& getElement() const noexcept;
 	BinaryTreeNode<ElementType>* getLeftChild() noexcept;
 	const BinaryTreeNode<ElementType>* getLeftChild() const noexcept;
+	void setLeftChild(BinaryTreeNode<ElementType>* leftChild) noexcept;
 	BinaryTreeNode<ElementType>* getRightChild() noexcept;
 	const BinaryTreeNode<ElementType>* getRightChild() const noexcept;
 
@@ -73,6 +74,11 @@ BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getLeftChild() noexcep
 template<typename ElementType>
 const BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getLeftChild() const noexcept {
 	return leftChild;
+}
+
+template<typename ElementType>
+void BinaryTreeNode<ElementType>::setLeftChild(BinaryTreeNode<ElementType>* leftChild) noexcept {
+	this->leftChild = leftChild;
 }
 
 template<typename ElementType>
