@@ -10,6 +10,7 @@ public:
 	explicit BinaryTreeNode(ElementType&& element) noexcept;
 	BinaryTreeNode(const BinaryTreeNode<ElementType>& other) noexcept = default;
 	BinaryTreeNode(BinaryTreeNode<ElementType>&& other) noexcept = default;
+	~BinaryTreeNode() noexcept = default;
 
 private:
 	ElementType element;
