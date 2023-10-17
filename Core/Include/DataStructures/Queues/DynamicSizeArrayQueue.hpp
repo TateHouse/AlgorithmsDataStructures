@@ -18,10 +18,10 @@ public:
 	const bool operator==(const DynamicSizeArrayQueue<ElementType>& other) const noexcept;
 
 public:
-	void enqueue(const ElementType& element) noexcept;
-	void enqueue(ElementType&& element) noexcept;
-	std::optional<ElementType> dequeue() noexcept;
-	std::vector<ElementType> dequeueAll() noexcept;
+	void enqueue(const ElementType& element);
+	void enqueue(ElementType&& element);
+	std::optional<ElementType> dequeue();
+	std::vector<ElementType> dequeueAll();
 	const ElementType* const getFront() const noexcept;
 	const ElementType* const getBack() const noexcept;
 	const bool isEmpty() const noexcept;
@@ -53,19 +53,19 @@ const bool DynamicSizeArrayQueue<ElementType>::operator==(const DynamicSizeArray
 }
 
 template<typename ElementType>
-void DynamicSizeArrayQueue<ElementType>::enqueue(const ElementType& element) noexcept {
+void DynamicSizeArrayQueue<ElementType>::enqueue(const ElementType& element) {
 	vector.emplace_back(element);
 	++backIndex;
 }
 
 template<typename ElementType>
-void DynamicSizeArrayQueue<ElementType>::enqueue(ElementType&& element) noexcept {
+void DynamicSizeArrayQueue<ElementType>::enqueue(ElementType&& element) {
 	vector.emplace_back(std::move(element));
 	++backIndex;
 }
 
 template<typename ElementType>
-std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() noexcept {
+std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() {
 	if (isEmpty()) {
 		return std::nullopt;
 	}
@@ -84,7 +84,7 @@ std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() noexcep
 }
 
 template<typename ElementType>
-std::vector<ElementType> DynamicSizeArrayQueue<ElementType>::dequeueAll() noexcept {
+std::vector<ElementType> DynamicSizeArrayQueue<ElementType>::dequeueAll() {
 	std::vector<ElementType> elements {};
 	
 	while (frontIndex != backIndex) {
