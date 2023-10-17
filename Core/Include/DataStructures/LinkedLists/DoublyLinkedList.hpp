@@ -16,12 +16,12 @@ template<typename ElementType>
 class DoublyLinkedList final {
 public:
 	DoublyLinkedList() noexcept = default;
-	DoublyLinkedList(const DoublyLinkedList<ElementType>& other) noexcept;
+	DoublyLinkedList(const DoublyLinkedList<ElementType>& other);
 	DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept;
 	~DoublyLinkedList() noexcept;
 
 public:
-	DoublyLinkedList<ElementType>& operator=(const DoublyLinkedList<ElementType>& other) noexcept;
+	DoublyLinkedList<ElementType>& operator=(const DoublyLinkedList<ElementType>& other);
 	DoublyLinkedList<ElementType>& operator=(DoublyLinkedList<ElementType>&& other) noexcept;
 	const bool operator==(const DoublyLinkedList<ElementType>& other) const noexcept;
 
@@ -69,7 +69,7 @@ private:
 };
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::DoublyLinkedList(const DoublyLinkedList<ElementType>& other) noexcept {
+DoublyLinkedList<ElementType>::DoublyLinkedList(const DoublyLinkedList<ElementType>& other) {
 	for (const auto& element: other) {
 		insertAtTail(element);
 	}
@@ -84,7 +84,7 @@ DoublyLinkedList<ElementType>::DoublyLinkedList(DoublyLinkedList<ElementType>&& 
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>& DoublyLinkedList<ElementType>::operator=(const DoublyLinkedList<ElementType>& other) noexcept {
+DoublyLinkedList<ElementType>& DoublyLinkedList<ElementType>::operator=(const DoublyLinkedList<ElementType>& other) {
 	if (this == &other) {
 		return *this;
 	}
@@ -389,22 +389,26 @@ std::vector<ElementType> DoublyLinkedList<ElementType>::removeAll() {
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+DoublyLinkedList<ElementType>::ConstBidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(
+		const ElementType&)>& predicate) const noexcept {
 	return std::find_if(cbegin(), cend(), predicate);
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept {
+DoublyLinkedList<ElementType>::BidirectionalIterator DoublyLinkedList<ElementType>::findFirst(const std::function<bool(
+		const ElementType&)>& predicate) noexcept {
 	return std::find_if(begin(), end(), predicate);
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::ConstReverseBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+DoublyLinkedList<ElementType>::ConstReverseBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(
+		const ElementType&)>& predicate) const noexcept {
 	return std::find_if(crbegin(), crend(), predicate);
 }
 
 template<typename ElementType>
-DoublyLinkedList<ElementType>::ReverseBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(const ElementType&)>& predicate) noexcept {
+DoublyLinkedList<ElementType>::ReverseBidirectionalIterator DoublyLinkedList<ElementType>::findLast(const std::function<bool(
+		const ElementType&)>& predicate) noexcept {
 	return std::find_if(rbegin(), rend(), predicate);
 }
 

@@ -14,12 +14,12 @@ template<typename ElementType>
 class SinglyLinkedList final {
 public:
 	SinglyLinkedList() noexcept = default;
-	SinglyLinkedList(const SinglyLinkedList<ElementType>& other) noexcept;
+	SinglyLinkedList(const SinglyLinkedList<ElementType>& other);
 	SinglyLinkedList(SinglyLinkedList<ElementType>&& other) noexcept;
 	~SinglyLinkedList() noexcept;
 
 public:
-	SinglyLinkedList<ElementType>& operator=(const SinglyLinkedList<ElementType>& other) noexcept;
+	SinglyLinkedList<ElementType>& operator=(const SinglyLinkedList<ElementType>& other);
 	SinglyLinkedList<ElementType>& operator=(SinglyLinkedList<ElementType>&& other) noexcept;
 	const bool operator==(const SinglyLinkedList<ElementType>& other) const noexcept;
 
@@ -59,7 +59,7 @@ private:
 };
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>::SinglyLinkedList(const SinglyLinkedList<ElementType>& other) noexcept {
+SinglyLinkedList<ElementType>::SinglyLinkedList(const SinglyLinkedList<ElementType>& other) {
 	for (const auto& element: other) {
 		insertAtTail(element);
 	}
@@ -79,7 +79,7 @@ SinglyLinkedList<ElementType>::~SinglyLinkedList() noexcept {
 }
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>& SinglyLinkedList<ElementType>::operator=(const SinglyLinkedList<ElementType>& other) noexcept {
+SinglyLinkedList<ElementType>& SinglyLinkedList<ElementType>::operator=(const SinglyLinkedList<ElementType>& other) {
 	if (this == &other) {
 		return *this;
 	}
