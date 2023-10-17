@@ -21,6 +21,7 @@ public:
 	void enqueue(const ElementType& element) noexcept;
 	void enqueue(ElementType&& element) noexcept;
 	std::optional<ElementType> dequeue() noexcept;
+	std::vector<ElementType> dequeueAll() noexcept;
 	
 private:
 	std::vector<ElementType> vector {};
@@ -80,5 +81,21 @@ std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() noexcep
 	}
 	
 	return element;
+}
+
+template<typename ElementType>
+std::vector<ElementType> DynamicSizeArrayQueue<ElementType>::dequeueAll() noexcept {
+	std::vector<ElementType> elements {};
+	
+	while (frontIndex != backIndex) {
+		elements.emplace_back(std::move(vector[frontIndex]));
+		++frontIndex;
+	}
+	
+	vector.clear();
+	frontIndex = 0;
+	backIndex = 0;
+	
+	return elements;
 }
 }
