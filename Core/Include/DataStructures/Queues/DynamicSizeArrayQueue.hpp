@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <vector>
 
 namespace Core::DataStructures::Queues {
@@ -10,14 +11,20 @@ public:
 	DynamicSizeArrayQueue(const DynamicSizeArrayQueue<ElementType>& other) noexcept = default;
 	DynamicSizeArrayQueue(DynamicSizeArrayQueue<ElementType>&& other) noexcept = default;
 	~DynamicSizeArrayQueue() noexcept = default;
-	
+
 public:
 	DynamicSizeArrayQueue<ElementType>& operator=(const DynamicSizeArrayQueue<ElementType>& other) noexcept = default;
 	DynamicSizeArrayQueue<ElementType>& operator=(DynamicSizeArrayQueue<ElementType>&& other) noexcept = default;
 	const bool operator==(const DynamicSizeArrayQueue<ElementType>& other) const noexcept;
 
+public:
+	void enqueue(const ElementType& element) noexcept;
+	void enqueue(ElementType&& element) noexcept;
+
 private:
 	std::vector<ElementType> vector {};
+	std::size_t frontIndex {0};
+	std::size_t backIndex {0};
 };
 
 template<typename ElementType>
@@ -37,5 +44,17 @@ const bool DynamicSizeArrayQueue<ElementType>::operator==(const DynamicSizeArray
 	}
 	
 	return true;
+}
+
+template<typename ElementType>
+void DynamicSizeArrayQueue<ElementType>::enqueue(const ElementType& element) noexcept {
+	vector.emplace_back(element);
+	++backIndex;
+}
+
+template<typename ElementType>
+void DynamicSizeArrayQueue<ElementType>::enqueue(ElementType&& element) noexcept {
+	vector.emplace_back(std::move(element));
+	++backIndex;
 }
 }
