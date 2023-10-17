@@ -11,6 +11,8 @@ public:
 	~SinglyLinkedListNode() noexcept = default;
 
 public:
+	SinglyLinkedListNode<ElementType>& operator=(const SinglyLinkedListNode<ElementType>& other) noexcept = default;
+	SinglyLinkedListNode<ElementType>& operator=(SinglyLinkedListNode<ElementType>&& other) noexcept = default;
 	const bool operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept;
 
 public:
