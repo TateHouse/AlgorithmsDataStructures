@@ -27,6 +27,7 @@ public:
 	const ElementType* const getFront() const noexcept;
 	const ElementType* const getBack() const noexcept;
 	const bool isEmpty() const noexcept;
+	const std::size_t getSize() const noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -82,5 +83,10 @@ const ElementType* const SinglyLinkedListQueue<ElementType>::getBack() const noe
 template<typename ElementType>
 const bool SinglyLinkedListQueue<ElementType>::isEmpty() const noexcept {
 	return singlyLinkedList.isEmpty();
+}
+
+template<typename ElementType>
+const std::size_t SinglyLinkedListQueue<ElementType>::getSize() const noexcept {
+	return singlyLinkedList.getSize();
 }
 }
