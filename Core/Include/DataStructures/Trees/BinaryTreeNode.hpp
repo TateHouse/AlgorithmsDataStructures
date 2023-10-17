@@ -25,6 +25,7 @@ public:
 	void setLeftChild(BinaryTreeNode<ElementType>* leftChild) noexcept;
 	BinaryTreeNode<ElementType>* getRightChild() noexcept;
 	const BinaryTreeNode<ElementType>* getRightChild() const noexcept;
+	void setRightChild(BinaryTreeNode<ElementType>* rightChild) noexcept;
 
 private:
 	static const bool areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
@@ -89,6 +90,11 @@ BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getRightChild() noexce
 template<typename ElementType>
 const BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getRightChild() const noexcept {
 	return rightChild;
+}
+
+template<typename ElementType>
+void BinaryTreeNode<ElementType>::setRightChild(BinaryTreeNode<ElementType>* rightChild) noexcept {
+	this->rightChild = rightChild;
 }
 
 template<typename ElementType>
