@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <vector>
 
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
 
@@ -22,6 +23,7 @@ public:
 	void enqueue(const ElementType& element);
 	void enqueue(ElementType&& element);
 	std::optional<ElementType> dequeue();
+	std::vector<ElementType> dequeueAll();
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -45,5 +47,10 @@ void SinglyLinkedListQueue<ElementType>::enqueue(ElementType&& element) {
 template<typename ElementType>
 std::optional<ElementType> SinglyLinkedListQueue<ElementType>::dequeue() {
 	return std::move(singlyLinkedList.removeAtHead());
+}
+
+template<typename ElementType>
+std::vector<ElementType> SinglyLinkedListQueue<ElementType>::dequeueAll() {
+	return std::move(singlyLinkedList.removeAll());
 }
 }
