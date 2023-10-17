@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
 
 namespace Core::DataStructures::Queues {
@@ -19,6 +21,7 @@ public:
 public:
 	void enqueue(const ElementType& element);
 	void enqueue(ElementType&& element);
+	std::optional<ElementType> dequeue();
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -37,5 +40,10 @@ void SinglyLinkedListQueue<ElementType>::enqueue(const ElementType& element) {
 template<typename ElementType>
 void SinglyLinkedListQueue<ElementType>::enqueue(ElementType&& element) {
 	singlyLinkedList.insertAtTail(std::move(element));
+}
+
+template<typename ElementType>
+std::optional<ElementType> SinglyLinkedListQueue<ElementType>::dequeue() {
+	return std::move(singlyLinkedList.removeAtHead());
 }
 }
