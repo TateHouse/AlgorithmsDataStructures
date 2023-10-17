@@ -79,11 +79,6 @@ std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() noexcep
 		frontIndex = 0;
 	}
 	
-	if (backIndex >= vector.size()) {
-		backIndex = 0;
-		frontIndex = 0;
-	}
-	
 	return element;
 }
 
