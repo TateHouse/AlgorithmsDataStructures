@@ -8,6 +8,7 @@ public:
 	explicit SinglyLinkedListNode(ElementType&& element) noexcept;
 	SinglyLinkedListNode(const SinglyLinkedListNode<ElementType>& other) noexcept = default;
 	SinglyLinkedListNode(SinglyLinkedListNode<ElementType>&& other) noexcept = default;
+	~SinglyLinkedListNode() noexcept = default;
 
 public:
 	const bool operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept;
