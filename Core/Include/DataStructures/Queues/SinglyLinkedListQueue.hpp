@@ -26,6 +26,7 @@ public:
 	std::vector<ElementType> dequeueAll();
 	const ElementType* const getFront() const noexcept;
 	const ElementType* const getBack() const noexcept;
+	const bool isEmpty() const noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
@@ -76,5 +77,10 @@ const ElementType* const SinglyLinkedListQueue<ElementType>::getBack() const noe
 	std::advance(iterator, nodeCount - 1);
 	
 	return &(*iterator);
+}
+
+template<typename ElementType>
+const bool SinglyLinkedListQueue<ElementType>::isEmpty() const noexcept {
+	return singlyLinkedList.isEmpty();
 }
 }
