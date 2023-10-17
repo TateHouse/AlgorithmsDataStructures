@@ -4,7 +4,7 @@ SET(SOURCE_FILES
 		EmptyIntegerDynamicSizeArrayQueueTest.cpp
 		EmptyIntegerFixedSizeCircularArrayQueueTest.cpp
 		EmptyIntegerSinglyLinkedListQueueTest.cpp
-		NonEmptyIntegerDynamicSizeArrayQueue.cpp
+		NonEmptyIntegerDynamicSizeArrayQueueTest.cpp
 		NonEmptyIntegerFixedSizeCircularArrayQueueTest.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
