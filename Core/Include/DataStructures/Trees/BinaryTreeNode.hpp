@@ -20,7 +20,9 @@ public:
 public:
 	ElementType& getElement() noexcept;
 	const ElementType& getElement() const noexcept;
-
+	BinaryTreeNode<ElementType>* getLeftChild() noexcept;
+	const BinaryTreeNode<ElementType>* getLeftChild() const noexcept;
+	
 private:
 	static const bool areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
 	                                   const BinaryTreeNode<ElementType>* rightChild) noexcept;
@@ -59,6 +61,16 @@ ElementType& BinaryTreeNode<ElementType>::getElement() noexcept {
 template<typename ElementType>
 const ElementType& BinaryTreeNode<ElementType>::getElement() const noexcept {
 	return element;
+}
+
+template<typename ElementType>
+BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getLeftChild() noexcept {
+	return leftChild;
+}
+
+template<typename ElementType>
+const BinaryTreeNode<ElementType>* BinaryTreeNode<ElementType>::getLeftChild() const noexcept {
+	return leftChild;
 }
 
 template<typename ElementType>
