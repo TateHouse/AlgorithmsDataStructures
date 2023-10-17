@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 namespace Core::DataStructures::LinkedLists {
 template<typename ElementType>
 class SinglyLinkedListNode final {
