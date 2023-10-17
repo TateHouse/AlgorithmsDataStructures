@@ -20,7 +20,8 @@ public:
 public:
 	void enqueue(const ElementType& element) noexcept;
 	void enqueue(ElementType&& element) noexcept;
-
+	std::optional<ElementType> dequeue() noexcept;
+	
 private:
 	std::vector<ElementType> vector {};
 	std::size_t frontIndex {0};
@@ -56,5 +57,28 @@ template<typename ElementType>
 void DynamicSizeArrayQueue<ElementType>::enqueue(ElementType&& element) noexcept {
 	vector.emplace_back(std::move(element));
 	++backIndex;
+}
+
+template<typename ElementType>
+std::optional<ElementType> DynamicSizeArrayQueue<ElementType>::dequeue() noexcept {
+	if (frontIndex == backIndex) {
+		return std::nullopt;
+	}
+	
+	const ElementType element {std::move(vector[frontIndex])};
+	++frontIndex;
+	
+	if (frontIndex * 2 >= (backIndex - frontIndex + 1)) {
+		vector.erase(vector.begin(), vector.begin() + frontIndex);
+		backIndex -= frontIndex;
+		frontIndex = 0;
+	}
+	
+	if (backIndex >= vector.size()) {
+		backIndex = 0;
+		frontIndex = 0;
+	}
+	
+	return element;
 }
 }
