@@ -124,6 +124,6 @@ const bool DynamicSizeArrayQueue<ElementType>::isEmpty() const noexcept {
 
 template<typename ElementType>
 const std::size_t DynamicSizeArrayQueue<ElementType>::getSize() const noexcept {
-	return isEmpty() ? 0 : (backIndex - frontIndex);
+	return backIndex - frontIndex;
 }
 }
