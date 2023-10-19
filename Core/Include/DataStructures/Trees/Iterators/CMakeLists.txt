@@ -2,9 +2,11 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
 		BinaryTreeConstInOrderIterator.hpp
+		BinaryTreeConstLevelOrderIterator.hpp
 		BinaryTreeConstPostOrderIterator.hpp
 		BinaryTreeConstPreOrderIterator.hpp
 		BinaryTreeInOrderIterator.hpp
+		BinaryTreeLevelOrderIterator.hpp
 		BinaryTreePostOrderIterator.hpp
 		BinaryTreePreOrderIterator.hpp)
 
