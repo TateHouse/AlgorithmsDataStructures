@@ -23,6 +23,7 @@ public:
 	std::optional<ElementType> dequeue();
 	std::vector<ElementType> dequeueAll();
 	const ElementType* const getFront() const noexcept;
+	ElementType* const getFront() noexcept;
 	const ElementType* const getBack() const noexcept;
 	const bool isEmpty() const noexcept;
 	const std::size_t getSize() const noexcept;
@@ -101,6 +102,15 @@ std::vector<ElementType> DynamicSizeArrayQueue<ElementType>::dequeueAll() {
 
 template<typename ElementType>
 const ElementType* const DynamicSizeArrayQueue<ElementType>::getFront() const noexcept {
+	if (isEmpty()) {
+		return nullptr;
+	}
+	
+	return &vector[frontIndex];
+}
+
+template<typename ElementType>
+ElementType* const DynamicSizeArrayQueue<ElementType>::getFront() noexcept {
 	if (isEmpty()) {
 		return nullptr;
 	}
