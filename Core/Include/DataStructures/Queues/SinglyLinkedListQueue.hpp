@@ -27,6 +27,7 @@ public:
 	const ElementType* const getFront() const noexcept;
 	ElementType* const getFront() noexcept;
 	const ElementType* const getBack() const noexcept;
+	ElementType* const getBack() noexcept;
 	const bool isEmpty() const noexcept;
 	const std::size_t getSize() const noexcept;
 
@@ -84,6 +85,19 @@ const ElementType* const SinglyLinkedListQueue<ElementType>::getBack() const noe
 	}
 	
 	auto iterator {singlyLinkedList.cbegin()};
+	auto nodeCount {singlyLinkedList.getNodeCount()};
+	std::advance(iterator, nodeCount - 1);
+	
+	return &(*iterator);
+}
+
+template<typename ElementType>
+ElementType* const SinglyLinkedListQueue<ElementType>::getBack() noexcept {
+	if (singlyLinkedList.isEmpty()) {
+		return nullptr;
+	}
+	
+	auto iterator {singlyLinkedList.begin()};
 	auto nodeCount {singlyLinkedList.getNodeCount()};
 	std::advance(iterator, nodeCount - 1);
 	

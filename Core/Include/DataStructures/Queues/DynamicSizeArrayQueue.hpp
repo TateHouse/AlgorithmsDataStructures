@@ -25,6 +25,7 @@ public:
 	const ElementType* const getFront() const noexcept;
 	ElementType* const getFront() noexcept;
 	const ElementType* const getBack() const noexcept;
+	ElementType* const getBack() noexcept;
 	const bool isEmpty() const noexcept;
 	const std::size_t getSize() const noexcept;
 
@@ -120,6 +121,15 @@ ElementType* const DynamicSizeArrayQueue<ElementType>::getFront() noexcept {
 
 template<typename ElementType>
 const ElementType* const DynamicSizeArrayQueue<ElementType>::getBack() const noexcept {
+	if (isEmpty()) {
+		return nullptr;
+	}
+	
+	return &vector[backIndex - 1];
+}
+
+template<typename ElementType>
+ElementType* const DynamicSizeArrayQueue<ElementType>::getBack() noexcept {
 	if (isEmpty()) {
 		return nullptr;
 	}
