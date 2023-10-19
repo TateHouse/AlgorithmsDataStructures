@@ -1,8 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
-		BinaryTreeNode.hpp)
+		BinaryTreeConstPreOrderIterator.hpp
+		BinaryTreePreOrderIterator.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} INTERFACE ${HEADER_FILES})
-
-ADD_SUBDIRECTORY(Iterators)
