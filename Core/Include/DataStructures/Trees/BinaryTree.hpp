@@ -26,6 +26,11 @@ public:
 	~BinaryTree() noexcept;
 
 public:
+	BinaryTree<ElementType>& operator=(const BinaryTree<ElementType>& other);
+	BinaryTree<ElementType>& operator=(BinaryTree<ElementType>&& other) noexcept;
+	const bool operator==(const BinaryTree<ElementType>& other) const noexcept;
+
+public:
 	using value_type = ElementType;
 	using ConstInOrderIterator = Iterators::BinaryTreeConstInOrderIterator<ElementType>;
 	using ConstLevelOrderIterator = Iterators::BinaryTreeConstLevelOrderIterator<ElementType>;
@@ -113,6 +118,47 @@ BinaryTree<ElementType>::BinaryTree(BinaryTree<ElementType>&& other) noexcept :
 template<typename ElementType>
 BinaryTree<ElementType>::~BinaryTree() noexcept {
 	removeAll(rootNode);
+}
+
+template<typename ElementType>
+BinaryTree<ElementType>& BinaryTree<ElementType>::operator=(const BinaryTree<ElementType>& other) {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll(rootNode);
+	
+	for (const auto& element: other) {
+		insert(element);
+	}
+	
+	return *this;
+}
+
+template<typename ElementType>
+BinaryTree<ElementType>& BinaryTree<ElementType>::operator=(BinaryTree<ElementType>&& other) noexcept {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll(rootNode);
+	
+	nodeCount = other.nodeCount;
+	rootNode = other.rootNode;
+	
+	other.nodeCount = 0;
+	other.rootNode = nullptr;
+	
+	return *this;
+}
+
+template<typename ElementType>
+const bool BinaryTree<ElementType>::operator==(const BinaryTree<ElementType>& other) const noexcept {
+	if (nodeCount != other.nodeCount) {
+		return false;
+	}
+	
+	return std::equal(cbeginLevelOrder(), cendLevelOrder(), other.cbeginLevelOrder(), other.cendLevelOrder());
 }
 
 template<typename ElementType>
