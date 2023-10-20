@@ -63,6 +63,16 @@ public:
 	IteratorType findFirst(IteratorType begin,
 	                       IteratorType end,
 	                       const std::function<bool(const ElementType&)>& predicate) noexcept;
+	
+	template<typename ConstIteratorType>
+	void traverse(ConstIteratorType begin,
+	              ConstIteratorType end,
+	              const std::function<void(const ElementType&)>& function) const noexcept;
+	
+	template<typename IteratorType>
+	void traverse(IteratorType begin,
+	              IteratorType end,
+	              const std::function<void(const ElementType&)>& function) noexcept;
 
 private:
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
@@ -274,6 +284,22 @@ IteratorType BinaryTree<ElementType>::findFirst(IteratorType begin,
                                                 IteratorType end,
                                                 const std::function<bool(const ElementType&)>& predicate) noexcept {
 	return std::find_if(begin, end, predicate);
+}
+
+template<typename ElementType>
+template<typename ConstIteratorType>
+void BinaryTree<ElementType>::traverse(ConstIteratorType begin,
+									   ConstIteratorType end,
+									   const std::function<void(const ElementType&)>& function) const noexcept {
+	std::for_each(begin, end, function);
+}
+
+template<typename ElementType>
+template<typename IteratorType>
+void BinaryTree<ElementType>::traverse(IteratorType begin,
+									   IteratorType end,
+									   const std::function<void(const ElementType&)>& function) noexcept {
+	std::for_each(begin, end, function);
 }
 
 template<typename ElementType>
