@@ -21,6 +21,8 @@ template<typename ElementType>
 class BinaryTree final {
 public:
 	BinaryTree() noexcept = default;
+	BinaryTree(const BinaryTree<ElementType>& other);
+	BinaryTree(BinaryTree<ElementType>&& other) noexcept;
 
 public:
 	using value_type = ElementType;
@@ -83,7 +85,7 @@ public:
 	const bool isEmpty() const noexcept;
 	const std::size_t getNodeCount() const noexcept;
 	const int getHeight() const noexcept;
-	
+
 private:
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
@@ -92,6 +94,20 @@ private:
 	std::size_t nodeCount {0};
 	BinaryTreeNode<ElementType>* rootNode {nullptr};
 };
+
+template<typename ElementType>
+BinaryTree<ElementType>::BinaryTree(const BinaryTree<ElementType>& other) {
+	for (auto iterator {other.cbeginLevelOrder()}; iterator != other.cendLevelOrder(); ++iterator) {
+		insert(*iterator);
+	}
+}
+
+template<typename ElementType>
+BinaryTree<ElementType>::BinaryTree(BinaryTree<ElementType>&& other) noexcept :
+		nodeCount {other.nodeCount}, rootNode {other.rootNode} {
+	other.nodeCount = 0;
+	other.rootNode = nullptr;
+}
 
 template<typename ElementType>
 BinaryTree<ElementType>::ConstInOrderIterator BinaryTree<ElementType>::cbeginInOrder() const noexcept {
@@ -284,8 +300,8 @@ template<typename ElementType>
 template<typename ConstIteratorType>
 requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 ConstIteratorType BinaryTree<ElementType>::findFirst(ConstIteratorType begin,
-													 ConstIteratorType end,
-													 const std::function<bool(const ElementType&)>& predicate) const noexcept {
+                                                     ConstIteratorType end,
+                                                     const std::function<bool(const ElementType&)>& predicate) const noexcept {
 	return std::find_if(begin, end, predicate);
 }
 
@@ -302,8 +318,8 @@ template<typename ElementType>
 template<typename ConstIteratorType>
 requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 void BinaryTree<ElementType>::traverse(ConstIteratorType begin,
-									   ConstIteratorType end,
-									   const std::function<void(const ElementType&)>& function) const noexcept {
+                                       ConstIteratorType end,
+                                       const std::function<void(const ElementType&)>& function) const noexcept {
 	std::for_each(begin, end, function);
 }
 
@@ -311,8 +327,8 @@ template<typename ElementType>
 template<typename IteratorType>
 requires Iterators::AllowedIterator<IteratorType, ElementType>
 void BinaryTree<ElementType>::traverse(IteratorType begin,
-									   IteratorType end,
-									   const std::function<void(const ElementType&)>& function) noexcept {
+                                       IteratorType end,
+                                       const std::function<void(const ElementType&)>& function) noexcept {
 	std::for_each(begin, end, function);
 }
 
