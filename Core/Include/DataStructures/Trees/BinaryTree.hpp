@@ -62,7 +62,7 @@ public:
 	void insert(const ElementType& element);
 	void insert(ElementType&& element);
 	std::optional<ElementType> removeFirst(const std::function<bool(const ElementType&)>& predicate);
-	std::vector<ElementType> removeAll(BinaryTreeNode<ElementType>* node);
+	std::vector<ElementType> removeAll();
 	
 	template<typename ConstIteratorType>
 	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
@@ -117,7 +117,7 @@ BinaryTree<ElementType>::BinaryTree(BinaryTree<ElementType>&& other) noexcept :
 
 template<typename ElementType>
 BinaryTree<ElementType>::~BinaryTree() noexcept {
-	removeAll(rootNode);
+	removeAll();
 }
 
 template<typename ElementType>
@@ -126,7 +126,7 @@ BinaryTree<ElementType>& BinaryTree<ElementType>::operator=(const BinaryTree<Ele
 		return *this;
 	}
 	
-	removeAll(rootNode);
+	removeAll();
 	
 	for (const auto& element: other) {
 		insert(element);
@@ -141,7 +141,7 @@ BinaryTree<ElementType>& BinaryTree<ElementType>::operator=(BinaryTree<ElementTy
 		return *this;
 	}
 	
-	removeAll(rootNode);
+	removeAll();
 	
 	nodeCount = other.nodeCount;
 	rootNode = other.rootNode;
@@ -339,9 +339,9 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 }
 
 template<typename ElementType>
-std::vector<ElementType> BinaryTree<ElementType>::removeAll(BinaryTreeNode<ElementType>* node) {
+std::vector<ElementType> BinaryTree<ElementType>::removeAll() {
 	std::vector<ElementType> elements {};
-	removeAll(node, elements);
+	removeAll(rootNode, elements);
 	rootNode = nullptr;
 	nodeCount = 0;
 	

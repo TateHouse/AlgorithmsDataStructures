@@ -68,7 +68,7 @@ const ElementType& BinaryTreeConstPostOrderIterator<ElementType>::operator*() co
 }
 
 template<typename ElementType>
-const ElementType* BinaryTreeConstPostOrderIterator<ElementType>::operator->() const noexcept {
+const ElementType* const BinaryTreeConstPostOrderIterator<ElementType>::operator->() const noexcept {
 	assert(!nodeStack.isEmpty() && "Cannot dereference a null iterator.");
 	return nodeStack.getTop();
 }

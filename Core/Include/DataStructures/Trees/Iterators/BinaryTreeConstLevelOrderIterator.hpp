@@ -43,13 +43,15 @@ const bool BinaryTreeConstLevelOrderIterator<ElementType>::operator==(const Bina
 }
 
 template<typename ElementType>
-typename BinaryTreeConstLevelOrderIterator<ElementType>::reference BinaryTreeConstLevelOrderIterator<ElementType>::operator*() const noexcept {
+const ElementType& BinaryTreeConstLevelOrderIterator<ElementType>::operator*() const noexcept {
 	assert(!nodeQueue.isEmpty() && "Cannot dereference a null iterator.");
-	return *nodeQueue.getFront();
+	const auto* const node {nodeQueue.getFront()};
+	
+	return (*node)->getElement();
 }
 
 template<typename ElementType>
-typename BinaryTreeConstLevelOrderIterator<ElementType>::pointer BinaryTreeConstLevelOrderIterator<ElementType>::operator->() const noexcept {
+const ElementType* const  BinaryTreeConstLevelOrderIterator<ElementType>::operator->() const noexcept {
 	assert(!nodeQueue.isEmpty() && "Cannot dereference a null iterator.");
 	return nodeQueue.getFront();
 }
@@ -61,14 +63,14 @@ BinaryTreeConstLevelOrderIterator<ElementType>& BinaryTreeConstLevelOrderIterato
 	const auto optionalNode {nodeQueue.dequeue()};
 	assert(optionalNode.has_value() && "Queue should not be empty.");
 	
-	const auto node {optionalNode.value()};
+	const auto& node {optionalNode.value()};
 	
-	if (node.getLeftChild() != nullptr) {
-		nodeQueue.enqueue(node.getLeftChild());
+	if (node->getLeftChild() != nullptr) {
+		nodeQueue.enqueue(node->getLeftChild());
 	}
 	
-	if (node.getRightChild() != nullptr) {
-		nodeQueue.enqueue(node.getRightChild());
+	if (node->getRightChild() != nullptr) {
+		nodeQueue.enqueue(node->getRightChild());
 	}
 	
 	return *this;
