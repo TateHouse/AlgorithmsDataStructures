@@ -1,5 +1,8 @@
 #pragma once
 
+#include <functional>
+#include <optional>
+
 #include "DataStructures/Queues/SinglyLinkedListQueue.hpp"
 #include "DataStructures/Trees/BinaryTreeNode.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstInOrderIterator.hpp"
@@ -48,6 +51,7 @@ public:
 public:
 	void insert(const ElementType& element);
 	void insert(ElementType&& element);
+	std::optional<ElementType> removeFirst(const std::function<bool(const ElementType&)>& predicate);
 
 private:
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
@@ -177,7 +181,7 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 				++nodeCount;
 				return;
 			} else {
-				nodeQueue.push(currentNode->getLeftChild());
+				nodeQueue.enqueue(currentNode->getLeftChild());
 				++nextLevelNodeCount;
 			}
 			
@@ -186,12 +190,97 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 				++nodeCount;
 				return;
 			} else {
-				nodeQueue.push(currentNode->getRightChild());
+				nodeQueue.enqueue(currentNode->getRightChild());
 				++nextLevelNodeCount;
 			}
 		}
 		
 		currentLevelNodeCount = nextLevelNodeCount;
 	}
+}
+
+template<typename ElementType>
+std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::function<bool(const ElementType&)>& predicate) {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
+	nodeQueue.enqueue(rootNode);
+	
+	BinaryTreeNode<ElementType>* currentNode {nullptr};
+	BinaryTreeNode<ElementType>* parentOfCurrentNode {nullptr};
+	BinaryTreeNode<ElementType>* targetNode {nullptr};
+	BinaryTreeNode<ElementType>* parentOfTargetNode {nullptr};
+	BinaryTreeNode<ElementType>* parentOfDeepestNode {nullptr};
+	auto isLastNodeLeftChild {false};
+	
+	while (!nodeQueue.isEmpty()) {
+		auto optionalNode {nodeQueue.dequeue()};
+		if (!optionalNode.has_value()) {
+			continue;
+		}
+		
+		currentNode = optionalNode.value();
+		
+		if (predicate(currentNode->getElement())) {
+			targetNode = currentNode;
+			parentOfTargetNode = parentOfCurrentNode;
+		}
+		
+		if (auto leftChild {currentNode->getLeftChild()}; leftChild != nullptr) {
+			nodeQueue.enqueue(leftChild);
+			parentOfDeepestNode = currentNode;
+			isLastNodeLeftChild = true;
+		}
+		
+		if (auto rightChild {currentNode->getRightChild()}; rightChild != nullptr) {
+			nodeQueue.enqueue(rightChild);
+			parentOfDeepestNode = currentNode;
+			isLastNodeLeftChild = false;
+		}
+		
+		parentOfCurrentNode = currentNode;
+	}
+	
+	if (targetNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	const auto removedElement {targetNode->getElement()};
+	
+	BinaryTreeNode<ElementType>* node {nullptr};
+	if (isLastNodeLeftChild) {
+		node = new BinaryTreeNode<ElementType> {parentOfDeepestNode->getLeftChild()->getElement()};
+	} else {
+		node = new BinaryTreeNode<ElementType> {parentOfDeepestNode->getRightChild()->getElement()};
+	}
+	
+	node->setLeftChild(targetNode->getLeftChild());
+	node->setRightChild(targetNode->getRightChild());
+	
+	if (parentOfTargetNode != nullptr) {
+		if (parentOfTargetNode->getLeftChild() == targetNode) {
+			parentOfTargetNode->setLeftChild(node);
+		} else {
+			parentOfTargetNode->setRightChild(node);
+		}
+	} else {
+		rootNode = node;
+	}
+	
+	delete targetNode;
+	
+	if (isLastNodeLeftChild) {
+		delete parentOfDeepestNode->getLeftChild();
+		parentOfDeepestNode->setLeftChild(nullptr);
+	} else {
+		delete parentOfDeepestNode->getRightChild();
+		parentOfDeepestNode->setRightChild(nullptr);
+	}
+	
+	--nodeCount;
+	
+	return removedElement;
 }
 }
