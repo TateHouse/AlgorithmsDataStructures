@@ -25,7 +25,7 @@ TEST_F(EmptyIntegerDoublyLinkedListTest, GivenInteger_WhenInsertAtHead_ThenEleme
 	EXPECT_THAT(doublyLinkedList, testing::ElementsAre(10));
 }
 
-TEST_F(EmptyIntegerDoublyLinkedListTest, GivenInteger_WhenInsertAtHead_ThenSizeInIncremented) {
+TEST_F(EmptyIntegerDoublyLinkedListTest, GivenInteger_WhenInsertAtHead_ThenSizeIsIncremented) {
 	doublyLinkedList.insertAtHead(10);
 	const auto nodeCount {doublyLinkedList.getNodeCount()};
 	
@@ -38,7 +38,7 @@ TEST_F(EmptyIntegerDoublyLinkedListTest, GivenInteger_WhenInsertAtTail_ThenEleme
 	EXPECT_THAT(doublyLinkedList, testing::ElementsAre(10));
 }
 
-TEST_F(EmptyIntegerDoublyLinkedListTest, GivenInteger_WhenInsertAtTail_ThenSizeInIncremented) {
+TEST_F(EmptyIntegerDoublyLinkedListTest, GivenInteger_WhenInsertAtTail_ThenSizeIsIncremented) {
 	doublyLinkedList.insertAtTail(10);
 	const auto nodeCount {doublyLinkedList.getNodeCount()};
 	
@@ -57,7 +57,7 @@ TEST_F(EmptyIntegerDoublyLinkedListTest, GivenIntegerAndInvalidIndex_WhenInsertA
 	EXPECT_THAT(doublyLinkedList, testing::ElementsAre());
 }
 
-TEST_F(EmptyIntegerDoublyLinkedListTest, GivenIntegerAndValidIndex_WhenInsertAtIndex_ThenSizeInIncremented) {
+TEST_F(EmptyIntegerDoublyLinkedListTest, GivenIntegerAndValidIndex_WhenInsertAtIndex_ThenSizeIsIncremented) {
 	doublyLinkedList.insertAtIndex(10, 0);
 	const auto nodeCount {doublyLinkedList.getNodeCount()};
 	
