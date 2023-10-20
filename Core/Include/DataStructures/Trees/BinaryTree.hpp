@@ -81,6 +81,7 @@ public:
 	
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool isEmpty() const noexcept;
+	const int getHeight() const noexcept;
 	
 private:
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
@@ -322,6 +323,23 @@ const bool BinaryTree<ElementType>::contains(const std::function<bool(const Elem
 template<typename ElementType>
 const bool BinaryTree<ElementType>::isEmpty() const noexcept {
 	return rootNode == nullptr && nodeCount == 0;
+}
+
+template<typename ElementType>
+const int BinaryTree<ElementType>::getHeight() const noexcept {
+	auto height {-1};
+	
+	if (rootNode == nullptr) {
+		return height;
+	}
+	
+	auto* currentNode {rootNode};
+	while (currentNode != nullptr) {
+		++height;
+		currentNode = currentNode->getLeftChild();
+	}
+	
+	return height;
 }
 
 template<typename ElementType>
