@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DataStructures/Queues/SinglyLinkedListQueue.hpp"
 #include "DataStructures/Trees/BinaryTreeNode.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstInOrderIterator.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstLevelOrderIterator.hpp"
@@ -44,14 +45,18 @@ public:
 	PreOrderIterator beginPreOrder() const noexcept;
 	PreOrderIterator endPreOrder() const noexcept;
 
+public:
+	void insert(const ElementType& element);
+	void insert(ElementType&& element);
+
 private:
 	std::size_t nodeCount {0};
-	BinaryTreeNode<ElementType>* root {nullptr};
+	BinaryTreeNode<ElementType>* rootNode {nullptr};
 };
 
 template<typename ElementType>
 BinaryTree<ElementType>::ConstInOrderIterator BinaryTree<ElementType>::cbeginInOrder() const noexcept {
-	return ConstInOrderIterator(root);
+	return ConstInOrderIterator(rootNode);
 }
 
 template<typename ElementType>
@@ -61,7 +66,7 @@ BinaryTree<ElementType>::ConstInOrderIterator BinaryTree<ElementType>::cendInOrd
 
 template<typename ElementType>
 BinaryTree<ElementType>::ConstLevelOrderIterator BinaryTree<ElementType>::cbeginLevelOrder() const noexcept {
-	return ConstLevelOrderIterator(root);
+	return ConstLevelOrderIterator(rootNode);
 }
 
 template<typename ElementType>
@@ -71,7 +76,7 @@ BinaryTree<ElementType>::ConstLevelOrderIterator BinaryTree<ElementType>::cendLe
 
 template<typename ElementType>
 BinaryTree<ElementType>::ConstPostOrderIterator BinaryTree<ElementType>::cbeginPostOrder() const noexcept {
-	return ConstPostOrderIterator(root);
+	return ConstPostOrderIterator(rootNode);
 }
 
 template<typename ElementType>
@@ -81,7 +86,7 @@ BinaryTree<ElementType>::ConstPostOrderIterator BinaryTree<ElementType>::cendPos
 
 template<typename ElementType>
 BinaryTree<ElementType>::ConstPreOrderIterator BinaryTree<ElementType>::cbeginPreOrder() const noexcept {
-	return ConstPreOrderIterator(root);
+	return ConstPreOrderIterator(rootNode);
 }
 
 template<typename ElementType>
@@ -91,7 +96,7 @@ BinaryTree<ElementType>::ConstPreOrderIterator BinaryTree<ElementType>::cendPreO
 
 template<typename ElementType>
 BinaryTree<ElementType>::InOrderIterator BinaryTree<ElementType>::beginInOrder() const noexcept {
-	return InOrderIterator(root);
+	return InOrderIterator(rootNode);
 }
 
 template<typename ElementType>
@@ -101,7 +106,7 @@ BinaryTree<ElementType>::InOrderIterator BinaryTree<ElementType>::endInOrder() c
 
 template<typename ElementType>
 BinaryTree<ElementType>::LevelOrderIterator BinaryTree<ElementType>::beginLevelOrder() const noexcept {
-	return LevelOrderIterator(root);
+	return LevelOrderIterator(rootNode);
 }
 
 template<typename ElementType>
@@ -111,7 +116,7 @@ BinaryTree<ElementType>::LevelOrderIterator BinaryTree<ElementType>::endLevelOrd
 
 template<typename ElementType>
 BinaryTree<ElementType>::PostOrderIterator BinaryTree<ElementType>::beginPostOrder() const noexcept {
-	return PostOrderIterator(root);
+	return PostOrderIterator(rootNode);
 }
 
 template<typename ElementType>
@@ -121,11 +126,107 @@ BinaryTree<ElementType>::PostOrderIterator BinaryTree<ElementType>::endPostOrder
 
 template<typename ElementType>
 BinaryTree<ElementType>::PreOrderIterator BinaryTree<ElementType>::beginPreOrder() const noexcept {
-	return PreOrderIterator(root);
+	return PreOrderIterator(rootNode);
 }
 
 template<typename ElementType>
 BinaryTree<ElementType>::PreOrderIterator BinaryTree<ElementType>::endPreOrder() const noexcept {
 	return PreOrderIterator(nullptr);
+}
+
+template<typename ElementType>
+void BinaryTree<ElementType>::insert(const ElementType& element) {
+	auto* node {new BinaryTreeNode<ElementType>(element)};
+	
+	if (rootNode == nullptr) {
+		rootNode = node;
+		++nodeCount;
+		return;
+	}
+	
+	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
+	nodeQueue.enqueue(rootNode);
+	
+	auto currentLevelNodeCount {1};
+	while (!nodeQueue.isEmpty()) {
+		auto nextLevelNodeCount {0};
+		
+		for (std::size_t index {0}; index < currentLevelNodeCount; ++index) {
+			auto optionalNode {nodeQueue.dequeue()};
+			if (!optionalNode.has_value()) {
+				continue;
+			}
+			
+			auto* currentNode {optionalNode.value()};
+			
+			if (currentNode->getLeftChild() == nullptr) {
+				currentNode->setLeftChild(node);
+				++nodeCount;
+				return;
+			} else {
+				nodeQueue.push(currentNode->getLeftChild());
+				++nextLevelNodeCount;
+			}
+			
+			if (currentNode->getRightChild() == nullptr) {
+				currentNode->setRightChild(node);
+				++nodeCount;
+				return;
+			} else {
+				nodeQueue.push(currentNode->getRightChild());
+				++nextLevelNodeCount;
+			}
+		}
+		
+		currentLevelNodeCount = nextLevelNodeCount;
+	}
+}
+
+template<typename ElementType>
+void BinaryTree<ElementType>::insert(ElementType&& element) {
+	auto* node {new BinaryTreeNode<ElementType>(std::move(element))};
+	
+	if (rootNode == nullptr) {
+		rootNode = node;
+		++nodeCount;
+		return;
+	}
+	
+	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
+	nodeQueue.enqueue(rootNode);
+	
+	auto currentLevelNodeCount {1};
+	while (!nodeQueue.isEmpty()) {
+		auto nextLevelNodeCount {0};
+		
+		for (std::size_t index {0}; index < currentLevelNodeCount; ++index) {
+			auto optionalNode {nodeQueue.dequeue()};
+			if (!optionalNode.has_value()) {
+				continue;
+			}
+			
+			auto* currentNode {optionalNode.value()};
+			
+			if (currentNode->getLeftChild() == nullptr) {
+				currentNode->setLeftChild(node);
+				++nodeCount;
+				return;
+			} else {
+				nodeQueue.push(currentNode->getLeftChild());
+				++nextLevelNodeCount;
+			}
+			
+			if (currentNode->getRightChild() == nullptr) {
+				currentNode->setRightChild(node);
+				++nodeCount;
+				return;
+			} else {
+				nodeQueue.push(currentNode->getRightChild());
+				++nextLevelNodeCount;
+			}
+		}
+		
+		currentLevelNodeCount = nextLevelNodeCount;
+	}
 }
 }
