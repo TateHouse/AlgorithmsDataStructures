@@ -80,6 +80,8 @@ public:
 	              const std::function<void(const ElementType&)>& function) noexcept;
 	
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	const bool isEmpty() const noexcept;
+	
 private:
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
@@ -315,6 +317,11 @@ void BinaryTree<ElementType>::traverse(IteratorType begin,
 template<typename ElementType>
 const bool BinaryTree<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
 	return std::any_of(cbeginLevelOrder(), cendLevelOrder(), predicate);
+}
+
+template<typename ElementType>
+const bool BinaryTree<ElementType>::isEmpty() const noexcept {
+	return rootNode == nullptr && nodeCount == 0;
 }
 
 template<typename ElementType>
