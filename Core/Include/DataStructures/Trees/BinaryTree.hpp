@@ -50,6 +50,9 @@ public:
 	void insert(ElementType&& element);
 
 private:
+	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
+
+private:
 	std::size_t nodeCount {0};
 	BinaryTreeNode<ElementType>* rootNode {nullptr};
 };
@@ -137,55 +140,17 @@ BinaryTree<ElementType>::PreOrderIterator BinaryTree<ElementType>::endPreOrder()
 template<typename ElementType>
 void BinaryTree<ElementType>::insert(const ElementType& element) {
 	auto* node {new BinaryTreeNode<ElementType>(element)};
-	
-	if (rootNode == nullptr) {
-		rootNode = node;
-		++nodeCount;
-		return;
-	}
-	
-	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
-	nodeQueue.enqueue(rootNode);
-	
-	auto currentLevelNodeCount {1};
-	while (!nodeQueue.isEmpty()) {
-		auto nextLevelNodeCount {0};
-		
-		for (std::size_t index {0}; index < currentLevelNodeCount; ++index) {
-			auto optionalNode {nodeQueue.dequeue()};
-			if (!optionalNode.has_value()) {
-				continue;
-			}
-			
-			auto* currentNode {optionalNode.value()};
-			
-			if (currentNode->getLeftChild() == nullptr) {
-				currentNode->setLeftChild(node);
-				++nodeCount;
-				return;
-			} else {
-				nodeQueue.push(currentNode->getLeftChild());
-				++nextLevelNodeCount;
-			}
-			
-			if (currentNode->getRightChild() == nullptr) {
-				currentNode->setRightChild(node);
-				++nodeCount;
-				return;
-			} else {
-				nodeQueue.push(currentNode->getRightChild());
-				++nextLevelNodeCount;
-			}
-		}
-		
-		currentLevelNodeCount = nextLevelNodeCount;
-	}
+	insertLevelOrder(node);
 }
 
 template<typename ElementType>
 void BinaryTree<ElementType>::insert(ElementType&& element) {
 	auto* node {new BinaryTreeNode<ElementType>(std::move(element))};
-	
+	insertLevelOrder(node);
+}
+
+template<typename ElementType>
+void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node) {
 	if (rootNode == nullptr) {
 		rootNode = node;
 		++nodeCount;
