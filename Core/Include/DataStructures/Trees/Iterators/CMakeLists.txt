@@ -6,6 +6,7 @@ SET(HEADER_FILES
 		BinaryTreeConstPostOrderIterator.hpp
 		BinaryTreeConstPreOrderIterator.hpp
 		BinaryTreeInOrderIterator.hpp
+		BinaryTreeIteratorConcepts.hpp
 		BinaryTreeLevelOrderIterator.hpp
 		BinaryTreePostOrderIterator.hpp
 		BinaryTreePreOrderIterator.hpp)

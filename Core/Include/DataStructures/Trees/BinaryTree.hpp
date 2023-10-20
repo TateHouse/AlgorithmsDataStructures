@@ -11,6 +11,7 @@
 #include "DataStructures/Trees/Iterators/BinaryTreeConstPostOrderIterator.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstPreOrderIterator.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeInOrderIterator.hpp"
+#include "DataStructures/Trees/Iterators/BinaryTreeIteratorConcepts.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeLevelOrderIterator.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreePostOrderIterator.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreePreOrderIterator.hpp"
@@ -56,20 +57,24 @@ public:
 	std::vector<ElementType> removeAll(BinaryTreeNode<ElementType>* node);
 	
 	template<typename ConstIteratorType>
+	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 	ConstIteratorType findFirst(ConstIteratorType begin,
 	                            ConstIteratorType end,
 	                            const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	template<typename IteratorType>
+	requires Iterators::AllowedIterator<IteratorType, ElementType>
 	IteratorType findFirst(IteratorType begin,
 	                       IteratorType end,
 	                       const std::function<bool(const ElementType&)>& predicate) noexcept;
 	
 	template<typename ConstIteratorType>
+	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 	void traverse(ConstIteratorType begin,
 	              ConstIteratorType end,
 	              const std::function<void(const ElementType&)>& function) const noexcept;
 	
 	template<typename IteratorType>
+	requires Iterators::AllowedIterator<IteratorType, ElementType>
 	void traverse(IteratorType begin,
 	              IteratorType end,
 	              const std::function<void(const ElementType&)>& function) noexcept;
@@ -272,6 +277,7 @@ std::vector<ElementType> BinaryTree<ElementType>::removeAll(BinaryTreeNode<Eleme
 
 template<typename ElementType>
 template<typename ConstIteratorType>
+requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 ConstIteratorType BinaryTree<ElementType>::findFirst(ConstIteratorType begin,
 													 ConstIteratorType end,
 													 const std::function<bool(const ElementType&)>& predicate) const noexcept {
@@ -280,6 +286,7 @@ ConstIteratorType BinaryTree<ElementType>::findFirst(ConstIteratorType begin,
 
 template<typename ElementType>
 template<typename IteratorType>
+requires Iterators::AllowedIterator<IteratorType, ElementType>
 IteratorType BinaryTree<ElementType>::findFirst(IteratorType begin,
                                                 IteratorType end,
                                                 const std::function<bool(const ElementType&)>& predicate) noexcept {
@@ -288,6 +295,7 @@ IteratorType BinaryTree<ElementType>::findFirst(IteratorType begin,
 
 template<typename ElementType>
 template<typename ConstIteratorType>
+requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 void BinaryTree<ElementType>::traverse(ConstIteratorType begin,
 									   ConstIteratorType end,
 									   const std::function<void(const ElementType&)>& function) const noexcept {
@@ -296,6 +304,7 @@ void BinaryTree<ElementType>::traverse(ConstIteratorType begin,
 
 template<typename ElementType>
 template<typename IteratorType>
+requires Iterators::AllowedIterator<IteratorType, ElementType>
 void BinaryTree<ElementType>::traverse(IteratorType begin,
 									   IteratorType end,
 									   const std::function<void(const ElementType&)>& function) noexcept {
