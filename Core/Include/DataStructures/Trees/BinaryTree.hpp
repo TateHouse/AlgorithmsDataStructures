@@ -81,6 +81,7 @@ public:
 	
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool isEmpty() const noexcept;
+	const std::size_t getNodeCount() const noexcept;
 	const int getHeight() const noexcept;
 	
 private:
@@ -323,6 +324,11 @@ const bool BinaryTree<ElementType>::contains(const std::function<bool(const Elem
 template<typename ElementType>
 const bool BinaryTree<ElementType>::isEmpty() const noexcept {
 	return rootNode == nullptr && nodeCount == 0;
+}
+
+template<typename ElementType>
+const std::size_t BinaryTree<ElementType>::getNodeCount() const noexcept {
+	return nodeCount;
 }
 
 template<typename ElementType>
