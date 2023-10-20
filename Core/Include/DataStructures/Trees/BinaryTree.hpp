@@ -23,6 +23,7 @@ public:
 	BinaryTree() noexcept = default;
 	BinaryTree(const BinaryTree<ElementType>& other);
 	BinaryTree(BinaryTree<ElementType>&& other) noexcept;
+	~BinaryTree() noexcept;
 
 public:
 	using value_type = ElementType;
@@ -107,6 +108,11 @@ BinaryTree<ElementType>::BinaryTree(BinaryTree<ElementType>&& other) noexcept :
 		nodeCount {other.nodeCount}, rootNode {other.rootNode} {
 	other.nodeCount = 0;
 	other.rootNode = nullptr;
+}
+
+template<typename ElementType>
+BinaryTree<ElementType>::~BinaryTree() noexcept {
+	removeAll(rootNode);
 }
 
 template<typename ElementType>
