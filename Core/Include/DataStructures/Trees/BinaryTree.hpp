@@ -54,6 +54,15 @@ public:
 	void insert(ElementType&& element);
 	std::optional<ElementType> removeFirst(const std::function<bool(const ElementType&)>& predicate);
 	std::vector<ElementType> removeAll(BinaryTreeNode<ElementType>* node);
+	
+	template<typename ConstIteratorType>
+	ConstIteratorType findFirst(ConstIteratorType begin,
+	                            ConstIteratorType end,
+	                            const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	template<typename IteratorType>
+	IteratorType findFirst(IteratorType begin,
+	                       IteratorType end,
+	                       const std::function<bool(const ElementType&)>& predicate) noexcept;
 
 private:
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
@@ -249,6 +258,22 @@ std::vector<ElementType> BinaryTree<ElementType>::removeAll(BinaryTreeNode<Eleme
 	nodeCount = 0;
 	
 	return elements;
+}
+
+template<typename ElementType>
+template<typename ConstIteratorType>
+ConstIteratorType BinaryTree<ElementType>::findFirst(ConstIteratorType begin,
+													 ConstIteratorType end,
+													 const std::function<bool(const ElementType&)>& predicate) const noexcept {
+	return std::find_if(begin, end, predicate);
+}
+
+template<typename ElementType>
+template<typename IteratorType>
+IteratorType BinaryTree<ElementType>::findFirst(IteratorType begin,
+                                                IteratorType end,
+                                                const std::function<bool(const ElementType&)>& predicate) noexcept {
+	return std::find_if(begin, end, predicate);
 }
 
 template<typename ElementType>
