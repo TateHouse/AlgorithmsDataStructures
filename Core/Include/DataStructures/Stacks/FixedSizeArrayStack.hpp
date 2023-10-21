@@ -24,6 +24,7 @@ public:
 	std::optional<ElementType> pop() noexcept;
 	std::vector<ElementType> popAll();
 	const ElementType* const getTop() const noexcept;
+	ElementType* const getTop() noexcept;
 	const bool isEmpty() const noexcept;
 	const bool isFull() const noexcept;
 	const std::size_t getSize() const noexcept;
@@ -102,6 +103,15 @@ std::vector<ElementType> FixedSizeArrayStack<ElementType, Size>::popAll() {
 
 template<typename ElementType, std::size_t Size>
 const ElementType* const FixedSizeArrayStack<ElementType, Size>::getTop() const noexcept {
+	if (topIndex == 0) {
+		return nullptr;
+	}
+	
+	return &array[topIndex - 1];
+}
+
+template<typename ElementType, std::size_t Size>
+ElementType* const FixedSizeArrayStack<ElementType, Size>::getTop() noexcept {
 	if (topIndex == 0) {
 		return nullptr;
 	}

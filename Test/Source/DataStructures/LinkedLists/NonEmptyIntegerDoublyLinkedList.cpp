@@ -27,7 +27,7 @@ TEST_F(NonEmptyIntegerDoublyLinkedList,
 }
 
 TEST_F(NonEmptyIntegerDoublyLinkedList,
-       GivenNonEmptyIntegerDoublyLinkedList_WhenMoveConstruct_TheNewDoublyLinkedListIsEqualToOriginal) {
+       GivenNonEmptyIntegerDoublyLinkedList_WhenMoveConstruct_ThenNewDoublyLinkedListIsEqualToOriginal) {
 	const auto otherDoublyLinkedList {std::move(doublyLinkedList)};
 	
 	EXPECT_THAT(otherDoublyLinkedList, testing::ElementsAre(10, 20, 30, 40, 50));
@@ -35,16 +35,14 @@ TEST_F(NonEmptyIntegerDoublyLinkedList,
 
 TEST_F(NonEmptyIntegerDoublyLinkedList,
        GivenNonEmptyIntegerDoublyLinkedList_WhenCopyAssign_ThenNewDoublyLinkedListIsEqualToOriginal) {
-	auto otherDoublyLinkedList {DoublyLinkedList<int> {}};
-	otherDoublyLinkedList = doublyLinkedList;
+	auto otherDoublyLinkedList = doublyLinkedList;
 	
 	EXPECT_THAT(otherDoublyLinkedList, testing::Eq(doublyLinkedList));
 }
 
 TEST_F(NonEmptyIntegerDoublyLinkedList,
        GivenNonEmptyIntegerDoublyLinkedList_WhenMoveAssign_ThenNewDoublyLinkedListIsEqualToOriginal) {
-	auto otherDoublyLinkedList {DoublyLinkedList<int> {}};
-	otherDoublyLinkedList = std::move(doublyLinkedList);
+	auto otherDoublyLinkedList = std::move(doublyLinkedList);
 	
 	EXPECT_THAT(otherDoublyLinkedList, testing::ElementsAre(10, 20, 30, 40, 50));
 }

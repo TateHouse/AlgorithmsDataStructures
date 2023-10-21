@@ -24,7 +24,9 @@ public:
 	std::optional<ElementType> dequeue() noexcept;
 	std::vector<ElementType> dequeueAll();
 	const ElementType* const getFront() const noexcept;
+	ElementType* const getFront() noexcept;
 	const ElementType* const getBack() const noexcept;
+	ElementType* const getBack() noexcept;
 	const bool isEmpty() const noexcept;
 	const bool isFull() const noexcept;
 	const std::size_t getSize() const noexcept;
@@ -117,7 +119,25 @@ const ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getFron
 }
 
 template<typename ElementType, std::size_t Size>
+ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getFront() noexcept {
+	if (isEmpty()) {
+		return nullptr;
+	}
+	
+	return &array[frontIndex];
+}
+
+template<typename ElementType, std::size_t Size>
 const ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getBack() const noexcept {
+	if (isEmpty()) {
+		return nullptr;
+	}
+	
+	return &array[backIndex];
+}
+
+template<typename ElementType, std::size_t Size>
+ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getBack() noexcept {
 	if (isEmpty()) {
 		return nullptr;
 	}

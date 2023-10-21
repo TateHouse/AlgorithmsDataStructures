@@ -23,6 +23,7 @@ public:
 	std::optional<ElementType> pop();
 	std::vector<ElementType> popAll();
 	const ElementType* const getTop() const noexcept;
+	ElementType* const getTop() noexcept;
 	const bool isEmpty() const noexcept;
 	const std::size_t getSize() const noexcept;
 
@@ -80,6 +81,15 @@ std::vector<ElementType> DynamicSizeArrayStack<ElementType>::popAll() {
 
 template<typename ElementType>
 const ElementType* const DynamicSizeArrayStack<ElementType>::getTop() const noexcept {
+	if (vector.empty()) {
+		return nullptr;
+	}
+	
+	return &vector.back();
+}
+
+template<typename ElementType>
+ElementType* const DynamicSizeArrayStack<ElementType>::getTop() noexcept {
 	if (vector.empty()) {
 		return nullptr;
 	}

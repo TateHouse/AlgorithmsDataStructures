@@ -1,12 +1,20 @@
 #pragma once
 
+#include <utility>
+
 namespace Core::DataStructures::LinkedLists {
 template<typename ElementType>
 class SinglyLinkedListNode final {
 public:
 	explicit SinglyLinkedListNode(const ElementType& element) noexcept;
+	explicit SinglyLinkedListNode(ElementType&& element) noexcept;
+	SinglyLinkedListNode(const SinglyLinkedListNode<ElementType>& other) noexcept = default;
+	SinglyLinkedListNode(SinglyLinkedListNode<ElementType>&& other) noexcept = default;
+	~SinglyLinkedListNode() noexcept = default;
 
 public:
+	SinglyLinkedListNode<ElementType>& operator=(const SinglyLinkedListNode<ElementType>& other) noexcept = default;
+	SinglyLinkedListNode<ElementType>& operator=(SinglyLinkedListNode<ElementType>&& other) noexcept = default;
 	const bool operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept;
 
 public:
@@ -23,6 +31,11 @@ private:
 
 template<typename ElementType>
 SinglyLinkedListNode<ElementType>::SinglyLinkedListNode(const ElementType& element) noexcept : element(element) {
+
+}
+
+template<typename ElementType>
+SinglyLinkedListNode<ElementType>::SinglyLinkedListNode(ElementType&& element) noexcept : element(std::move(element)) {
 
 }
 
