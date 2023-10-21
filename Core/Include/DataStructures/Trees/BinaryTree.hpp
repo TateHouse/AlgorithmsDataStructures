@@ -85,7 +85,7 @@ public:
 	requires Iterators::AllowedIterator<IteratorType, ElementType>
 	void traverse(IteratorType begin,
 	              IteratorType end,
-	              const std::function<void(const ElementType&)>& function) noexcept;
+	              const std::function<void(ElementType&)>& function) noexcept;
 	
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	const bool isEmpty() const noexcept;
@@ -380,7 +380,7 @@ template<typename IteratorType>
 requires Iterators::AllowedIterator<IteratorType, ElementType>
 void BinaryTree<ElementType>::traverse(IteratorType begin,
                                        IteratorType end,
-                                       const std::function<void(const ElementType&)>& function) noexcept {
+                                       const std::function<void(ElementType&)>& function) noexcept {
 	std::for_each(begin, end, function);
 }
 

@@ -43,14 +43,14 @@ BinaryTreeConstPostOrderIterator<ElementType>::BinaryTreeConstPostOrderIterator(
 		const auto optionalNode {stack.pop()};
 		assert(optionalNode.has_value() && "Stack should not be empty.");
 		
-		const auto node {optionalNode.value()};
+		const auto& node {optionalNode.value()};
 		nodeStack.push(node);
 		
-		if (node.getLeftChild() != nullptr) {
+		if (node->getLeftChild() != nullptr) {
 			stack.push(node->getLeftChild());
 		}
 		
-		if (node.getRightChild() != nullptr) {
+		if (node->getRightChild() != nullptr) {
 			stack.push(node->getRightChild());
 		}
 	}
@@ -64,7 +64,8 @@ const bool BinaryTreeConstPostOrderIterator<ElementType>::operator==(const Binar
 template<typename ElementType>
 const ElementType& BinaryTreeConstPostOrderIterator<ElementType>::operator*() const noexcept {
 	assert(!nodeStack.isEmpty() && "Cannot dereference a null iterator.");
-	return *nodeStack.getTop();
+	const auto* const node {*nodeStack.getTop()};
+	return node->getElement();
 }
 
 template<typename ElementType>

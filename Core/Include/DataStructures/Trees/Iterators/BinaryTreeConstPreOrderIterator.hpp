@@ -16,16 +16,16 @@ public:
 	using pointer = const ElementType* const;
 	
 	explicit BinaryTreeConstPreOrderIterator(BinaryTreeNode<ElementType>* node) noexcept;
-	
+
 public:
 	const bool operator==(const BinaryTreeConstPreOrderIterator<ElementType>& other) const noexcept;
-	
+
 public:
 	reference operator*() const noexcept;
 	pointer operator->() const noexcept;
 	BinaryTreeConstPreOrderIterator<ElementType>& operator++() noexcept;
 	BinaryTreeConstPreOrderIterator<ElementType> operator++(int) noexcept;
-	
+
 private:
 	Stacks::SinglyLinkedListStack<BinaryTreeNode<ElementType>*> nodeStack {};
 };
@@ -45,7 +45,8 @@ const bool BinaryTreeConstPreOrderIterator<ElementType>::operator==(const Binary
 template<typename ElementType>
 const ElementType& BinaryTreeConstPreOrderIterator<ElementType>::operator*() const noexcept {
 	assert(!nodeStack.isEmpty() && "Cannot dereference a null iterator.");
-	return *nodeStack.getTop();
+	const auto* const node {*nodeStack.getTop()};
+	return node->getElement();
 }
 
 template<typename ElementType>
@@ -61,14 +62,14 @@ BinaryTreeConstPreOrderIterator<ElementType>& BinaryTreeConstPreOrderIterator<El
 	const auto optionalNode {nodeStack.pop()};
 	assert(optionalNode.has_value() && "Cannot dereference a null iterator.");
 	
-	const auto node {optionalNode.value()};
+	const auto& node {optionalNode.value()};
 	
-	if (node.getLeftChild() != nullptr) {
-		nodeStack.push(node.getLeftChild());
+	if (node->getRightChild() != nullptr) {
+		nodeStack.push(node->getRightChild());
 	}
 	
-	if (node.getRightChild() != nullptr) {
-		nodeStack.push(node.getRightChild());
+	if (node->getLeftChild() != nullptr) {
+		nodeStack.push(node->getLeftChild());
 	}
 	
 	return *this;

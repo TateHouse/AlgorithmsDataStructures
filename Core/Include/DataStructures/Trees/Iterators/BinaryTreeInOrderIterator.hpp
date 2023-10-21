@@ -46,7 +46,8 @@ const bool BinaryTreeInOrderIterator<ElementType>::operator==(const BinaryTreeIn
 template<typename ElementType>
 ElementType& BinaryTreeInOrderIterator<ElementType>::operator*() const noexcept {
 	assert(!nodeStack.isEmpty() && "Cannot dereference a null iterator.");
-	return *nodeStack.getTop();
+	auto* const node {*nodeStack.getTop()};
+	return node->getElement();
 }
 
 template<typename ElementType>
@@ -62,9 +63,9 @@ BinaryTreeInOrderIterator<ElementType>& BinaryTreeInOrderIterator<ElementType>::
 	const auto optionalNode {nodeStack.pop()};
 	assert(optionalNode.has_value() && "Cannot increment a null iterator.");
 	
-	const auto node {optionalNode.value()};
+	const auto& node {optionalNode.value()};
 	
-	if (auto* rightChild {node.getRightChild()}; rightChild != nullptr) {
+	if (auto* rightChild {node->getRightChild()}; rightChild != nullptr) {
 		auto currentNode {rightChild};
 		
 		while (currentNode != nullptr) {
