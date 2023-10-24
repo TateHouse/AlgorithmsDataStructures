@@ -71,6 +71,7 @@ public:
 	
 	const bool contains(const ElementType& element) const noexcept;
 	const bool isEmpty() const noexcept;
+	const std::size_t getNodeCount() const noexcept;
 
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
@@ -342,6 +343,11 @@ const bool BinarySearchTree<ElementType>::contains(const ElementType& element) c
 template<ElementTypeWithLessThanOperator ElementType>
 const bool BinarySearchTree<ElementType>::isEmpty() const noexcept {
 	return rootNode == nullptr && nodeCount == 0;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const std::size_t BinarySearchTree<ElementType>::getNodeCount() const noexcept {
+	return nodeCount;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
