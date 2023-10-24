@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "DataStructures/Trees/BinaryTreeNode.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstInOrderIterator.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstLevelOrderIterator.hpp"
@@ -49,9 +51,11 @@ public:
 public:
 	void insert(const ElementType& element);
 	void insert(ElementType&& element);
+	std::vector<ElementType> removeAll();
 	
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
+	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
 
 private:
 	std::size_t nodeCount {0};
@@ -151,6 +155,16 @@ void BinarySearchTree<ElementType>::insert(ElementType&& element) {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
+std::vector<ElementType> BinarySearchTree<ElementType>::removeAll() {
+	std::vector<ElementType> elements;
+	removeAll(rootNode, elements);
+	rootNode = nullptr;
+	nodeCount = 0;
+	
+	return elements;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
 void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
 	if (rootNode == nullptr) {
 		rootNode = node;
@@ -177,5 +191,19 @@ void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
 	} else {
 		parentNode->setRightChild(node);
 	}
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements) {
+	if (node == nullptr) {
+		return;
+	}
+	
+	removeAll(node->getLeftChild(), elements);
+	removeAll(node->getRightChild(), elements);
+	
+	elements.emplace_back(node->getElement());
+	
+	delete node;
 }
 }
