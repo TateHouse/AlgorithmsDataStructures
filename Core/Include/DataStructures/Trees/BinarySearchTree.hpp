@@ -24,6 +24,11 @@ public:
 	BinarySearchTree(const BinarySearchTree<ElementType>& other);
 	BinarySearchTree(BinarySearchTree<ElementType>&& other) noexcept;
 	~BinarySearchTree() noexcept;
+	
+public:
+	BinarySearchTree<ElementType>& operator=(const BinarySearchTree<ElementType>& other);
+	BinarySearchTree<ElementType>& operator=(BinarySearchTree<ElementType>&& other) noexcept;
+	const bool operator==(const BinarySearchTree<ElementType>& other) const noexcept;
 
 public:
 	using value_type = ElementType;
@@ -116,6 +121,47 @@ BinarySearchTree<ElementType>::BinarySearchTree(BinarySearchTree<ElementType>&& 
 template<ElementTypeWithLessThanOperator ElementType>
 BinarySearchTree<ElementType>::~BinarySearchTree() noexcept {
 	removeAll();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinarySearchTree<ElementType>& BinarySearchTree<ElementType>::operator=(const BinarySearchTree<ElementType>& other) {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	for (auto iterator {other.cbeginInOrder()}; iterator != other.cendInOrder(); ++iterator) {
+		insert(*iterator);
+	}
+	
+	return *this;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinarySearchTree<ElementType>& BinarySearchTree<ElementType>::operator=(BinarySearchTree<ElementType>&& other) noexcept {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	nodeCount = other.nodeCount;
+	rootNode = other.rootNode;
+	
+	other.nodeCount = 0;
+	other.rootNode = nullptr;
+	
+	return *this;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const bool BinarySearchTree<ElementType>::operator==(const BinarySearchTree<ElementType>& other) const noexcept {
+	if (nodeCount != other.nodeCount) {
+		return false;
+	}
+	
+	return std::equal(cbeginInOrder(), cendInOrder(), other.cbeginInOrder(), other.cendInOrder());
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
