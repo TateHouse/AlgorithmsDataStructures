@@ -23,6 +23,7 @@ public:
 	BinarySearchTree() noexcept = default;
 	BinarySearchTree(const BinarySearchTree<ElementType>& other);
 	BinarySearchTree(BinarySearchTree<ElementType>&& other) noexcept;
+	~BinarySearchTree() noexcept;
 
 public:
 	using value_type = ElementType;
@@ -110,6 +111,11 @@ BinarySearchTree<ElementType>::BinarySearchTree(BinarySearchTree<ElementType>&& 
 		nodeCount {other.nodeCount}, rootNode {other.rootNode} {
 	other.rootNode = nullptr;
 	other.nodeCount = 0;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinarySearchTree<ElementType>::~BinarySearchTree() noexcept {
+	removeAll();
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
