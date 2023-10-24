@@ -57,6 +57,7 @@ public:
 	std::optional<ElementType> removeMinimum();
 	std::optional<ElementType> removeMaximum();
 	std::vector<ElementType> removeAll();
+	std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
@@ -275,6 +276,31 @@ std::vector<ElementType> BinarySearchTree<ElementType>::removeAll() {
 	nodeCount = 0;
 	
 	return elements;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+std::optional<ElementType> BinarySearchTree<ElementType>::findFirst(const ElementType& element) const noexcept {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto* currentNode {rootNode};
+	
+	while (currentNode != nullptr) {
+		const auto& currentNodeElement {currentNode->getElement()};
+		
+		if (element == currentNodeElement) {
+			return currentNodeElement;
+		}
+		
+		if (element < currentNodeElement) {
+			currentNode = currentNode->getLeftChild();
+		} else {
+			currentNode = currentNode->getRightChild();
+		}
+	}
+	
+	return std::nullopt;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
