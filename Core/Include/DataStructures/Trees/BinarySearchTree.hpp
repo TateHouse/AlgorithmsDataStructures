@@ -68,6 +68,8 @@ public:
 	template<typename IteratorType>
 	requires Iterators::AllowedIterator<IteratorType, ElementType>
 	void traverse(IteratorType begin, IteratorType end, const std::function<void(ElementType&)>& function) noexcept;
+	
+	const bool contains(const ElementType& element) const noexcept;
 
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
@@ -329,6 +331,11 @@ void BinarySearchTree<ElementType>::traverse(IteratorType begin,
                                              IteratorType end,
                                              const std::function<void(ElementType&)>& function) noexcept {
 	std::for_each(begin, end, function);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const bool BinarySearchTree<ElementType>::contains(const ElementType& element) const noexcept {
+	return findFirst(element).has_value();
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
