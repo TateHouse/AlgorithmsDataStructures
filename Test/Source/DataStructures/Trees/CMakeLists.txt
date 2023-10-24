@@ -3,6 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 SET(SOURCE_FILES
 		EmptyIntegerBinarySearchTreeTest.cpp
 		EmptyIntegerBinaryTreeTest.cpp
+		NonEmptyIntegerBinarySearchTreeTest.cpp
 		NonEmptyIntegerBinaryTree.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
