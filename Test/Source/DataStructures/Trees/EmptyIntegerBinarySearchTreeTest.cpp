@@ -64,15 +64,20 @@ TEST_F(EmptyIntegerBinarySearchTreeTest, WhenRemoveAll_ThenReturnsEmptyVector) {
 	EXPECT_THAT(result, testing::IsEmpty());
 }
 
-TEST_F(EmptyIntegerBinarySearchTreeTest, GivenInteger_WhenFindFirstConst_ThenReturnsNullOptional) {
-	const auto constBinarySearchTree {binarySearchTree};
+TEST_F(EmptyIntegerBinarySearchTreeTest, GivenInteger_WhenFindFirst_ThenReturnsNullOptional) {
 	const auto result {binarySearchTree.findFirst(10)};
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
 
-TEST_F(EmptyIntegerBinarySearchTreeTest, GivenInteger_WhenFindFirst_ThenReturnsNullOptional) {
-	const auto result {binarySearchTree.findFirst(10)};
+TEST_F(EmptyIntegerBinarySearchTreeTest, WhenFindMinimum_ThenReturnsNullOptional) {
+	const auto result {binarySearchTree.findMinimum()};
+	
+	EXPECT_THAT(result, testing::Eq(std::nullopt));
+}
+
+TEST_F(EmptyIntegerBinarySearchTreeTest, WhenFindMaximum_ThenReturnsNullOptional) {
+	const auto result {binarySearchTree.findMaximum()};
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
