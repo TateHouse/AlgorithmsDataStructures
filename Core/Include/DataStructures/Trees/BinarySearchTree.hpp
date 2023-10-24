@@ -278,6 +278,8 @@ void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
 	} else {
 		parentNode->setRightChild(node);
 	}
+	
+	++nodeCount;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
