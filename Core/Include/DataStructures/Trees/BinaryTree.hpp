@@ -427,9 +427,8 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
 	nodeQueue.enqueue(rootNode);
 	
-	auto currentLevelNodeCount {1};
 	while (!nodeQueue.isEmpty()) {
-		auto nextLevelNodeCount {0};
+		auto currentLevelNodeCount {nodeQueue.getSize()};
 		
 		for (std::size_t index {0}; index < currentLevelNodeCount; ++index) {
 			auto optionalNode {nodeQueue.dequeue()};
@@ -445,7 +444,6 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 				return;
 			} else {
 				nodeQueue.enqueue(currentNode->getLeftChild());
-				++nextLevelNodeCount;
 			}
 			
 			if (currentNode->getRightChild() == nullptr) {
@@ -454,11 +452,8 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 				return;
 			} else {
 				nodeQueue.enqueue(currentNode->getRightChild());
-				++nextLevelNodeCount;
 			}
 		}
-		
-		currentLevelNodeCount = nextLevelNodeCount;
 	}
 }
 
