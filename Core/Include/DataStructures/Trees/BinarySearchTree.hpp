@@ -58,6 +58,16 @@ public:
 
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
+	void removeFirstLeafNode(BinaryTreeNode<ElementType>* currentNode,
+	                         BinaryTreeNode<ElementType>* parentNode,
+	                         const bool isLeftChild);
+	void removeFirstNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
+	                                       BinaryTreeNode<ElementType>* parentNode,
+	                                       const bool isLeftChild);
+	void removeFirstNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
+	                                      BinaryTreeNode<ElementType>* parentNode,
+	                                      const bool isLeftChild);
+	void removeFirstNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
 
 private:
@@ -187,53 +197,13 @@ std::optional<ElementType> BinarySearchTree<ElementType>::removeFirst(const Elem
 	const auto removedElement {currentNode->getElement()};
 	
 	if (currentNode->getLeftChild() == nullptr && currentNode->getRightChild() == nullptr) {
-		if (parentNode == nullptr) {
-			rootNode = nullptr;
-			delete currentNode;
-		} else if (isLeftChild) {
-			parentNode->setLeftChild(nullptr);
-			delete currentNode;
-		} else {
-			parentNode->setRightChild(nullptr);
-			delete currentNode;
-		}
+		removeFirstLeafNode(currentNode, parentNode, isLeftChild);
 	} else if (currentNode->getRightChild() == nullptr) {
-		if (parentNode == nullptr) {
-			rootNode = currentNode->getLeftChild();
-		} else if (isLeftChild) {
-			parentNode->setLeftChild(currentNode->getLeftChild());
-		} else {
-			parentNode->setRightChild(currentNode->getLeftChild());
-		}
-		
-		delete currentNode;
+		removeFirstNodeWithOnlyLeftChild(currentNode, parentNode, isLeftChild);
 	} else if (currentNode->getLeftChild() == nullptr) {
-		if (parentNode == nullptr) {
-			rootNode = currentNode->getRightChild();
-		} else if (isLeftChild) {
-			parentNode->setLeftChild(currentNode->getRightChild());
-		} else {
-			parentNode->setRightChild(currentNode->getRightChild());
-		}
-		
-		delete currentNode;
+		removeFirstNodeWithOnlyRightChild(currentNode, parentNode, isLeftChild);
 	} else {
-		BinaryTreeNode<ElementType>* successorNode {currentNode->getRightChild()};
-		BinaryTreeNode<ElementType>* successorParentNode {currentNode};
-		
-		while (successorNode->getLeftChild() != nullptr) {
-			successorParentNode = successorNode;
-			successorNode = successorNode->getLeftChild();
-		}
-		
-		if (successorParentNode == currentNode) {
-			successorParentNode->setRightChild(successorNode->getRightChild());
-		} else {
-			successorParentNode->setLeftChild(successorNode->getRightChild());
-		}
-		
-		currentNode->setElement(successorNode->getElement());
-		delete successorNode;
+		removeFirstNodeWithTwoChildren(currentNode);
 	}
 	
 	--nodeCount;
@@ -280,6 +250,72 @@ void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
 	}
 	
 	++nodeCount;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::removeFirstLeafNode(BinaryTreeNode<ElementType>* currentNode,
+                                                        BinaryTreeNode<ElementType>* parentNode,
+                                                        const bool isLeftChild) {
+	if (parentNode == nullptr) {
+		rootNode = nullptr;
+		delete currentNode;
+	} else if (isLeftChild) {
+		parentNode->setLeftChild(nullptr);
+		delete currentNode;
+	} else {
+		parentNode->setRightChild(nullptr);
+		delete currentNode;
+	}
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::removeFirstNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
+                                                                      BinaryTreeNode<ElementType>* parentNode,
+                                                                      const bool isLeftChild) {
+	if (parentNode == nullptr) {
+		rootNode = currentNode->getRightChild();
+	} else if (isLeftChild) {
+		parentNode->setLeftChild(currentNode->getRightChild());
+	} else {
+		parentNode->setRightChild(currentNode->getRightChild());
+	}
+	
+	delete currentNode;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::removeFirstNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
+                                                                     BinaryTreeNode<ElementType>* parentNode,
+                                                                     const bool isLeftChild) {
+	if (parentNode == nullptr) {
+		rootNode = currentNode->getLeftChild();
+	} else if (isLeftChild) {
+		parentNode->setLeftChild(currentNode->getLeftChild());
+	} else {
+		parentNode->setRightChild(currentNode->getLeftChild());
+	}
+	
+	delete currentNode;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::removeFirstNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode) {
+	BinaryTreeNode<ElementType>* successorNode {currentNode->getRightChild()};
+	BinaryTreeNode<ElementType>* successorParentNode {currentNode};
+	
+	while (successorNode->getLeftChild() != nullptr) {
+		successorParentNode = successorNode;
+		successorNode = successorNode->getLeftChild();
+	}
+	
+	if (successorParentNode == currentNode) {
+		successorParentNode->setRightChild(successorNode->getRightChild());
+	} else {
+		successorParentNode->setLeftChild(successorNode->getRightChild());
+	}
+	
+	currentNode->setElement(successorNode->getElement());
+	delete successorNode;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
