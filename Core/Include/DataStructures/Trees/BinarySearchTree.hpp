@@ -46,6 +46,13 @@ public:
 	PreOrderIterator beginPreOrder() const noexcept;
 	PreOrderIterator endPreOrder() const noexcept;
 
+public:
+	void insert(const ElementType& element);
+	void insert(ElementType&& element);
+	
+private:
+	void insert(BinaryTreeNode<ElementType>* node);
+
 private:
 	std::size_t nodeCount {0};
 	BinaryTreeNode<ElementType>* rootNode {nullptr};
@@ -129,5 +136,46 @@ BinarySearchTree<ElementType>::PreOrderIterator BinarySearchTree<ElementType>::b
 template<ElementTypeWithLessThanOperator ElementType>
 BinarySearchTree<ElementType>::PreOrderIterator BinarySearchTree<ElementType>::endPreOrder() const noexcept {
 	return PreOrderIterator {nullptr};
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::insert(const ElementType& element) {
+	auto* node {new BinaryTreeNode<ElementType> {element}};
+	insert(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::insert(ElementType&& element) {
+	auto* node {new BinaryTreeNode<ElementType> {std::move(element)}};
+	insert(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
+	if (rootNode == nullptr) {
+		rootNode = node;
+		return;
+	}
+	
+	const auto& nodeElement {node->getElement()};
+	BinaryTreeNode<ElementType>* currentNode {rootNode};
+	BinaryTreeNode<ElementType>* parentNode {nullptr};
+	
+	while (currentNode != nullptr) {
+		parentNode = currentNode;
+		
+		const auto& currentNodeElement {currentNode->getElement()};
+		if (nodeElement < currentNodeElement) {
+			currentNode = currentNode->getLeftChild();
+		} else {
+			currentNode = currentNode->getRightChild();
+		}
+	}
+	
+	if (nodeElement < parentNode->getElement()) {
+		parentNode->setLeftChild(node);
+	} else {
+		parentNode->setRightChild(node);
+	}
 }
 }
