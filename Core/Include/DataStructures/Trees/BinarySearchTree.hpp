@@ -55,20 +55,21 @@ public:
 	void insert(ElementType&& element);
 	std::optional<ElementType> removeFirst(const ElementType& element);
 	std::optional<ElementType> removeMinimum();
+	std::optional<ElementType> removeMaximum();
 	std::vector<ElementType> removeAll();
 
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
-	void removeFirstLeafNode(BinaryTreeNode<ElementType>* currentNode,
-	                         BinaryTreeNode<ElementType>* parentNode,
-	                         const bool isLeftChild);
-	void removeFirstNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
-	                                       BinaryTreeNode<ElementType>* parentNode,
-	                                       const bool isLeftChild);
-	void removeFirstNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
-	                                      BinaryTreeNode<ElementType>* parentNode,
-	                                      const bool isLeftChild);
-	void removeFirstNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode);
+	void removeLeafNode(BinaryTreeNode<ElementType>* currentNode,
+	                    BinaryTreeNode<ElementType>* parentNode,
+	                    const bool isLeftChild);
+	void removeNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
+	                                  BinaryTreeNode<ElementType>* parentNode,
+	                                  const bool isLeftChild);
+	void removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
+	                                 BinaryTreeNode<ElementType>* parentNode,
+	                                 const bool isLeftChild);
+	void removeNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
 
 private:
@@ -198,13 +199,13 @@ std::optional<ElementType> BinarySearchTree<ElementType>::removeFirst(const Elem
 	const auto removedElement {currentNode->getElement()};
 	
 	if (currentNode->getLeftChild() == nullptr && currentNode->getRightChild() == nullptr) {
-		removeFirstLeafNode(currentNode, parentNode, isLeftChild);
+		removeLeafNode(currentNode, parentNode, isLeftChild);
 	} else if (currentNode->getRightChild() == nullptr) {
-		removeFirstNodeWithOnlyLeftChild(currentNode, parentNode, isLeftChild);
+		removeNodeWithOnlyLeftChild(currentNode, parentNode, isLeftChild);
 	} else if (currentNode->getLeftChild() == nullptr) {
-		removeFirstNodeWithOnlyRightChild(currentNode, parentNode, isLeftChild);
+		removeNodeWithOnlyRightChild(currentNode, parentNode, isLeftChild);
 	} else {
-		removeFirstNodeWithTwoChildren(currentNode);
+		removeNodeWithTwoChildren(currentNode);
 	}
 	
 	--nodeCount;
@@ -228,13 +229,42 @@ std::optional<ElementType> BinarySearchTree<ElementType>::removeMinimum() {
 	
 	const auto removedElement {currentNode->getElement()};
 	
+	if (currentNode->getRightChild() == nullptr) {
+		removeLeafNode(currentNode, parentNode, true);
+	} else {
+		removeNodeWithOnlyRightChild(currentNode, parentNode, true);
+	}
+	
 	--nodeCount;
 	
-	if (currentNode->getRightChild() == nullptr) {
-		return removeFirstLeafNode(currentNode, parentNode, true);
-	} else {
-		return removeFirstNodeWithOnlyRightChild(currentNode, parentNode, true);
+	return removedElement;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+std::optional<ElementType> BinarySearchTree<ElementType>::removeMaximum() {
+	if (rootNode == nullptr) {
+		return std::nullopt;
 	}
+	
+	BinaryTreeNode<ElementType>* currentNode {rootNode};
+	BinaryTreeNode<ElementType>* parentNode {nullptr};
+	
+	while (currentNode->getRightChild() != nullptr) {
+		parentNode = currentNode;
+		currentNode = currentNode->getRightChild();
+	}
+	
+	const auto removedElement {currentNode->getElement()};
+	
+	if (currentNode->getLeftChild() == nullptr) {
+		removeLeafNode(currentNode, parentNode, false);
+	} else {
+		removeNodeWithOnlyLeftChild(currentNode, parentNode, false);
+	}
+	
+	--nodeCount;
+	
+	return removedElement;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
@@ -279,9 +309,9 @@ void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-void BinarySearchTree<ElementType>::removeFirstLeafNode(BinaryTreeNode<ElementType>* currentNode,
-                                                        BinaryTreeNode<ElementType>* parentNode,
-                                                        const bool isLeftChild) {
+void BinarySearchTree<ElementType>::removeLeafNode(BinaryTreeNode<ElementType>* currentNode,
+                                                   BinaryTreeNode<ElementType>* parentNode,
+                                                   const bool isLeftChild) {
 	if (parentNode == nullptr) {
 		rootNode = nullptr;
 		delete currentNode;
@@ -295,9 +325,9 @@ void BinarySearchTree<ElementType>::removeFirstLeafNode(BinaryTreeNode<ElementTy
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-void BinarySearchTree<ElementType>::removeFirstNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
-                                                                      BinaryTreeNode<ElementType>* parentNode,
-                                                                      const bool isLeftChild) {
+void BinarySearchTree<ElementType>::removeNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
+                                                                 BinaryTreeNode<ElementType>* parentNode,
+                                                                 const bool isLeftChild) {
 	if (parentNode == nullptr) {
 		rootNode = currentNode->getRightChild();
 	} else if (isLeftChild) {
@@ -310,9 +340,9 @@ void BinarySearchTree<ElementType>::removeFirstNodeWithOnlyRightChild(BinaryTree
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-void BinarySearchTree<ElementType>::removeFirstNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
-                                                                     BinaryTreeNode<ElementType>* parentNode,
-                                                                     const bool isLeftChild) {
+void BinarySearchTree<ElementType>::removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
+                                                                BinaryTreeNode<ElementType>* parentNode,
+                                                                const bool isLeftChild) {
 	if (parentNode == nullptr) {
 		rootNode = currentNode->getLeftChild();
 	} else if (isLeftChild) {
@@ -325,7 +355,7 @@ void BinarySearchTree<ElementType>::removeFirstNodeWithOnlyLeftChild(BinaryTreeN
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-void BinarySearchTree<ElementType>::removeFirstNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode) {
+void BinarySearchTree<ElementType>::removeNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode) {
 	BinaryTreeNode<ElementType>* successorNode {currentNode->getRightChild()};
 	BinaryTreeNode<ElementType>* successorParentNode {currentNode};
 	
