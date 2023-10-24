@@ -212,13 +212,13 @@ TEST_F(NonEmptyIntegerBinaryTreeTest, GivenPredicateMatchingNoElements_WhenRemov
 	EXPECT_THAT(elements, testing::ElementsAre(10, 20, 30, 40, 50));
 }
 
-TEST_F(NonEmptyIntegerBinaryTreeTest, GivenNode_WhenRemoveAll_ThenReturnsElementsInExpectedOrder) {
+TEST_F(NonEmptyIntegerBinaryTreeTest, WhenRemoveAll_ThenReturnsElementsInPostOrder) {
 	const auto result {binaryTree.removeAll()};
 	
 	EXPECT_THAT(result, testing::ElementsAre(40, 50, 20, 30, 10));
 }
 
-TEST_F(NonEmptyIntegerBinaryTreeTest, GivenNode_WhenRemoveAll_ThenSizeIsZero) {
+TEST_F(NonEmptyIntegerBinaryTreeTest, WhenRemoveAll_ThenSizeIsZero) {
 	binaryTree.removeAll();
 	const auto size {binaryTree.getNodeCount()};
 	

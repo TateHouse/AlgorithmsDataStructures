@@ -47,7 +47,7 @@ TEST_F(EmptyIntegerBinaryTreeTest, GivenPredicate_WhenRemoveFirst_ThenSizeIsNotD
 	EXPECT_THAT(size, testing::Eq(0));
 }
 
-TEST_F(EmptyIntegerBinaryTreeTest, GivenNode_WhenRemoveAll_ThenReturnsEmptyVector) {
+TEST_F(EmptyIntegerBinaryTreeTest, WhenRemoveAll_ThenReturnsEmptyVector) {
 	const auto result {binaryTree.removeAll()};
 	
 	EXPECT_THAT(result, testing::IsEmpty());

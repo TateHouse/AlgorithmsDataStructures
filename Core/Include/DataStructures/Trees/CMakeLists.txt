@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
+		BinarySearchTree.hpp
+		BinarySearchTreeConcepts.hpp
 		BinaryTree.hpp
 		BinaryTreeNode.hpp)
 
