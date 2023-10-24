@@ -461,6 +461,7 @@ template<ElementTypeWithLessThanOperator ElementType>
 void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
 	if (rootNode == nullptr) {
 		rootNode = node;
+		++nodeCount;
 		return;
 	}
 	
