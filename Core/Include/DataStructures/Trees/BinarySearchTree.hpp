@@ -72,6 +72,7 @@ public:
 	const bool contains(const ElementType& element) const noexcept;
 	const bool isEmpty() const noexcept;
 	const std::size_t getNodeCount() const noexcept;
+	const int getHeight() const noexcept;
 
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
@@ -86,6 +87,7 @@ private:
 	                                 const bool isLeftChild);
 	void removeNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
+	const int getHeight(BinaryTreeNode<ElementType>* node) const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -351,6 +353,11 @@ const std::size_t BinarySearchTree<ElementType>::getNodeCount() const noexcept {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
+const int BinarySearchTree<ElementType>::getHeight() const noexcept {
+	return getHeight(rootNode);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
 void BinarySearchTree<ElementType>::insert(BinaryTreeNode<ElementType>* node) {
 	if (rootNode == nullptr) {
 		rootNode = node;
@@ -459,5 +466,17 @@ void BinarySearchTree<ElementType>::removeAll(BinaryTreeNode<ElementType>* node,
 	elements.emplace_back(node->getElement());
 	
 	delete node;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const int BinarySearchTree<ElementType>::getHeight(BinaryTreeNode<ElementType>* node) const noexcept {
+	if (node == nullptr) {
+		return -1;
+	}
+	
+	const auto leftSubtreeHeight {getHeight(node->getLeftChild())};
+	const auto rightSubtreeHeight {getHeight(node->getRightChild())};
+	
+	return std::max(leftSubtreeHeight, rightSubtreeHeight) + 1;
 }
 }
