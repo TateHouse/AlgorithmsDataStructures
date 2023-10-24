@@ -59,6 +59,7 @@ public:
 	std::vector<ElementType> removeAll();
 	std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	std::optional<ElementType> findMinimum() const noexcept;
+	std::optional<ElementType> findMaximum() const noexcept;
 	
 	template<typename ConstIteratorType>
 	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
@@ -330,6 +331,21 @@ std::optional<ElementType> BinarySearchTree<ElementType>::findMinimum() const no
 	
 	while (currentNode->getLeftChild() != nullptr) {
 		currentNode = currentNode->getLeftChild();
+	}
+	
+	return currentNode->getElement();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+std::optional<ElementType> BinarySearchTree<ElementType>::findMaximum() const noexcept {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto* currentNode {rootNode};
+	
+	while (currentNode->getRightChild() != nullptr) {
+		currentNode = currentNode->getRightChild();
 	}
 	
 	return currentNode->getElement();
