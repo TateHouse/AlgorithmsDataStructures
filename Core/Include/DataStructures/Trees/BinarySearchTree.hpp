@@ -58,6 +58,16 @@ public:
 	std::optional<ElementType> removeMaximum();
 	std::vector<ElementType> removeAll();
 	std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
+	
+	template<typename ConstIteratorType>
+	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
+	void traverse(ConstIteratorType begin,
+	              ConstIteratorType end,
+	              const std::function<void(const ElementType&)>& function) const noexcept;
+	
+	template<typename IteratorType>
+	requires Iterators::AllowedIterator<IteratorType, ElementType>
+	void traverse(IteratorType begin, IteratorType end, const std::function<void(ElementType&)>& function) noexcept;
 
 private:
 	void insert(BinaryTreeNode<ElementType>* node);
@@ -301,6 +311,24 @@ std::optional<ElementType> BinarySearchTree<ElementType>::findFirst(const Elemen
 	}
 	
 	return std::nullopt;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+template<typename ConstIteratorType>
+requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
+void BinarySearchTree<ElementType>::traverse(ConstIteratorType begin,
+                                             ConstIteratorType end,
+                                             const std::function<void(const ElementType&)>& function) const noexcept {
+	std::for_each(begin, end, function);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+template<typename IteratorType>
+requires Iterators::AllowedIterator<IteratorType, ElementType>
+void BinarySearchTree<ElementType>::traverse(IteratorType begin,
+                                             IteratorType end,
+                                             const std::function<void(ElementType&)>& function) noexcept {
+	std::for_each(begin, end, function);
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
