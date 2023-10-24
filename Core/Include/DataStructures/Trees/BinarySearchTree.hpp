@@ -54,6 +54,7 @@ public:
 	void insert(const ElementType& element);
 	void insert(ElementType&& element);
 	std::optional<ElementType> removeFirst(const ElementType& element);
+	std::optional<ElementType> removeMinimum();
 	std::vector<ElementType> removeAll();
 
 private:
@@ -209,6 +210,31 @@ std::optional<ElementType> BinarySearchTree<ElementType>::removeFirst(const Elem
 	--nodeCount;
 	
 	return removedElement;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+std::optional<ElementType> BinarySearchTree<ElementType>::removeMinimum() {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	BinaryTreeNode<ElementType>* currentNode {rootNode};
+	BinaryTreeNode<ElementType>* parentNode {nullptr};
+	
+	while (currentNode->getLeftChild() != nullptr) {
+		parentNode = currentNode;
+		currentNode = currentNode->getLeftChild();
+	}
+	
+	const auto removedElement {currentNode->getElement()};
+	
+	--nodeCount;
+	
+	if (currentNode->getRightChild() == nullptr) {
+		return removeFirstLeafNode(currentNode, parentNode, true);
+	} else {
+		return removeFirstNodeWithOnlyRightChild(currentNode, parentNode, true);
+	}
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
