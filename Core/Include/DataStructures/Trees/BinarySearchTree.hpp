@@ -21,6 +21,8 @@ template<ElementTypeWithLessThanOperator ElementType>
 class BinarySearchTree final {
 public:
 	BinarySearchTree() noexcept = default;
+	BinarySearchTree(const BinarySearchTree<ElementType>& other);
+	BinarySearchTree(BinarySearchTree<ElementType>&& other) noexcept;
 
 public:
 	using value_type = ElementType;
@@ -95,6 +97,20 @@ private:
 	std::size_t nodeCount {0};
 	BinaryTreeNode<ElementType>* rootNode {nullptr};
 };
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinarySearchTree<ElementType>::BinarySearchTree(const BinarySearchTree<ElementType>& other) {
+	for (auto iterator {other.cbeginInOrder()}; iterator != other.cendInOrder(); ++iterator) {
+		insert(*iterator);
+	}
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinarySearchTree<ElementType>::BinarySearchTree(BinarySearchTree<ElementType>&& other) noexcept :
+		nodeCount {other.nodeCount}, rootNode {other.rootNode} {
+	other.rootNode = nullptr;
+	other.nodeCount = 0;
+}
 
 template<ElementTypeWithLessThanOperator ElementType>
 BinarySearchTree<ElementType>::ConstInOrderIterator BinarySearchTree<ElementType>::cbeginInOrder() const noexcept {
