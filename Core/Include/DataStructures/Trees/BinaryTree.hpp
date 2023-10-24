@@ -428,7 +428,7 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 	nodeQueue.enqueue(rootNode);
 	
 	while (!nodeQueue.isEmpty()) {
-		auto currentLevelNodeCount {nodeQueue.getSize()};
+		const auto currentLevelNodeCount {nodeQueue.getSize()};
 		
 		for (std::size_t index {0}; index < currentLevelNodeCount; ++index) {
 			auto optionalNode {nodeQueue.dequeue()};
