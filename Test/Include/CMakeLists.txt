@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
-		IntegerPredicates.hpp)
+		IntegerPredicates.hpp
+		UnsortedIntegerData.hpp
+		UnsortedStringData.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})
