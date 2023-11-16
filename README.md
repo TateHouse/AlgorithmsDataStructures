@@ -7,6 +7,9 @@ implementing algorithms and data structures in C++, particularly with a focus on
 
 ### Algorithms
 
+- Sorting
+    - Bubble Sort
+
 ### Data Structures
 
 - Linked Lists
