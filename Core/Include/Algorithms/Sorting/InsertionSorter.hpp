@@ -1,7 +1,5 @@
 #pragma once
 
-#include <algorithm>
-
 #include "ArrayOrVectorConcept.hpp"
 #include "SortingAlgorithm.hpp"
 
