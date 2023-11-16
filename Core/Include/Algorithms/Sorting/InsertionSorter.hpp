@@ -1,7 +1,5 @@
 #pragma once
 
-#include <algorithm>
-
 #include "ArrayOrVectorConcept.hpp"
 #include "SortingAlgorithm.hpp"
 
@@ -10,13 +8,13 @@ template<ArrayOrVectorConcept Container>
 class InsertionSorter final : public SortingAlgorithm<typename Container::value_type> {
 public:
 	explicit InsertionSorter(Container& container) noexcept;
-	InsertionSorter(const InsertionSorter& insertionSorter) noexcept = delete;
-	InsertionSorter(InsertionSorter&& insertionSorter) noexcept = delete;
+	InsertionSorter(const InsertionSorter& other) noexcept = delete;
+	InsertionSorter(InsertionSorter&& other) noexcept = delete;
 	~InsertionSorter() noexcept override = default;
 
 public:
-	InsertionSorter& operator=(const InsertionSorter& insertionSorter) noexcept = delete;
-	InsertionSorter& operator=(InsertionSorter&& insertionSorter) noexcept = delete;
+	InsertionSorter& operator=(const InsertionSorter& other) noexcept = delete;
+	InsertionSorter& operator=(InsertionSorter&& other) noexcept = delete;
 
 public:
 	virtual void sort(const std::function<bool(const typename Container::value_type&,
