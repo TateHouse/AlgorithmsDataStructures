@@ -51,12 +51,15 @@ void InsertionSorter<Container>::insertionSort(Iterator begin,
                                                const std::function<bool(const typename Container::value_type&,
                                                                         const typename Container::value_type&)>& predicate) noexcept {
 	for (auto elementIterator {begin + 1}; elementIterator != end; ++elementIterator) {
+		auto currentElement {*elementIterator};
 		auto currentIterator {elementIterator};
 		
-		while (currentIterator != begin && predicate(*currentIterator, *(currentIterator - 1))) {
-			std::iter_swap(currentIterator, currentIterator - 1);
+		while (currentIterator != begin && predicate(currentElement, *(currentIterator - 1))) {
+			*currentIterator = *(currentIterator - 1);
 			--currentIterator;
 		}
+		
+		*currentIterator = currentElement;
 	}
 }
 }
