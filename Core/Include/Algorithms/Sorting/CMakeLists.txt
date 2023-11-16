@@ -4,6 +4,7 @@ SET(HEADER_FILES
 		ArrayOrVectorConcept.hpp
 		BubbleSorter.hpp
 		InsertionSorter.hpp
+		MergeSorter.hpp
 		SortingAlgorithm.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})
