@@ -21,7 +21,7 @@ implementing algorithms and data structures in C++, particularly with a focus on
     - Fixed-Size Array Stack
     - Singly Linked List Stack
 - Trees
-    - BinaryTree
+    - Binary Tree
     - Binary Search Tree
 
 ## Dependencies
