@@ -10,13 +10,13 @@ template<ArrayOrVectorConcept Container>
 class BubbleSorter final : public SortingAlgorithm<typename Container::value_type> {
 public:
 	explicit BubbleSorter(Container& container) noexcept;
-	BubbleSorter(const BubbleSorter& bubbleSorter) noexcept = delete;
-	BubbleSorter(BubbleSorter&& bubbleSorter) noexcept = delete;
+	BubbleSorter(const BubbleSorter& other) noexcept = delete;
+	BubbleSorter(BubbleSorter&& other) noexcept = delete;
 	~BubbleSorter() noexcept override = default;
 
 public:
-	BubbleSorter& operator=(const BubbleSorter& bubbleSorter) noexcept = delete;
-	BubbleSorter& operator=(BubbleSorter&& bubbleSorter) noexcept = delete;
+	BubbleSorter& operator=(const BubbleSorter& other) noexcept = delete;
+	BubbleSorter& operator=(BubbleSorter&& other) noexcept = delete;
 
 public:
 	virtual void sort(const std::function<bool(const typename Container::value_type&,
