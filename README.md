@@ -11,6 +11,7 @@ implementing algorithms and data structures in C++, particularly with a focus on
     - Bubble Sort
     - Insertion Sort
     - Merge Sort
+    - Quick Sort
 
 ### Data Structures
 
