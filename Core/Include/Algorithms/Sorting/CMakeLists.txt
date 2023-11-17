@@ -6,6 +6,7 @@ SET(HEADER_FILES
 		InsertionSorter.hpp
 		MergeSorter.hpp
 		QuickSorter.hpp
+		SelectionSorter.hpp
 		SortingAlgorithm.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})

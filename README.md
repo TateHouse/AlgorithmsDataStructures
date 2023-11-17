@@ -12,6 +12,7 @@ implementing algorithms and data structures in C++, particularly with a focus on
     - Insertion Sort
     - Merge Sort
     - Quick Sort
+    - Selection Sort
 
 ### Data Structures
 
