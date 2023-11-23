@@ -5,6 +5,7 @@ SET(HEADER_FILES
 		DivisionMethodHashFunctionFactory.hpp
 		HashConcepts.hpp
 		HashFunction.hpp
-		HashFunctionFactory.hpp)
+		HashFunctionFactory.hpp
+		SeparateChainingHashTable.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} INTERFACE ${HEADER_FILES})
