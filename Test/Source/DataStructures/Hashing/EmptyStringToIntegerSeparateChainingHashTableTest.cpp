@@ -62,4 +62,10 @@ TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenContains_
 	
 	EXPECT_THAT(value, testing::IsFalse());
 }
+
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, WhenIsEmpty_ThenReturnsTrue) {
+	const auto value {hashTable.isEmpty()};
+	
+	EXPECT_THAT(value, testing::IsTrue());
+}
 }

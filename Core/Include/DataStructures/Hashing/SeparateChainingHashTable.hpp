@@ -30,6 +30,7 @@ public:
 	std::optional<ValueType> remove(const KeyType& key) noexcept;
 	std::optional<ValueType> find(const KeyType& key) const noexcept;
 	const bool contains(const KeyType& key) const noexcept;
+	const bool isEmpty() const noexcept;
 	const std::size_t getSize() const noexcept;
 	const std::size_t getTableSize() const noexcept;
 
@@ -131,6 +132,11 @@ const bool SeparateChainingHashTable<KeyType, ValueType>::contains(const KeyType
 	})};
 	
 	return iterator != bucket.cend();
+}
+
+template<Hashable KeyType, typename ValueType>
+const bool SeparateChainingHashTable<KeyType, ValueType>::isEmpty() const noexcept {
+	return elementCount == 0;
 }
 
 template<Hashable KeyType, typename ValueType>
