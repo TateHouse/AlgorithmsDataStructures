@@ -14,8 +14,10 @@ namespace Core::DataStructures::Hashing {
 template<Hashable KeyType, typename ValueType>
 class SeparateChainingHashTable final {
 public:
-	explicit SeparateChainingHashTable(const std::size_t tableSize,
-	                                   std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory) noexcept;
+	SeparateChainingHashTable(const std::size_t tableSize,
+	                          std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory,
+	                          const float loadFactor = 0.75f) noexcept;
+	
 	SeparateChainingHashTable(const SeparateChainingHashTable& other) = delete;
 	SeparateChainingHashTable(SeparateChainingHashTable&& other) noexcept = default;
 	~SeparateChainingHashTable() noexcept = default;
@@ -46,17 +48,21 @@ public:
 	const std::size_t getTableSize() const noexcept;
 
 private:
-	static constexpr float loadFactor {0.75f};
 	std::size_t tableSize;
 	std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory;
 	std::vector<LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>> buckets;
+	float loadFactor;
 	std::size_t elementCount {0};
 };
 
 template<Hashable KeyType, typename ValueType>
 SeparateChainingHashTable<KeyType, ValueType>::SeparateChainingHashTable(const std::size_t tableSize,
-                                                                         std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory) noexcept
-		: tableSize {tableSize}, hashFunctionFactory {std::move(hashFunctionFactory)}, buckets {tableSize} {
+                                                                         std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory,
+                                                                         const float loadFactor) noexcept:
+		tableSize {tableSize},
+		hashFunctionFactory {std::move(hashFunctionFactory)},
+		buckets {tableSize},
+		loadFactor {loadFactor} {
 	
 }
 
@@ -79,7 +85,8 @@ template<Hashable KeyType, typename ValueType>
 typename SeparateChainingHashTable<KeyType, ValueType>::ConstForwardIterator SeparateChainingHashTable<KeyType, ValueType>::cend() const noexcept {
 	return ConstForwardIterator {&buckets,
 	                             buckets.size(),
-	                             LinkedLists::Iterators::SinglyLinkedListConstForwardIterator<std::pair<KeyType, ValueType>> {nullptr}};
+	                             LinkedLists::Iterators::SinglyLinkedListConstForwardIterator<std::pair<KeyType, ValueType>> {
+			                             nullptr}};
 }
 
 template<Hashable KeyType, typename ValueType>
