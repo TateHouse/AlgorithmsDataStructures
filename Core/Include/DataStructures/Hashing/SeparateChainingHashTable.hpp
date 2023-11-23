@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iterator>
 #include <memory>
 #include <optional>
 #include <vector>
@@ -26,8 +27,8 @@ public:
 	void insert(const KeyType& key, const ValueType& value);
 	void insert(const KeyType& key, ValueType&& value);
 	void resize(const std::size_t updatedTableSize);
+	std::optional<ValueType> remove(const KeyType& key) noexcept;
 	std::optional<ValueType> find(const KeyType& key) const noexcept;
-	
 	const std::size_t getSize() const noexcept;
 	const std::size_t getTableSize() const noexcept;
 
@@ -35,7 +36,7 @@ private:
 	static constexpr float loadFactor {0.75f};
 	std::size_t tableSize;
 	std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory;
-	std::vector<LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>> buckets;
+	std::vector<LinkedLists::SinglyLinkedList < std::pair<KeyType, ValueType>>> buckets;
 	std::size_t elementCount {0};
 };
 
@@ -84,6 +85,27 @@ void SeparateChainingHashTable<KeyType, ValueType>::resize(const std::size_t upd
 	
 	buckets = std::move(updatedBuckets);
 	tableSize = updatedTableSize;
+}
+
+template<Hashable KeyType, typename ValueType>
+std::optional<ValueType> SeparateChainingHashTable<KeyType, ValueType>::remove(const KeyType& key) noexcept {
+	const auto hashFunction {hashFunctionFactory->create(tableSize)};
+	const auto hash {(*hashFunction)(key)};
+	auto& bucket {buckets[hash]};
+	const auto iterator {bucket.findFirst([&key](const std::pair<KeyType, ValueType>& pair) {
+		return pair.first == key;
+	})};
+	
+	if (iterator == bucket.end()) {
+		return std::nullopt;
+	}
+	
+	const auto index {std::distance(bucket.begin(), iterator)};
+	const auto value {iterator->second};
+	bucket.removeAtIndex(index);
+	--elementCount;
+	
+	return value;
 }
 
 template<Hashable KeyType, typename ValueType>

@@ -27,17 +27,32 @@ TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyAndValue_WhenI
 	EXPECT_THAT(size, testing::Eq(1));
 }
 
-TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenFind_ThenReturnsNullOptional) {
-	const auto key {"Thirty Four"};
-	const auto value {hashTable.find(key)};
-	
-	EXPECT_THAT(value, testing::Eq(std::nullopt));
-}
-
 TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, WhenResize_ThenTableSizeIsZero) {
 	hashTable.resize(0);
 	
 	const auto size {hashTable.getSize()};
 	EXPECT_THAT(size, testing::Eq(0));
+}
+
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenRemove_ThenReturnsNullOptional) {
+	const auto key {"Thirty Four"};
+	const auto value {hashTable.remove(key)};
+	
+	EXPECT_THAT(value, testing::Eq(std::nullopt));
+}
+
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenRemove_ThenSizeIsZero) {
+	const auto key {"Thirty Four"};
+	hashTable.remove(key);
+	
+	const auto size {hashTable.getSize()};
+	EXPECT_THAT(size, testing::Eq(0));
+}
+
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenFind_ThenReturnsNullOptional) {
+	const auto key {"Thirty Four"};
+	const auto value {hashTable.find(key)};
+	
+	EXPECT_THAT(value, testing::Eq(std::nullopt));
 }
 }

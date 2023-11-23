@@ -34,7 +34,8 @@ TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyAndValue_Wh
 	EXPECT_THAT(size, testing::Eq(5));
 }
 
-TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenEightKeysAndValues_WhenInsert_ThenTableSizeIsDoubled) {
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest,
+       GivenEightKeysAndValues_WhenInsert_ThenTableSizeIsDoubled) {
 	hashTable.insert("Ten", 10);
 	hashTable.insert("Twenty", 20);
 	hashTable.insert("Sixty Four", 64);
@@ -45,6 +46,38 @@ TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenEightKeysAndVa
 	EXPECT_THAT(tableSize, testing::Eq(22));
 }
 
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenRemove_ThenReturnsValue) {
+	const auto key {"Fifty"};
+	const auto value {hashTable.remove(key)};
+	
+	EXPECT_THAT(value, testing::Optional(50));
+};
+
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenRemove_ThenSizeIsIncremented) {
+	const auto key {"Fifty"};
+	hashTable.remove(key);
+	
+	const auto size {hashTable.getSize()};
+	EXPECT_THAT(size, testing::Eq(3));
+};
+
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest,
+       GivenKeyThatDoesNotExist_WhenRemove_ThenSizeRemainsUnchanged) {
+	const auto key {"Ten"};
+	hashTable.remove(key);
+	
+	const auto size {hashTable.getSize()};
+	EXPECT_THAT(size, testing::Eq(4));
+};
+
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenRemove_ThenKeyValuePairIsRemoved) {
+	const auto key {"Fifty"};
+	hashTable.remove(key);
+	
+	const auto value {hashTable.find(key)};
+	EXPECT_THAT(value, testing::Eq(std::nullopt));
+};
+
 TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenFind_ThenReturnsValue) {
 	const auto key {"Two"};
 	const auto value {hashTable.find(key)};
@@ -52,7 +85,8 @@ TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenFind_T
 	EXPECT_THAT(value, testing::Optional(2));
 };
 
-TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyThatDoesNotExist_WhenFind_ThenReturnsNullOptional) {
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest,
+       GivenKeyThatDoesNotExist_WhenFind_ThenReturnsNullOptional) {
 	const auto key {"Ten"};
 	const auto value {hashTable.find(key)};
 	
