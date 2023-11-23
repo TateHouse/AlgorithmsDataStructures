@@ -8,7 +8,6 @@
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
 #include "Iterators/SeparateChainingHashTableConstForwardIterator.hpp"
 #include "Iterators/SeparateChainingHashTableForwardIterator.hpp"
-#include "HashConcepts.hpp"
 #include "HashFunctionFactory.hpp"
 
 namespace Core::DataStructures::Hashing {
