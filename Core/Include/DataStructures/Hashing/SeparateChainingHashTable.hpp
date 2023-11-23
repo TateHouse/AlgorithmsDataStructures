@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
@@ -24,13 +25,14 @@ public:
 public:
 	void insert(const KeyType& key, const ValueType& value);
 	void insert(const KeyType& key, ValueType&& value);
+	std::optional<ValueType> find(const KeyType& key) const noexcept;
 	
 	const std::size_t getSize() const noexcept;
 
 private:
 	std::size_t tableSize;
 	std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory;
-	std::vector<LinkedLists::SinglyLinkedList<ValueType>> buckets;
+	std::vector<LinkedLists::SinglyLinkedList <std::pair<KeyType, ValueType>>> buckets;
 	std::size_t elementCount {0};
 };
 
@@ -46,7 +48,7 @@ void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, c
 	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
 	
-	buckets[hash].insertAtTail(value);
+	buckets[hash].insertAtTail(std::make_pair(key, value));
 	++elementCount;
 }
 
@@ -55,12 +57,24 @@ void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, V
 	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
 	
-	buckets[hash].insertAtTail(std::move(value));
+	buckets[hash].insertAtTail(std::make_pair(key, value));
 	++elementCount;
 }
 
 template<Hashable KeyType, typename ValueType>
 const std::size_t SeparateChainingHashTable<KeyType, ValueType>::getSize() const noexcept {
 	return elementCount;
+}
+
+template<Hashable KeyType, typename ValueType>
+std::optional<ValueType> SeparateChainingHashTable<KeyType, ValueType>::find(const KeyType& key) const noexcept {
+	const auto hashFunction {hashFunctionFactory->create(tableSize)};
+	const auto hash {(*hashFunction)(key)};
+	const auto& bucket {buckets[hash]};
+	const auto iterator {bucket.findFirst([&key](const std::pair<KeyType, ValueType>& pair) {
+		return pair.first == key;
+	})};
+	
+	return iterator != bucket.cend() ? std::make_optional(iterator->second) : std::nullopt;
 }
 }
