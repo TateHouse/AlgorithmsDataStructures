@@ -13,6 +13,8 @@ implementing algorithms and data structures in C++, particularly with a focus on
     - Merge Sort
     - Quick Sort
     - Selection Sort
+- Hash Functions
+    - Division Method
 
 ### Data Structures
 
@@ -30,11 +32,8 @@ implementing algorithms and data structures in C++, particularly with a focus on
 - Trees
     - Binary Tree
     - Binary Search Tree
-- Hashing
-    - Hash Tables
-        - Separate Chaining Hash Table
-    - Hash Functions
-        - Division Method
+- Hash Tables
+    - Separate Chaining Hash Table
 
 ## Dependencies
 
