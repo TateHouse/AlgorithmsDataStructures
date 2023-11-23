@@ -1,5 +1,6 @@
 #include <gmock/gmock.h>
 
+#include <memory>
 #include <string>
 
 #include "DataStructures/Hashing/DivisionMethodHashFunctionFactory.hpp"
@@ -10,10 +11,10 @@ class EmptyStringToIntegerSeparateChainingHashTableTest : public testing::Test {
 public:
 	EmptyStringToIntegerSeparateChainingHashTableTest() noexcept = default;
 	virtual ~EmptyStringToIntegerSeparateChainingHashTableTest() noexcept = default;
-	
+
 protected:
-	DivisionMethodHashFunctionFactory<std::string> hashFunctionFactory {};
-	SeparateChainingHashTable<std::string, int> hashTable {11, hashFunctionFactory};
+	SeparateChainingHashTable<std::string, int> hashTable {11,
+	                                                       std::make_unique<DivisionMethodHashFunctionFactory<std::string>>()};
 };
 
 TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyAndValue_WhenInsert_ThenSizeIsIncremented) {

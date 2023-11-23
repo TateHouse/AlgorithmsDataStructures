@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
@@ -11,7 +12,7 @@ template<Hashable KeyType, typename ValueType>
 class SeparateChainingHashTable final {
 public:
 	explicit SeparateChainingHashTable(const std::size_t tableSize,
-	                                   const HashFunctionFactory<KeyType>& hashFunctionFactory) noexcept;
+	                                   std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory) noexcept;
 	SeparateChainingHashTable(const SeparateChainingHashTable& other) = delete;
 	SeparateChainingHashTable(SeparateChainingHashTable&& other) noexcept = default;
 	~SeparateChainingHashTable() noexcept = default;
@@ -28,21 +29,21 @@ public:
 
 private:
 	std::size_t tableSize;
-	const HashFunctionFactory<KeyType>& hashFunctionFactory;
+	std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory;
 	std::vector<LinkedLists::SinglyLinkedList<ValueType>> buckets;
 	std::size_t elementCount {0};
 };
 
 template<Hashable KeyType, typename ValueType>
 SeparateChainingHashTable<KeyType, ValueType>::SeparateChainingHashTable(const std::size_t tableSize,
-                                                                         const HashFunctionFactory<KeyType>& hashFunctionFactory) noexcept
-		: tableSize {tableSize}, hashFunctionFactory {hashFunctionFactory}, buckets {tableSize} {
+                                                                         std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory) noexcept
+		: tableSize {tableSize}, hashFunctionFactory {std::move(hashFunctionFactory)}, buckets {tableSize} {
 	
 }
 
 template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, const ValueType& value) {
-	const auto hashFunction {hashFunctionFactory.create(tableSize)};
+	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
 	
 	buckets[hash].insertAtTail(value);
@@ -51,7 +52,7 @@ void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, c
 
 template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, ValueType&& value) {
-	const auto hashFunction {hashFunctionFactory.create(tableSize)};
+	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
 	
 	buckets[hash].insertAtTail(std::move(value));
