@@ -55,4 +55,11 @@ TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenFind_Then
 	
 	EXPECT_THAT(value, testing::Eq(std::nullopt));
 }
+
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenContains_ThenReturnsFalse) {
+	const auto key {"Thirty Four"};
+	const auto value {hashTable.contains(key)};
+	
+	EXPECT_THAT(value, testing::IsFalse());
+}
 }

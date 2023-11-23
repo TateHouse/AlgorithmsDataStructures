@@ -92,4 +92,18 @@ TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest,
 	
 	EXPECT_THAT(value, testing::Eq(std::nullopt));
 };
+
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenContains_ThenReturnsTrue) {
+	const auto key {"Two"};
+	const auto value {hashTable.contains(key)};
+	
+	EXPECT_THAT(value, testing::IsTrue());
+};
+
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyThatDoesNotExist_WhenContains_ThenReturnsFalse) {
+	const auto key {"Ten"};
+	const auto value {hashTable.contains(key)};
+	
+	EXPECT_THAT(value, testing::IsFalse());
+};
 }

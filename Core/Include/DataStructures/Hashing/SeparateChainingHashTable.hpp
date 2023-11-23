@@ -29,6 +29,7 @@ public:
 	void resize(const std::size_t updatedTableSize);
 	std::optional<ValueType> remove(const KeyType& key) noexcept;
 	std::optional<ValueType> find(const KeyType& key) const noexcept;
+	const bool contains(const KeyType& key) const noexcept;
 	const std::size_t getSize() const noexcept;
 	const std::size_t getTableSize() const noexcept;
 
@@ -118,6 +119,18 @@ std::optional<ValueType> SeparateChainingHashTable<KeyType, ValueType>::find(con
 	})};
 	
 	return iterator != bucket.cend() ? std::make_optional(iterator->second) : std::nullopt;
+}
+
+template<Hashable KeyType, typename ValueType>
+const bool SeparateChainingHashTable<KeyType, ValueType>::contains(const KeyType& key) const noexcept {
+	const auto hashFunction {hashFunctionFactory->create(tableSize)};
+	const auto hash {(*hashFunction)(key)};
+	const auto& bucket {buckets[hash]};
+	const auto iterator {bucket.findFirst([&key](const std::pair<KeyType, ValueType>& pair) {
+		return pair.first == key;
+	})};
+	
+	return iterator != bucket.cend();
 }
 
 template<Hashable KeyType, typename ValueType>
