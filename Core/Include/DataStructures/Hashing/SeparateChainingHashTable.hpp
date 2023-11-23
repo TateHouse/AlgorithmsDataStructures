@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
+#include "Iterators/SeparateChainingHashTableForwardIterator.hpp"
 #include "HashConcepts.hpp"
 #include "HashFunctionFactory.hpp"
 
@@ -24,6 +25,13 @@ public:
 	SeparateChainingHashTable& operator=(SeparateChainingHashTable&& other) noexcept = default;
 
 public:
+	using value_type = std::pair<KeyType, ValueType>;
+	using ForwardIterator = Iterators::SeparateChainingHashTableForwardIterator<KeyType, ValueType>;
+	
+	ForwardIterator begin() noexcept;
+	ForwardIterator end() noexcept;
+
+public:
 	void insert(const KeyType& key, const ValueType& value);
 	void insert(const KeyType& key, ValueType&& value);
 	void resize(const std::size_t updatedTableSize);
@@ -38,7 +46,7 @@ private:
 	static constexpr float loadFactor {0.75f};
 	std::size_t tableSize;
 	std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory;
-	std::vector<LinkedLists::SinglyLinkedList < std::pair<KeyType, ValueType>>> buckets;
+	std::vector<LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>> buckets;
 	std::size_t elementCount {0};
 };
 
@@ -47,6 +55,28 @@ SeparateChainingHashTable<KeyType, ValueType>::SeparateChainingHashTable(const s
                                                                          std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory) noexcept
 		: tableSize {tableSize}, hashFunctionFactory {std::move(hashFunctionFactory)}, buckets {tableSize} {
 	
+}
+
+template<Hashable KeyType, typename ValueType>
+typename SeparateChainingHashTable<KeyType, ValueType>::ForwardIterator SeparateChainingHashTable<KeyType, ValueType>::begin() noexcept {
+	std::size_t bucketIndex {0};
+	
+	while (bucketIndex < buckets.size() && buckets[bucketIndex].isEmpty()) {
+		++bucketIndex;
+	}
+	
+	if (bucketIndex < buckets.size()) {
+		return ForwardIterator {&buckets, bucketIndex, buckets[bucketIndex].begin()};
+	}
+	
+	return end();
+}
+
+template<Hashable KeyType, typename ValueType>
+typename SeparateChainingHashTable<KeyType, ValueType>::ForwardIterator SeparateChainingHashTable<KeyType, ValueType>::end() noexcept {
+	return ForwardIterator {&buckets,
+	                        buckets.size(),
+	                        LinkedLists::Iterators::SinglyLinkedListForwardIterator<std::pair<KeyType, ValueType>> {nullptr}};
 }
 
 template<Hashable KeyType, typename ValueType>

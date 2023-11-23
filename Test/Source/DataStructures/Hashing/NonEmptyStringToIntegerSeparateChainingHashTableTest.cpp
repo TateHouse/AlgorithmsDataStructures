@@ -24,6 +24,23 @@ NonEmptyStringToIntegerSeparateChainingHashTableTest::NonEmptyStringToIntegerSep
 	hashTable.insert("Fifty", 50);
 };
 
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, WhenForwardIterate_ThenIteratesOverAllElements) {
+	const auto begin {hashTable.begin()};
+	const auto end {hashTable.end()};
+	
+	std::vector<std::pair<std::string, int>> result {};
+	for (auto iterator {begin}; iterator != end; ++iterator) {
+		result.push_back(*iterator);
+	}
+	
+	std::vector<std::pair<std::string, int>> expected {{"Thirty Four",       34},
+	                                                   {"One Hundred Seven", 107},
+	                                                   {"Two",               2},
+	                                                   {"Fifty",             50}};
+	
+	EXPECT_THAT(result, testing::UnorderedElementsAreArray(expected));
+}
+
 TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyAndValue_WhenInsert_ThenSizeIsIncremented) {
 	const auto key {"Ten"};
 	const auto value {10};

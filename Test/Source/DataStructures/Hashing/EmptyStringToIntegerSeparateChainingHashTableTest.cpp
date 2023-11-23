@@ -17,6 +17,20 @@ protected:
 	                                                       std::make_unique<DivisionMethodHashFunctionFactory<std::string>>()};
 };
 
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, WhenForwardIterate_ThenIteratesOverAllElements) {
+	const auto begin {hashTable.begin()};
+	const auto end {hashTable.end()};
+	
+	std::vector<std::pair<std::string, int>> result {};
+	for (auto iterator {begin}; iterator != end; ++iterator) {
+		result.push_back(*iterator);
+	}
+	
+	std::vector<std::pair<std::string, int>> expected {};
+	
+	EXPECT_THAT(result, testing::UnorderedElementsAreArray(expected));
+}
+
 TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyAndValue_WhenInsert_ThenSizeIsIncremented) {
 	const auto key {"Thirty Four"};
 	const auto value {34};
