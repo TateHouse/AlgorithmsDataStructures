@@ -33,4 +33,11 @@ TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenFind_Then
 	
 	EXPECT_THAT(value, testing::Eq(std::nullopt));
 }
+
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, WhenResize_ThenTableSizeIsZero) {
+	hashTable.resize(0);
+	
+	const auto size {hashTable.getSize()};
+	EXPECT_THAT(size, testing::Eq(0));
+}
 }

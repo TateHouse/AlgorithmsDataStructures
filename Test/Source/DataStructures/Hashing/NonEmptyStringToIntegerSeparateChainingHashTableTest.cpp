@@ -34,6 +34,17 @@ TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyAndValue_Wh
 	EXPECT_THAT(size, testing::Eq(5));
 }
 
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenEightKeysAndValues_WhenInsert_ThenTableSizeIsDoubled) {
+	hashTable.insert("Ten", 10);
+	hashTable.insert("Twenty", 20);
+	hashTable.insert("Sixty Four", 64);
+	hashTable.insert("One Hundred", 100);
+	hashTable.insert("Nine", 9);
+	
+	const auto tableSize {hashTable.getTableSize()};
+	EXPECT_THAT(tableSize, testing::Eq(22));
+}
+
 TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenFind_ThenReturnsValue) {
 	const auto key {"Two"};
 	const auto value {hashTable.find(key)};
