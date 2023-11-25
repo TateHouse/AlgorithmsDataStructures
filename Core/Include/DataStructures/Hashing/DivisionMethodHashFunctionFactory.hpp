@@ -17,8 +17,11 @@ public:
 	DivisionMethodHashFunctionFactory& operator=(DivisionMethodHashFunctionFactory&& other) noexcept = default;
 
 public:
-	std::unique_ptr<HashFunction<KeyType>> create(const std::size_t tableSize) const noexcept override {
-		return std::make_unique<DivisionMethodHashFunction<KeyType>>(tableSize);
-	}
+	std::unique_ptr<HashFunction<KeyType>> create(const std::size_t tableSize) const noexcept override;
 };
+
+template<typename KeyType>
+std::unique_ptr<HashFunction<KeyType>> DivisionMethodHashFunctionFactory<KeyType>::create(const std::size_t tableSize) const noexcept {
+	return std::make_unique<DivisionMethodHashFunction<KeyType>>(tableSize);
+}
 }
