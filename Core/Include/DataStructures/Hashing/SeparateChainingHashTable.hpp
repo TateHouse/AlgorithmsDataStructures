@@ -66,6 +66,10 @@ SeparateChainingHashTable<KeyType, ValueType>::SeparateChainingHashTable(const s
 	if (tableSize == 0) {
 		throw std::invalid_argument {"The table size must be greater than 0."};
 	}
+	
+	if (loadFactor <= 0.0f || loadFactor >= 1.0f) {
+		throw std::invalid_argument {"The load factor must be in the range (0.0f, 1.0f)"};
+	}
 }
 
 template<Hashable KeyType, typename ValueType>
