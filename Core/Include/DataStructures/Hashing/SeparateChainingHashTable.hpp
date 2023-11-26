@@ -16,7 +16,7 @@ class SeparateChainingHashTable final {
 public:
 	SeparateChainingHashTable(const std::size_t tableSize,
 	                          std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory,
-	                          const float loadFactor = 0.75f) noexcept;
+	                          const float loadFactor = 0.75f);
 	
 	SeparateChainingHashTable(const SeparateChainingHashTable& other) = delete;
 	SeparateChainingHashTable(SeparateChainingHashTable&& other) noexcept = default;
@@ -58,12 +58,14 @@ private:
 template<Hashable KeyType, typename ValueType>
 SeparateChainingHashTable<KeyType, ValueType>::SeparateChainingHashTable(const std::size_t tableSize,
                                                                          std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory,
-                                                                         const float loadFactor) noexcept:
+                                                                         const float loadFactor):
 		tableSize {tableSize},
 		hashFunctionFactory {std::move(hashFunctionFactory)},
 		buckets {tableSize},
 		loadFactor {loadFactor} {
-	
+	if (tableSize == 0) {
+		throw std::invalid_argument {"The table size must be greater than 0."};
+	}
 }
 
 template<Hashable KeyType, typename ValueType>

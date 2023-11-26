@@ -56,11 +56,11 @@ TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKeyAndValue_WhenI
 	EXPECT_THAT(size, testing::Eq(1));
 }
 
-TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, WhenResize_ThenTableSizeIsZero) {
-	hashTable.resize(0);
+TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, WhenResize_ThenTableSizeIsUpdated) {
+	hashTable.resize(71);
 	
-	const auto size {hashTable.getSize()};
-	EXPECT_THAT(size, testing::Eq(0));
+	const auto size {hashTable.getTableSize()};
+	EXPECT_THAT(size, testing::Eq(71));
 }
 
 TEST_F(EmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenRemove_ThenReturnsNullOptional) {

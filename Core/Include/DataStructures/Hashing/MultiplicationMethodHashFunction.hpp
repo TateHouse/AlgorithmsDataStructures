@@ -30,6 +30,10 @@ template<Hashable KeyType>
 MultiplicationMethodHashFunction<KeyType>::MultiplicationMethodHashFunction(const std::size_t tableSize,
                                                                             const double hashMultiplier)
 		: tableSize {tableSize}, hashMultiplier {hashMultiplier} {
+	if (tableSize == 0) {
+		throw std::invalid_argument {"The table size must be greater than 0."};
+	}
+	
 	if (hashMultiplier <= 0.0f || hashMultiplier >= 1.0f) {
 		throw std::invalid_argument {"The hash multiplier must be in range (0, 1)"};
 	}
