@@ -7,7 +7,7 @@ namespace Core::DataStructures::Hashing {
 template<Hashable KeyType>
 class DivisionMethodHashFunction final : public HashFunction<KeyType> {
 public:
-	explicit DivisionMethodHashFunction(const std::size_t tableSize) noexcept;
+	explicit DivisionMethodHashFunction(const std::size_t tableSize);
 	DivisionMethodHashFunction(const DivisionMethodHashFunction& other) noexcept = default;
 	DivisionMethodHashFunction(DivisionMethodHashFunction&& other) noexcept = default;
 	~DivisionMethodHashFunction() noexcept = default;
@@ -22,9 +22,11 @@ private:
 };
 
 template<Hashable KeyType>
-DivisionMethodHashFunction<KeyType>::DivisionMethodHashFunction(const std::size_t tableSize) noexcept
-		: tableSize(tableSize) {
-	
+DivisionMethodHashFunction<KeyType>::DivisionMethodHashFunction(const std::size_t tableSize)
+		: tableSize {tableSize} {
+	if (tableSize == 0) {
+		throw std::invalid_argument {"The table size must be greater than 0."};
+	}
 }
 
 template<Hashable KeyType>

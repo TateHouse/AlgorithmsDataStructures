@@ -16,7 +16,7 @@ class SeparateChainingHashTable final {
 public:
 	SeparateChainingHashTable(const std::size_t tableSize,
 	                          std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory,
-	                          const float loadFactor = 0.75f) noexcept;
+	                          const float loadFactor = 0.75f);
 	
 	SeparateChainingHashTable(const SeparateChainingHashTable& other) = delete;
 	SeparateChainingHashTable(SeparateChainingHashTable&& other) noexcept = default;
@@ -58,12 +58,18 @@ private:
 template<Hashable KeyType, typename ValueType>
 SeparateChainingHashTable<KeyType, ValueType>::SeparateChainingHashTable(const std::size_t tableSize,
                                                                          std::unique_ptr<HashFunctionFactory<KeyType>> hashFunctionFactory,
-                                                                         const float loadFactor) noexcept:
+                                                                         const float loadFactor):
 		tableSize {tableSize},
 		hashFunctionFactory {std::move(hashFunctionFactory)},
 		buckets {tableSize},
 		loadFactor {loadFactor} {
+	if (tableSize == 0) {
+		throw std::invalid_argument {"The table size must be greater than 0."};
+	}
 	
+	if (loadFactor <= 0.0f || loadFactor >= 1.0f) {
+		throw std::invalid_argument {"The load factor must be in the range (0.0f, 1.0f)"};
+	}
 }
 
 template<Hashable KeyType, typename ValueType>
@@ -116,7 +122,18 @@ template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, const ValueType& value) {
 	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
-	buckets[hash].insertAtTail(std::make_pair(key, value));
+	auto& bucket {buckets[hash]};
+	
+	auto iterator {bucket.findFirst([&key](const std::pair<KeyType, ValueType>& pair) {
+		return pair.first == key;
+	})};
+	
+	if (iterator != bucket.end()) {
+		iterator->second = value;
+		return;
+	}
+	
+	bucket.insertAtTail(std::make_pair(key, value));
 	++elementCount;
 	
 	if (static_cast<float>(elementCount) / tableSize >= loadFactor) {
@@ -128,7 +145,18 @@ template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, ValueType&& value) {
 	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
-	buckets[hash].insertAtTail(std::make_pair(key, value));
+	auto& bucket {buckets[hash]};
+	
+	auto iterator {bucket.findFirst([&key](const std::pair<KeyType, ValueType>& pair) {
+		return pair.first == key;
+	})};
+	
+	if (iterator != bucket.end()) {
+		iterator->second = value;
+		return;
+	}
+	
+	bucket.insertAtTail(std::make_pair(key, value));
 	++elementCount;
 	
 	if (static_cast<float>(elementCount) / tableSize >= loadFactor) {
@@ -138,6 +166,10 @@ void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, V
 
 template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::resize(const std::size_t updatedTableSize) {
+	if (updatedTableSize == 0) {
+		throw std::invalid_argument {"The table size must be greater than 0."};
+	}
+	
 	const auto hashFunction {hashFunctionFactory->create(updatedTableSize)};
 	std::vector<LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>> updatedBuckets {updatedTableSize};
 	

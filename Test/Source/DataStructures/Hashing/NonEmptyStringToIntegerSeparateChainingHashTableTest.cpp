@@ -81,6 +81,16 @@ TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest,
 	EXPECT_THAT(tableSize, testing::Eq(22));
 }
 
+TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenDuplicateKey_WhenInsert_ThenValueIsReplaced) {
+	const auto key {"Fifty"};
+	const auto value {100};
+	
+	hashTable.insert(key, value);
+	
+	const auto result {hashTable.find(key)};
+	EXPECT_THAT(result, testing::Optional(value));
+}
+
 TEST_F(NonEmptyStringToIntegerSeparateChainingHashTableTest, GivenKey_WhenRemove_ThenReturnsValue) {
 	const auto key {"Fifty"};
 	const auto value {hashTable.remove(key)};

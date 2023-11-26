@@ -6,6 +6,8 @@ SET(HEADER_FILES
 		HashConcepts.hpp
 		HashFunction.hpp
 		HashFunctionFactory.hpp
+		MultiplicationMethodHashFunction.hpp
+		MultiplicationMethodHashFunctionFactory.hpp
 		SeparateChainingHashTable.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} INTERFACE ${HEADER_FILES})
