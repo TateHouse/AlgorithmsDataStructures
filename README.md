@@ -15,6 +15,7 @@ implementing algorithms and data structures in C++, particularly with a focus on
     - Selection Sort
 - Hash Functions
     - Division Method
+    - Multiplication Method
 
 ### Data Structures
 
