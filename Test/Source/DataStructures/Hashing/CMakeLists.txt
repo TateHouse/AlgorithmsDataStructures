@@ -3,6 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 SET(SOURCE_FILES
 		EmptyStringToIntegerSeparateChainingHashTableTest.cpp
 		IntegerDivisionMethodHashFunctionTest.cpp
+		IntegerMultiplicationHashFunctionTest.cpp
 		NonEmptyStringToIntegerSeparateChainingHashTableTest.cpp
 		StringDivisionMethodHashFunctionTest.cpp)
 
