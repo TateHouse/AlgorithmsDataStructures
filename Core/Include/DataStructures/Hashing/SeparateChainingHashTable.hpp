@@ -144,6 +144,10 @@ void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, V
 
 template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::resize(const std::size_t updatedTableSize) {
+	if (updatedTableSize == 0) {
+		throw std::invalid_argument {"The table size must be greater than 0."};
+	}
+	
 	const auto hashFunction {hashFunctionFactory->create(updatedTableSize)};
 	std::vector<LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>> updatedBuckets {updatedTableSize};
 	
