@@ -122,7 +122,18 @@ template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, const ValueType& value) {
 	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
-	buckets[hash].insertAtTail(std::make_pair(key, value));
+	auto& bucket {buckets[hash]};
+	
+	auto iterator {bucket.findFirst([&key](const std::pair<KeyType, ValueType>& pair) {
+		return pair.first == key;
+	})};
+	
+	if (iterator != bucket.end()) {
+		iterator->second = value;
+		return;
+	}
+	
+	bucket.insertAtTail(std::make_pair(key, value));
 	++elementCount;
 	
 	if (static_cast<float>(elementCount) / tableSize >= loadFactor) {
@@ -134,7 +145,18 @@ template<Hashable KeyType, typename ValueType>
 void SeparateChainingHashTable<KeyType, ValueType>::insert(const KeyType& key, ValueType&& value) {
 	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
-	buckets[hash].insertAtTail(std::make_pair(key, value));
+	auto& bucket {buckets[hash]};
+	
+	auto iterator {bucket.findFirst([&key](const std::pair<KeyType, ValueType>& pair) {
+		return pair.first == key;
+	})};
+	
+	if (iterator != bucket.end()) {
+		iterator->second = value;
+		return;
+	}
+	
+	bucket.insertAtTail(std::make_pair(key, value));
 	++elementCount;
 	
 	if (static_cast<float>(elementCount) / tableSize >= loadFactor) {
