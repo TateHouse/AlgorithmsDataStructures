@@ -192,7 +192,12 @@ public:
 	 */
 	void insert(ElementType&& element);
 	
-	// TODO: Refactor removeFirst to take a predicate instead of an element.
+	/**
+	 * @brief Removes the first occurrence of the given element from the binary search tree.
+	 * @param element: The element to remove.
+	 * @return The element that was removed from the binary search tree, or std::nullopt if the binary search tree is
+	 * empty or the given element was not found in the binary search tree.
+	 */
 	std::optional<ElementType> removeFirst(const ElementType& element);
 	
 	/**
@@ -213,7 +218,12 @@ public:
 	 */
 	std::vector<ElementType> removeAll();
 	
-	// TODO: Refactor findFirst to take a predicate instead of an element.
+	/**
+	 * @brief Finds the first occurrence of the given element in the binary search tree.
+	 * @param element: The element to find.
+	 * @return The first occurrence of the given element in the binary search tree, or std::nullopt if the binary search
+	 * tree is empty or the given element was not found in the binary search tree.
+	 */
 	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	
 	/**
@@ -252,7 +262,11 @@ public:
 	requires Iterators::AllowedIterator<IteratorType, ElementType>
 	void traverse(IteratorType begin, IteratorType end, const std::function<void(ElementType&)>& function) noexcept;
 	
-	// TODO: Refactor contains to take a predicate instead of an element.
+	/**
+	 * @brief Checks if the binary search tree contains the given element.
+	 * @param element: The element to check.
+	 * @return True if the binary search tree contains the given element, false otherwise.
+	 */
 	const bool contains(const ElementType& element) const noexcept;
 	
 	/**
