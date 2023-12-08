@@ -17,17 +17,57 @@
 #include "DataStructures/Trees/Iterators/BinaryTreePreOrderIterator.hpp"
 
 namespace Core::DataStructures::Trees {
+/**
+ * @brief A binary tree.
+ * @class BinaryTree
+ * @tparam ElementType: The type of the elements in the binary tree.
+ */
 template<typename ElementType>
 class BinaryTree final {
 public:
+	/**
+	 * @brief Instantiates a new binary tree with no nodes.
+	 */
 	BinaryTree() noexcept = default;
+	
+	/**
+	 * @brief Instantiates a new binary tree by copying another binary tree.
+	 * @param other: The binary tree to copy.
+	 */
 	BinaryTree(const BinaryTree<ElementType>& other);
+	
+	/**
+	 * @brief Instantiates a new binary tree by moving another binary tree.
+	 * @param other: The binary tree to move.
+	 */
 	BinaryTree(BinaryTree<ElementType>&& other) noexcept;
+	
+	/**
+	 * @brief Destroys the binary tree.
+	 */
 	~BinaryTree() noexcept;
 
 public:
+	/**
+	 * @brief Assigns another binary tree to this binary tree by copying it.
+	 * @param other: The binary tree to copy.
+	 * @return A reference to this binary tree.
+	 */
 	BinaryTree<ElementType>& operator=(const BinaryTree<ElementType>& other);
+	
+	/**
+	 * @brief Assigns another binary tree to this binary tree by moving it.
+	 * @param other: The binary tree to move.
+	 * @return A reference to this binary tree.
+	 */
 	BinaryTree<ElementType>& operator=(BinaryTree<ElementType>&& other) noexcept;
+	
+	/**
+	 * @brief Checks if another binary tree is equal to this binary tree.
+	 * @details Two binary trees are equal if they have the same number of nodes and the same elements in the same order.
+	 * @param other: The binary tree to check.
+	 * @return True if the other binary tree is equal to this binary tree, false otherwise.
+	 */
 	const bool operator==(const BinaryTree<ElementType>& other) const noexcept;
 
 public:
@@ -41,59 +81,221 @@ public:
 	using PostOrderIterator = Iterators::BinaryTreePostOrderIterator<ElementType>;
 	using PreOrderIterator = Iterators::BinaryTreePreOrderIterator<ElementType>;
 	
+	/**
+	 * @brief Gets a const in-order iterator to the first node in the binary tree.
+	 * @return A const in-order iterator to the first node in the binary tree.
+	 */
 	ConstInOrderIterator cbeginInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const in-order iterator to the node after the last node in the binary tree.
+	 * @return A const in-order iterator to the node after the last node in the binary tree.
+	 */
 	ConstInOrderIterator cendInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const level-order iterator to the first node in the binary tree.
+	 * @return A const level-order iterator to the first node in the binary tree.
+	 */
 	ConstLevelOrderIterator cbeginLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const level-order iterator to the node after the last node in the binary tree.
+	 * @return A const level-order iterator to the node after the last node in the binary tree.
+	 */
 	ConstLevelOrderIterator cendLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const post-order iterator to the first node in the binary tree.
+	 * @return A const post-order iterator to the first node in the binary tree.
+	 */
 	ConstPostOrderIterator cbeginPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const post-order iterator to the node after the last node in the binary tree.
+	 * @return A const post-order iterator to the node after the last node in the binary tree.
+	 */
 	ConstPostOrderIterator cendPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const pre-order iterator to the first node in the binary tree.
+	 * @return A const pre-order iterator to the first node in the binary tree.
+	 */
 	ConstPreOrderIterator cbeginPreOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const pre-order iterator to the node after the last node in the binary tree.
+	 * @return A const pre-order iterator to the node after the last node in the binary tree.
+	 */
 	ConstPreOrderIterator cendPreOrder() const noexcept;
+	
+	/**
+	 * @brief Gets an in-order iterator to the first node in the binary tree.
+	 * @return An in-order iterator to the first node in the binary tree.
+	 */
 	InOrderIterator beginInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets an in-order iterator to the node after the last node in the binary tree.
+	 * @return An in-order iterator to the node after the last node in the binary tree.
+	 */
 	InOrderIterator endInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a level-order iterator to the first node in the binary tree.
+	 * @return A level-order iterator to the first node in the binary tree.
+	 */
 	LevelOrderIterator beginLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a level-order iterator to the node after the last node in the binary tree.
+	 * @return A level-order iterator to the node after the last node in the binary tree.
+	 */
 	LevelOrderIterator endLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a post-order iterator to the first node in the binary tree.
+	 * @return A post-order iterator to the first node in the binary tree.
+	 */
 	PostOrderIterator beginPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a post-order iterator to the node after the last node in the binary tree.
+	 * @return A post-order iterator to the node after the last node in the binary tree.
+	 */
 	PostOrderIterator endPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a pre-order iterator to the first node in the binary tree.
+	 * @return A pre-order iterator to the first node in the binary tree.
+	 */
 	PreOrderIterator beginPreOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a pre-order iterator to the node after the last node in the binary tree.
+	 * @return A pre-order iterator to the node after the last node in the binary tree.
+	 */
 	PreOrderIterator endPreOrder() const noexcept;
 
 public:
+	/**
+	 * @brief Inserts an element into the binary tree using copy semantics.
+	 * @details The elements are inserted in level-order.
+	 * @param element: The element to insert.
+	 */
 	void insert(const ElementType& element);
+	
+	/**
+	 * @brief Inserts an element into the binary tree using move semantics.
+	 * @details The elements are inserted in level-order.
+	 * @param element: The element to insert.
+	 */
 	void insert(ElementType&& element);
+	
+	/**
+	 * @brief Removes the first element in the binary tree that satisfies a predicate.
+	 * @details The elements are traversed in level-order.
+	 * @param predicate: The predicate to satisfy.
+	 * @return The removed element if it exists, std::nullopt otherwise.
+	 */
 	std::optional<ElementType> removeFirst(const std::function<bool(const ElementType&)>& predicate);
+	
+	/**
+	 * @brief Removes all elements in the binary tree.
+	 * @details The elements are removed in post-order.
+	 * @return A vector containing the removed elements in post-order.
+	 */
 	std::vector<ElementType> removeAll();
 	
+	/**
+	 * @brief Finds the first element in the binary tree that satisfies a predicate.
+	 * @tparam ConstIteratorType: The type of the const iterator.
+	 * @param begin: A const iterator to the first element in the range to search.
+	 * @param end: A const iterator to the node after the last element in the binary tree.
+	 * @param predicate: The predicate to satisfy.
+	 * @return A const iterator to the first element that satisfies the predicate if it exists, cend() otherwise.
+	 */
 	template<typename ConstIteratorType>
 	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 	ConstIteratorType findFirst(ConstIteratorType begin,
 	                            ConstIteratorType end,
 	                            const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	
+	/**
+	 * @brief Finds the first element in the binary tree that satisfies a predicate.
+	 * @tparam IteratorType: The type of the iterator.
+	 * @param begin: An iterator to the first element in the range to search.
+	 * @param end: An iterator to the node after the last node in the binary tree.
+	 * @param predicate: The predicate to satisfy.
+	 * @return An iterator to the first element that satisfies the predicate if it exists, end() otherwise.
+	 */
 	template<typename IteratorType>
 	requires Iterators::AllowedIterator<IteratorType, ElementType>
 	IteratorType findFirst(IteratorType begin,
 	                       IteratorType end,
 	                       const std::function<bool(const ElementType&)>& predicate) noexcept;
 	
+	/**
+	 * @brief Traverses the binary tree using the given function on each node in the binary tree.
+	 * @tparam ConstIteratorType: The type of the const iterator to use to traverse the binary tree.
+	 * @param begin: A const iterator to the first node in the binary tree.
+	 * @param end: A const iterator to the node after the last node in the binary tree.
+	 * @param function: The function to use to traverse the binary tree.
+	 */
 	template<typename ConstIteratorType>
 	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 	void traverse(ConstIteratorType begin,
 	              ConstIteratorType end,
 	              const std::function<void(const ElementType&)>& function) const noexcept;
 	
+	/**
+	 * @brief Traverses the binary tree using the given function on each node in the binary tree.
+	 * @tparam IteratorType: The type of the iterator to use to traverse the binary tree.
+	 * @param begin: An iterator to the first node in the binary tree.
+	 * @param end: An iterator to the node after the last node in the binary tree.
+	 * @param function: The function to use to traverse the binary tree.
+	 */
 	template<typename IteratorType>
 	requires Iterators::AllowedIterator<IteratorType, ElementType>
-	void traverse(IteratorType begin,
-	              IteratorType end,
-	              const std::function<void(ElementType&)>& function) noexcept;
+	void traverse(IteratorType begin, IteratorType end, const std::function<void(ElementType&)>& function) noexcept;
 	
+	/**
+	 * @brief Checks if the binary tree contains an element that satisfies a predicate.
+	 * @param predicate: The predicate to satisfy.
+	 * @return True if the binary tree contains an element that satisfies the predicate, false otherwise.
+	 */
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	
+	/**
+	 * @brief Checks if the binary tree is empty.
+	 * @return True if the binary tree is empty, false otherwise.
+	 */
 	const bool isEmpty() const noexcept;
+	
+	/**
+	 * @brief Gets the number of nodes in the binary tree.
+	 * @return The number of nodes in the binary tree.
+	 */
 	const std::size_t getNodeCount() const noexcept;
+	
+	/**
+	 * @brief Gets the height of the binary tree.
+	 * @return The height of the binary tree.
+	 */
 	const int getHeight() const noexcept;
 
 private:
+	/**
+	 * @brief Inserts a node into the binary tree in level-order.
+	 * @param node: The node to insert.
+	 */
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
+	
+	/**
+	 * @brief Removes all nodes in the binary tree in post-order.
+	 * @param node: The node to start removing from.
+	 * @param elements: The vector to store the removed elements in.
+	 */
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
 
 private:
@@ -128,7 +330,7 @@ BinaryTree<ElementType>& BinaryTree<ElementType>::operator=(const BinaryTree<Ele
 	
 	removeAll();
 	
-	for (const auto& element: other) {
+	for (const auto& element : other) {
 		insert(element);
 	}
 	

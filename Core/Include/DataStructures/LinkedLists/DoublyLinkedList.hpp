@@ -12,17 +12,58 @@
 #include "DataStructures/LinkedLists/DoublyLinkedListNode.hpp"
 
 namespace Core::DataStructures::LinkedLists {
+/**
+ * @brief A doubly linked list.
+ * @class DoublyLinkedList
+ * @tparam ElementType: The type of the elements in the doubly linked list.
+ */
 template<typename ElementType>
 class DoublyLinkedList final {
 public:
+	/**
+	 * @brief Instantiates a new doubly linked list with no nodes.
+	 */
 	DoublyLinkedList() noexcept = default;
+	
+	/**
+	 * @brief Instantiates a new doubly linked list by copying the given doubly linked list.
+	 * @param other: The doubly linked list to copy.
+	 */
 	DoublyLinkedList(const DoublyLinkedList<ElementType>& other);
+	
+	/**
+	 * @brief Instantiates a new doubly linked list by moving the given doubly linked list.
+	 * @param other: The doubly linked list to move.
+	 */
 	DoublyLinkedList(DoublyLinkedList<ElementType>&& other) noexcept;
+	
+	/**
+	 * @brief Destroys the doubly linked list.
+	 */
 	~DoublyLinkedList() noexcept;
 
 public:
+	/**
+	 * @brief Assigns the given doubly linked list to this doubly linked list using copy semantics.
+	 * @param other: The doubly linked list to copy.
+	 * @return A reference to this doubly linked list.
+	 */
 	DoublyLinkedList<ElementType>& operator=(const DoublyLinkedList<ElementType>& other);
+	
+	/**
+	 * @brief Assigns the given doubly linked list to this doubly linked list using move semantics.
+	 * @param other: The doubly linked list to move.
+	 * @return A reference to this doubly linked list.
+	 */
 	DoublyLinkedList<ElementType>& operator=(DoublyLinkedList<ElementType>&& other) noexcept;
+	
+	/**
+	 * @brief Checks if the given doubly linked list is equal to this doubly linked list.
+	 * @details Two doubly linked lists are equal if they have the same number of nodes and the same elements in the
+	 * nodes are equal and in the same order.
+	 * @param other: The doubly linked list to check.
+	 * @return True if the given doubly linked list is equal to this doubly linked list, false otherwise.
+	 */
 	const bool operator==(const DoublyLinkedList<ElementType>& other) const noexcept;
 
 public:
@@ -32,34 +73,193 @@ public:
 	using BidirectionalIterator = Iterators::DoublyLinkedListBidirectionalIterator<ElementType>;
 	using ReverseBidirectionalIterator = Iterators::DoublyLinkedListReverseBidirectionalIterator<ElementType>;
 	
+	/**
+	 * @brief Gets a const bidirectional iterator to the first node in the doubly linked list.
+	 * @return A const bidirectional iterator to the first node in the doubly linked list.
+	 */
 	ConstBidirectionalIterator cbegin() const noexcept;
+	
+	/**
+	 * @brief Gets a const bidirectional iterator to the node after the last node in the doubly linked list.
+	 * @return A const bidirectional iterator to the node after the last node in the doubly linked list.
+	 */
 	ConstBidirectionalIterator cend() const noexcept;
+	
+	/**
+	 * @brief Gets a const reverse bidirectional iterator to the last node in the doubly linked list.
+	 * @return A const reverse bidirectional iterator to the last node in the doubly linked list.
+	 */
 	ConstReverseBidirectionalIterator crbegin() const noexcept;
+	
+	/**
+	 * @brief Gets a const reverse bidirectional iterator to the node before the first node in the doubly linked list.
+	 * @return A const reverse bidirectional iterator to the node before the first node in the doubly linked list.
+	 */
 	ConstReverseBidirectionalIterator crend() const noexcept;
+	
+	/**
+	 * @brief Gets a bidirectional iterator to the first node in the doubly linked list.
+	 * @return A bidirectional iterator to the first node in the doubly linked list.
+	 */
 	BidirectionalIterator begin() const noexcept;
+	
+	/**
+	 * @brief Gets a bidirectional iterator to the node after the last node in the doubly linked list.
+	 * @return A bidirectional iterator to the node after the last node in the doubly linked list.
+	 */
 	BidirectionalIterator end() const noexcept;
+	
+	/**
+	 * @brief Gets a reverse bidirectional iterator to the last node in the doubly linked list.
+	 * @return A reverse bidirectional iterator to the last node in the doubly linked list.
+	 */
 	ReverseBidirectionalIterator rbegin() const noexcept;
+	
+	/**
+	 * @brief Gets a reverse bidirectional iterator to the node before the first node in the doubly linked list.
+	 * @return A reverse bidirectional iterator to the node before the first node in the doubly linked list.
+	 */
 	ReverseBidirectionalIterator rend() const noexcept;
 
 public:
+	/**
+	 * @brief Inserts the given element at the head of the doubly linked list using copy semantics.
+	 * @param element: The element to insert.
+	 * @throws std::bad_alloc: Thrown if memory allocation fails.
+	 */
 	void insertAtHead(const ElementType& element);
+	
+	/**
+	 * @brief Inserts the given element at the head of the doubly linked list using move semantics.
+	 * @param element: The element to insert.
+	 * @throws std::bad_alloc: Thrown if memory allocation fails.
+	 */
 	void insertAtHead(ElementType&& element);
+	
+	/**
+	 * @brief Inserts the given element at the tail of the doubly linked list using copy semantics.
+	 * @param element: The element to insert.
+	 * @throws std::bad_alloc: Thrown if memory allocation fails.
+	 */
 	void insertAtTail(const ElementType& element);
+	
+	/**
+	 * @brief Inserts the given element at the tail of the doubly linked list using move semantics.
+	 * @param element: The element to insert.
+	 * @throws std::bad_alloc: Thrown if memory allocation fails.
+	 */
 	void insertAtTail(ElementType&& element);
+	
+	/**
+	 * @brief Inserts the given element at the given index in the doubly linked list using copy semantics.
+	 * @param element: The element to insert.
+	 * @param index: The index to insert the element at.
+	 * @return True if the element was inserted, false if the index is greater than the number of nodes in the doubly
+	 * linked list.
+	 * @throws std::bad_alloc: Thrown if memory allocation fails.
+	 */
 	const bool insertAtIndex(const ElementType& element, const std::size_t index);
+	
+	/**
+	 * @brief Inserts the given element at the given index in the doubly linked list using move semantics.
+	 * @param element: The element to insert.
+	 * @param index: The index to insert the element at.
+	 * @return True if the element was inserted, false if the index is greater than the number of nodes in the doubly
+	 * linked list.
+	 * @throws std::bad_alloc: Thrown if memory allocation fails.
+	 */
 	const bool insertAtIndex(ElementType&& element, const std::size_t index);
+	
+	/**
+	 * @brief Removes the element at the head of the doubly linked list.
+	 * @return The element at the head of the doubly linked list, or std::nullopt if the doubly linked list is empty.
+	 */
 	std::optional<ElementType> removeAtHead() noexcept;
+	
+	/**
+	 * @brief Removes the element at the tail of the doubly linked list.
+	 * @return The element at the tail of the doubly linked list, or std::nullopt if the doubly linked list is empty.
+	 */
 	std::optional<ElementType> removeAtTail() noexcept;
+	
+	/**
+	 * @brief Removes the element at the given index in the doubly linked list.
+	 * @param index: The index to remove the element at.
+	 * @return The element at the given index in the doubly linked list, or std::nullopt if the index is greater than
+	 * or equal to the number of nodes in the doubly linked list.
+	 */
 	std::optional<ElementType> removeAtIndex(const std::size_t index) noexcept;
+	
+	/**
+	 * @brief Removes all nodes from the doubly linked list resulting in an empty doubly linked list.
+	 * @return A vector containing the elements in the nodes that were removed from the doubly linked list.
+	 * @throws std::bad_alloc: Thrown if memory allocation fails.
+	 */
 	std::vector<ElementType> removeAll();
+	
+	/**
+	 * @brief Finds the first node in the doubly linked list that satisfies the given predicate.
+	 * @param predicate: The predicate to satisfy.
+	 * @return A const bidirectional iterator to the first node in the doubly linked list that satisfies the given
+	 * predicate, or cend() if no node satisfies the given predicate.
+	 */
 	ConstBidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	
+	/**
+	 * @brief Finds the first node in the doubly linked list that satisfies the given predicate.
+	 * @param predicate: The predicate to satisfy.
+	 * @return A bidirectional iterator to the first node in the doubly linked list that satisfies the given predicate,
+	 * or end() if no node satisfies the given predicate.
+	 */
 	BidirectionalIterator findFirst(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	
+	/**
+	 * @brief Finds the last node in the doubly linked list that satisfies the given predicate.
+	 * @param predicate: The predicate to satisfy.
+	 * @return A const reverse bidirectional iterator to the last node in the doubly linked list that satisfies the
+	 * given predicate, or crend() if no node satisfies the given predicate.
+	 */
 	ConstReverseBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	
+	/**
+	 * @brief Finds the last node in the doubly linked list that satisfies the given predicate.
+	 * @param predicate: The predicate to satisfy.
+	 * @return A reverse bidirectional iterator to the last node in the doubly linked list that satisfies the given
+	 * predicate, or rend() if no node satisfies the given predicate.
+	 */
 	ReverseBidirectionalIterator findLast(const std::function<bool(const ElementType&)>& predicate) noexcept;
+	
+	/**
+	 * @brief Reverses the doubly linked list.
+	 */
 	void reverse() noexcept;
+	
+	/**
+	 * @brief Checks if the doubly linked list contains a node that satisfies the given predicate.
+	 * @param predicate: The predicate to satisfy.
+	 * @return True if the doubly linked list contains a node that satisfies the given predicate, false otherwise.
+	 */
 	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	
+	/**
+	 * @brief Checks if the doubly linked list contains nodes that satisfy all of the given predicates.
+	 * @details A single node does not necessarily have to satisfy all of the given predicates, each predicate must be
+	 * satisfied by at least one node in the doubly linked list for this function to return true.
+	 * @param predicates: The predicates to satisfy.
+	 * @return True if the doubly linked list contains nodes that satisfy all of the given predicates, false otherwise.
+	 */
 	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
+	
+	/**
+	 * @brief Checks if the doubly linked list is empty.
+	 * @return True if the doubly linked list is empty, false otherwise.
+	 */
 	const bool isEmpty() const noexcept;
+	
+	/**
+	 * @brief Gets the number of nodes in the doubly linked list.
+	 * @return The number of nodes in the doubly linked list.
+	 */
 	const std::size_t getNodeCount() const noexcept;
 
 private:

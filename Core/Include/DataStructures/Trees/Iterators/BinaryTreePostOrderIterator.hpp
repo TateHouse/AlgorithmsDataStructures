@@ -6,6 +6,11 @@
 #include "DataStructures/Stacks/SinglyLinkedListStack.hpp"
 
 namespace Core::DataStructures::Trees::Iterators {
+/**
+ * @brief A post-order iterator for binary trees.
+ * @class BinaryTreePostOrderIterator
+ * @tparam ElementType: The type of the elements stored in the binary tree.
+ */
 template<typename ElementType>
 class BinaryTreePostOrderIterator final {
 public:
@@ -15,15 +20,44 @@ public:
 	using reference = ElementType&;
 	using pointer = ElementType*;
 	
+	/**
+	 * @brief Instantiates a new post-order iterator for binary trees.
+	 * @param node: The node to iterate from.
+	 */
 	explicit BinaryTreePostOrderIterator(BinaryTreeNode<ElementType>* node) noexcept;
 
 public:
+	/**
+	 * @brief Compares two post-order iterators for binary trees.
+	 * @details Two post-order iterators for binary trees are equal if they point to the same node.
+	 * @param other: The other post-order iterator for binary trees to compare with.
+	 * @return True if the two post-order iterators for binary trees are equal, false otherwise.
+	 */
 	const bool operator==(const BinaryTreePostOrderIterator<ElementType>& other) const noexcept;
 
 public:
+	/**
+	 * @brief Dereferences the post-order iterator for binary trees.
+	 * @return A reference to the element stored in the node pointed to by the post-order iterator for binary trees.
+	 */
 	reference operator*() const noexcept;
+	
+	/**
+	 * @brief Dereferences the post-order iterator for binary trees.
+	 * @return A pointer to the element stored in the node pointed to by the post-order iterator for binary trees.
+	 */
 	pointer operator->() const noexcept;
+	
+	/**
+	 * @brief Increments the post-order iterator for binary trees.
+	 * @return A reference to the post-order iterator for binary trees.
+	 */
 	BinaryTreePostOrderIterator<ElementType>& operator++() noexcept;
+	
+	/**
+	 * @brief Increments the post-order iterator for binary trees.
+	 * @return A copy of the post-order iterator for binary trees before it was incremented.
+	 */
 	BinaryTreePostOrderIterator<ElementType> operator++(int) noexcept;
 
 private:

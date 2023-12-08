@@ -6,6 +6,11 @@
 #include "DataStructures/Hashing/HashConcepts.hpp"
 
 namespace Core::DataStructures::Hashing::Iterators {
+/**
+ * @brief A forward iterator for separate chaining hash table.
+ * @tparam KeyType: The type of the key.
+ * @tparam ValueType: The type of the value.
+ */
 template<Hashable KeyType, typename ValueType>
 class SeparateChainingHashTableConstForwardIterator final {
 public:
@@ -15,17 +20,49 @@ public:
 	using reference = const std::pair<KeyType, ValueType>&;
 	using pointer = const std::pair<KeyType, ValueType>* const;
 	
+	/**
+	 * @brief Instantiates a new separate chaining hash table const forward iterator.
+	 * @param buckets: The buckets of the separate chaining hash table.
+	 * @param bucketIndex: The index of the bucket to iterate from.
+	 * @param iterator: The iterator of the bucket to iterate from.
+	 */
 	explicit SeparateChainingHashTableConstForwardIterator(const std::vector<LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>>* buckets,
 	                                                       std::size_t bucketIndex,
 	                                                       LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>::ConstForwardIterator iterator) noexcept;
 
 public:
+	/**
+	 * @brief Compares two separate chaining hash table const forward iterators.
+	 * @details Two separate chaining hash table const forward iterators are equal if they point to the same buckets,
+	 * the same bucket index, and the same iterator.
+	 * @param other: The other separate chaining hash table const forward iterator to compare with.
+	 * @return True if the two separate chaining hash table const forward iterators are equal, false otherwise.
+	 */
 	const bool operator==(const SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>& other) const noexcept;
 
 public:
+	/**
+	 * @brief Dereferences the separate chaining hash table const forward iterator.
+	 * @return A reference to the key-value pair stored in the node pointed to by the separate chaining hash table const forward iterator.
+	 */
 	reference operator*() const noexcept;
+	
+	/**
+	 * @brief Dereferences the separate chaining hash table const forward iterator.
+	 * @return A pointer to the key-value pair stored in the node pointed to by the separate chaining hash table const forward iterator.
+	 */
 	pointer operator->() const noexcept;
+	
+	/**
+	 * @brief Increments the separate chaining hash table const forward iterator.
+	 * @return A reference to the separate chaining hash table const forward iterator.
+	 */
 	SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>& operator++() noexcept;
+	
+	/**
+	 * @brief Increments the separate chaining hash table const forward iterator.
+	 * @return A copy of the separate chaining hash table const forward iterator before it was incremented.
+	 */
 	SeparateChainingHashTableConstForwardIterator<KeyType, ValueType> operator++(int) noexcept;
 
 private:

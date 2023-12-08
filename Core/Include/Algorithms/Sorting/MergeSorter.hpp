@@ -4,29 +4,81 @@
 #include "SortingAlgorithm.hpp"
 
 namespace Core::Algorithms::Sorting {
+/**
+ * @brief An implementation of the merge sort algorithm using iterators.
+ * @tparam Container: The type of the container to sort.
+ */
 template<ArrayOrVectorConcept Container>
 class MergeSorter final : public SortingAlgorithm<typename Container::value_type> {
 public:
+	/**
+	 * @brief Instantiates a new merge sorter.
+	 * @param container: The container to sort.
+	 */
 	explicit MergeSorter(Container& container) noexcept;
+	
+	/**
+	 * @brief Instantiates a new merge sorter by copying the given merge sorter.
+	 * @param mergeSorter: The merge sorter to copy.
+	 */
 	MergeSorter(const MergeSorter& mergeSorter) noexcept = delete;
+	
+	/**
+	 * @brief Instantiates a new merge sorter by moving the given merge sorter.
+	 * @param mergeSorter: The merge sorter to move.
+	 */
 	MergeSorter(MergeSorter&& mergeSorter) noexcept = delete;
+	
+	/**
+	 * @brief Destroys the merge sorter.
+	 */
 	~MergeSorter() noexcept override = default;
 
 public:
+	/**
+	 * @brief Assigns the given merge sorter to this merge sorter using copy semantics.
+	 * @param mergeSorter: The merge sorter to copy.
+	 * @return A reference to this merge sorter.
+	 */
 	MergeSorter& operator=(const MergeSorter& mergeSorter) noexcept = delete;
+	
+	/**
+	 * @brief Assigns the given merge sorter to this merge sorter using move semantics.
+	 * @param mergeSorter: The merge sorter to move.
+	 * @return A reference to this merge sorter.
+	 */
 	MergeSorter& operator=(MergeSorter&& mergeSorter) noexcept = delete;
 
 public:
+	/**
+	 * @brief Sorts the container using the given predicate and the merge sort algorithm.
+	 * @param predicate: The predicate to use to sort the container.
+	 */
 	virtual void sort(const std::function<bool(const typename Container::value_type&,
 	                                           const typename Container::value_type&)>& predicate) noexcept override;
 
 private:
+	/**
+	 * @brief Sorts the container using the given predicate and the merge sort algorithm.
+	 * @tparam Iterator: The type of the iterator.
+	 * @param begin: An iterator to the beginning of the container.
+	 * @param end: An iterator to the end of the container.
+	 * @param predicate: The predicate to use to sort the container.
+	 */
 	template<typename Iterator>
 	void mergeSort(Iterator begin,
 	               Iterator end,
 	               const std::function<bool(const typename Container::value_type&,
 	                                        const typename Container::value_type&)>& predicate) noexcept;
 	
+	/**
+	 * @brief Merges the two halves of the container.
+	 * @tparam Iterator: The type of the iterator.
+	 * @param begin: An iterator to the beginning of the container.
+	 * @param middle: An iterator to the middle of the container.
+	 * @param end: An iterator to the end of the container.
+	 * @param predicate: The predicate to use to sort the container.
+	 */
 	template<typename Iterator>
 	void merge(Iterator begin,
 	           Iterator middle,

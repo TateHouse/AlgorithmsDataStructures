@@ -12,6 +12,11 @@
 #include "BinaryTreePreOrderIterator.hpp"
 
 namespace Core::DataStructures::Trees::Iterators {
+/**
+ * @brief A concept that requires the type to be a const iterator for binary trees.
+ * @tparam IteratorType: The type to check.
+ * @tparam ElementType: The type of the elements stored in the binary tree.
+ */
 template<typename IteratorType, typename ElementType>
 concept AllowedConstIterator =
 	std::same_as<IteratorType, BinaryTreeConstInOrderIterator<ElementType>> ||
@@ -19,6 +24,11 @@ concept AllowedConstIterator =
 	std::same_as<IteratorType, BinaryTreeConstPostOrderIterator<ElementType>> ||
 	std::same_as<IteratorType, BinaryTreeConstPreOrderIterator<ElementType>>;
 
+/**
+ * @brief A concept that requires the type to be an iterator for binary trees.
+ * @tparam IteratorType: The type to check.
+ * @tparam ElementType: The type of the elements stored in the binary tree.
+ */
 template<typename IteratorType, typename ElementType>
 concept AllowedIterator =
 	std::same_as<IteratorType, BinaryTreeInOrderIterator<ElementType>> ||

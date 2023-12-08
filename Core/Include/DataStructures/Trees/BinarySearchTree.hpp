@@ -17,17 +17,58 @@
 #include "BinarySearchTreeConcepts.hpp"
 
 namespace Core::DataStructures::Trees {
+/**
+ * @brief A binary search tree.
+ * @class BinarySearchTree
+ * @tparam ElementType: The type of the elements stored in the binary search tree.
+ */
 template<ElementTypeWithLessThanOperator ElementType>
 class BinarySearchTree final {
 public:
+	/**
+	 * @brief Instantiates a new binary search tree with no nodes.
+	 */
 	BinarySearchTree() noexcept = default;
+	
+	/**
+	 * @brief Instantiates a new binary search tree by copying the given binary search tree.
+	 * @param other: The binary search tree to copy.
+	 */
 	BinarySearchTree(const BinarySearchTree<ElementType>& other);
+	
+	/**
+	 * @brief Instantiates a new binary search tree by moving the given binary search tree.
+	 * @param other: The binary search tree to move.
+	 */
 	BinarySearchTree(BinarySearchTree<ElementType>&& other) noexcept;
+	
+	/**
+	 * @brief Destroys the binary search tree.
+	 */
 	~BinarySearchTree() noexcept;
 
 public:
+	/**
+	 * @brief Assigns the given binary search tree to this binary search tree using copy semantics.
+	 * @param other: The binary search tree to copy.
+	 * @return A reference to this binary search tree.
+	 */
 	BinarySearchTree<ElementType>& operator=(const BinarySearchTree<ElementType>& other);
+	
+	/**
+	 * @brief Assigns the given binary search tree to this binary search tree using move semantics.
+	 * @param other: The binary search tree to move.
+	 * @return A reference to this binary search tree.
+	 */
 	BinarySearchTree<ElementType>& operator=(BinarySearchTree<ElementType>&& other) noexcept;
+	
+	/**
+	 * @brief Checks if the given binary search tree is equal to this binary search tree.
+	 * @details Two binary search trees are equal if they have the same number of nodes, the nodes contain the same
+	 * elements, and the nodes are in the same order.
+	 * @param other: The binary search tree to check.
+	 * @return True if the given binary search tree is equal to this binary search tree, false otherwise.
+	 */
 	const bool operator==(const BinarySearchTree<ElementType>& other) const noexcept;
 
 public:
@@ -41,62 +82,253 @@ public:
 	using PostOrderIterator = Iterators::BinaryTreePostOrderIterator<ElementType>;
 	using PreOrderIterator = Iterators::BinaryTreePreOrderIterator<ElementType>;
 	
+	/**
+	 * @brief Gets a const in-order iterator to the first node in the binary search tree.
+	 * @return A const in-order iterator to the first node in the binary search tree.
+	 */
 	ConstInOrderIterator cbeginInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const in-order iterator to the node after the last node in the binary search tree.
+	 * @return A const in-order iterator to the node after the last node in the binary search tree.
+	 */
 	ConstInOrderIterator cendInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const level-order iterator to the first node in the binary search tree.
+	 * @return A const level-order iterator to the first node in the binary search tree.
+	 */
 	ConstLevelOrderIterator cbeginLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const level-order iterator to the node after the last node in the binary search tree.
+	 * @return A const level-order iterator to the node after the last node in the binary search tree.
+	 */
 	ConstLevelOrderIterator cendLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const post-order iterator to the first node in the binary search tree.
+	 * @return A const post-order iterator to the first node in the binary search tree.
+	 */
 	ConstPostOrderIterator cbeginPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const post-order iterator to the node after the last node in the binary search tree.
+	 * @return A const post-order iterator to the node after the last node in the binary search tree.
+	 */
 	ConstPostOrderIterator cendPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const pre-order iterator to the first node in the binary search tree.
+	 * @return A const pre-order iterator to the first node in the binary search tree.
+	 */
 	ConstPreOrderIterator cbeginPreOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a const pre-order iterator to the node after the last node in the binary search tree.
+	 * @return A const pre-order iterator to the node after the last node in the binary search tree.
+	 */
 	ConstPreOrderIterator cendPreOrder() const noexcept;
+	
+	/**
+	 * @brief Gets an in-order iterator to the first node in the binary search tree.
+	 * @return An in-order iterator to the first node in the binary search tree.
+	 */
+	
 	InOrderIterator beginInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets an in-order iterator to the node after the last node in the binary search tree.
+	 * @return An in-order iterator to the node after the last node in the binary search tree.
+	 */
 	InOrderIterator endInOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a level-order iterator to the first node in the binary search tree.
+	 * @return A level-order iterator to the first node in the binary search tree.
+	 */
 	LevelOrderIterator beginLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a level-order iterator to the node after the last node in the binary search tree.
+	 * @return A level-order iterator to the node after the last node in the binary search tree.
+	 */
 	LevelOrderIterator endLevelOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a post-order iterator to the first node in the binary search tree.
+	 * @return A post-order iterator to the first node in the binary search tree.
+	 */
 	PostOrderIterator beginPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a post-order iterator to the node after the last node in the binary search tree.
+	 * @return A post-order iterator to the node after the last node in the binary search tree.
+	 */
 	PostOrderIterator endPostOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a pre-order iterator to the first node in the binary search tree.
+	 * @return A pre-order iterator to the first node in the binary search tree.
+	 */
 	PreOrderIterator beginPreOrder() const noexcept;
+	
+	/**
+	 * @brief Gets a pre-order iterator to the node after the last node in the binary search tree.
+	 * @return A pre-order iterator to the node after the last node in the binary search tree.
+	 */
 	PreOrderIterator endPreOrder() const noexcept;
 
 public:
+	/**
+	 * @brief Inserts the given element into the binary search tree using copy semantics.
+	 * @param element: The element to insert.
+	 */
 	void insert(const ElementType& element);
+	
+	/**
+	 * @brief Inserts the given element into the binary search tree using move semantics.
+	 * @param element: The element to insert.
+	 */
 	void insert(ElementType&& element);
+	
+	// TODO: Refactor removeFirst to take a predicate instead of an element.
 	std::optional<ElementType> removeFirst(const ElementType& element);
+	
+	/**
+	 * @brief Removes the minimum element from the binary search tree.
+	 * @return The minimum element from the binary search tree, or std::nullopt if the binary search tree is empty.
+	 */
 	std::optional<ElementType> removeMinimum();
+	
+	/**
+	 * @brief Removes the maximum element from the binary search tree.
+	 * @return The maximum element from the binary search tree, or std::nullopt if the binary search tree is empty.
+	 */
 	std::optional<ElementType> removeMaximum();
+	
+	/**
+	 * @brief Removes all elements from the binary search tree resulting in an empty binary search tree.
+	 * @return A vector containing the elements that were removed from the binary search tree.
+	 */
 	std::vector<ElementType> removeAll();
+	
+	// TODO: Refactor findFirst to take a predicate instead of an element.
 	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
+	
+	/**
+	 * @brief Finds the minimum element in the binary search tree.
+	 * @return The minimum element in the binary search tree, or std::nullopt if the binary search tree is empty.
+	 */
 	const std::optional<ElementType> findMinimum() const noexcept;
+	
+	/**
+	 * @brief Finds the maximum element in the binary search tree.
+	 * @return The maximum element in the binary search tree, or std::nullopt if the binary search tree is empty.
+	 */
 	const std::optional<ElementType> findMaximum() const noexcept;
 	
+	/**
+	 * @brief Traverses the binary search tree using the given function on each node in the binary search tree.
+	 * @tparam ConstIteratorType The type of const iterator to use to traverse the binary search tree.
+	 * @param begin A const iterator to the first node in the binary search tree.
+	 * @param end A const iterator to the node after the last node in the binary search tree.
+	 * @param function The function to use to traverse the binary search tree.
+	 */
 	template<typename ConstIteratorType>
 	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
 	void traverse(ConstIteratorType begin,
 	              ConstIteratorType end,
 	              const std::function<void(const ElementType&)>& function) const noexcept;
 	
+	/**
+	 * @brief Traverses the binary search tree using the given function on each node in the binary search tree.
+	 * @tparam IteratorType The type of iterator to use to traverse the binary search tree.
+	 * @param begin An iterator to the first node in the binary search tree.
+	 * @param end An iterator to the node after the last node in the binary search tree.
+	 * @param function The function to use to traverse the binary search tree.
+	 */
 	template<typename IteratorType>
 	requires Iterators::AllowedIterator<IteratorType, ElementType>
 	void traverse(IteratorType begin, IteratorType end, const std::function<void(ElementType&)>& function) noexcept;
 	
+	// TODO: Refactor contains to take a predicate instead of an element.
 	const bool contains(const ElementType& element) const noexcept;
+	
+	/**
+	 * @brief Checks if the binary search tree is empty.
+	 * @return True if the binary search tree is empty, false otherwise.
+	 */
 	const bool isEmpty() const noexcept;
+	
+	/**
+	 * @brief Gets the number of nodes in the binary search tree.
+	 * @return The number of nodes in the binary search tree.
+	 */
 	const std::size_t getNodeCount() const noexcept;
+	
+	/**
+	 * @brief Gets the height of the binary search tree.
+	 * @return The height of the binary search tree.
+	 */
 	const int getHeight() const noexcept;
 
 private:
+	/**
+	 * @brief Inserts the given node into the binary search tree.
+	 * @param node: The node to insert.
+	 */
 	void insert(BinaryTreeNode<ElementType>* node);
+	
+	/**
+	 * @brief Removes the given leaf node from the binary search tree.
+	 * @param currentNode: The leaf node to remove.
+	 * @param parentNode: The parent node of the leaf node to remove.
+	 * @param isLeftChild: True if the leaf node to remove is a left child, false otherwise.
+	 */
 	void removeLeafNode(BinaryTreeNode<ElementType>* currentNode,
 	                    BinaryTreeNode<ElementType>* parentNode,
 	                    const bool isLeftChild);
+	
+	/**
+	 * @brief Removes the given node from the binary search tree that has only a right child.
+	 * @param currentNode: The node to remove.
+	 * @param parentNode: The parent node of the node to remove.
+	 * @param isLeftChild: True if the node to remove is a left child, false otherwise.
+	 */
 	void removeNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
 	                                  BinaryTreeNode<ElementType>* parentNode,
 	                                  const bool isLeftChild);
+	
+	/**
+	 * @brief Removes the given node from the binary search tree that has only a left child.
+	 * @param currentNode: The node to remove.
+	 * @param parentNode: The parent node of the node to remove.
+	 * @param isLeftChild: True if the node to remove is a left child, false otherwise.
+	 */
 	void removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
 	                                 BinaryTreeNode<ElementType>* parentNode,
 	                                 const bool isLeftChild);
+	
+	/**
+	 * @brief Removes the given node from the binary search tree that has two children.
+	 * @param currentNode: The node to remove.
+	 * @param parentNode: The parent node of the node to remove.
+	 */
 	void removeNodeWithTwoChildren(BinaryTreeNode<ElementType>* currentNode, BinaryTreeNode<ElementType>* parentNode);
+	
+	/**
+	 * @brief Removes all nodes from the binary search tree.
+	 * @param node: The node to remove.
+	 * @param elements: The vector to store the elements of the nodes that were removed.
+	 */
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
+	
+	/**
+	 * @brief Gets the height of the given node.
+	 * @param node: The node to get the height of.
+	 * @return The height of the given node.
+	 */
 	const int getHeight(BinaryTreeNode<ElementType>* node) const noexcept;
 
 private:
@@ -565,7 +797,7 @@ void BinarySearchTree<ElementType>::removeNodeWithTwoChildren(BinaryTreeNode<Ele
 	
 	node->setLeftChild(currentNode->getLeftChild());
 	node->setRightChild(currentNode->getRightChild());
-
+	
 	--nodeCount;
 	
 	delete currentNode;

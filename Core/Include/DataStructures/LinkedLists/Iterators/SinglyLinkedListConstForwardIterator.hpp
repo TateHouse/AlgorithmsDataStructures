@@ -5,6 +5,11 @@
 #include "DataStructures/LinkedLists/SinglyLinkedListNode.hpp"
 
 namespace Core::DataStructures::LinkedLists::Iterators {
+/**
+ * @brief A const forward iterator for singly linked list.
+ * @class SinglyLinkedListConstForwardIterator
+ * @tparam ElementType: The type of the elements stored in the singly linked list.
+ */
 template<typename ElementType>
 class SinglyLinkedListConstForwardIterator final {
 public:
@@ -14,15 +19,44 @@ public:
 	using reference = const ElementType&;
 	using pointer = const ElementType* const;
 	
+	/**
+	 * @brief Instantiates a new singly linked list const forward iterator.
+	 * @param node: The node to iterate from.
+	 */
 	explicit SinglyLinkedListConstForwardIterator(SinglyLinkedListNode<ElementType>* node) noexcept;
 
 public:
+	/**
+	 * @brief Compares two singly linked list const forward iterators.
+	 * @details Two singly linked list const forward iterators are equal if they point to the same node.
+	 * @param other: The other singly linked list const forward iterator to compare with.
+	 * @return True if the two singly linked list const forward iterators are equal, false otherwise.
+	 */
 	const bool operator==(const SinglyLinkedListConstForwardIterator<ElementType>& other) const noexcept;
 
 public:
+	/**
+	 * @brief Dereferences the singly linked list const forward iterator.
+	 * @return A reference to the element stored in the node pointed to by the singly linked list const forward iterator.
+	 */
 	reference operator*() const noexcept;
+	
+	/**
+	 * @brief Dereferences the singly linked list const forward iterator.
+	 * @return A pointer to the element stored in the node pointed to by the singly linked list const forward iterator.
+	 */
 	pointer operator->() const noexcept;
+	
+	/**
+	 * @brief Increments the singly linked list const forward iterator.
+	 * @return A reference to the singly linked list const forward iterator.
+	 */
 	const SinglyLinkedListConstForwardIterator<ElementType>& operator++() noexcept;
+	
+	/**
+	 * @brief Increments the singly linked list const forward iterator.
+	 * @return A copy of the singly linked list const forward iterator before it was incremented.
+	 */
 	const SinglyLinkedListConstForwardIterator<ElementType> operator++(int) noexcept;
 
 private:
