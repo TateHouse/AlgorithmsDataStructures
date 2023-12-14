@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "DataStructures/Hashing/DivisionMethodHashFunctionFactory.hpp"
+#include "Algorithms/Hashing/DivisionMethodHashFunctionFactory.hpp"
 #include "DataStructures/Hashing/SeparateChainingHashTable.hpp"
 
 namespace Core::DataStructures::Hashing::Test {

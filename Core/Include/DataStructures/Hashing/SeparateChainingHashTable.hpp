@@ -5,10 +5,10 @@
 #include <optional>
 #include <vector>
 
+#include "Algorithms/Hashing/HashFunctionFactory.hpp"
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
 #include "Iterators/SeparateChainingHashTableConstForwardIterator.hpp"
 #include "Iterators/SeparateChainingHashTableForwardIterator.hpp"
-#include "HashFunctionFactory.hpp"
 
 namespace Core::DataStructures::Hashing {
 /**

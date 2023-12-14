@@ -2,8 +2,8 @@
 
 #include <vector>
 
+#include "Algorithms/Hashing/HashConcepts.hpp"
 #include "DataStructures/LinkedLists/SinglyLinkedList.hpp"
-#include "DataStructures/Hashing/HashConcepts.hpp"
 
 namespace Core::DataStructures::Hashing::Iterators {
 /**

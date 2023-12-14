@@ -1,6 +1,6 @@
-#include <gmock/gmock.h>
+#include "gmock/gmock.h"
 
-#include "DataStructures/Hashing/DivisionMethodHashFunction.hpp"
+#include "Algorithms/Hashing/DivisionMethodHashFunction.hpp"
 
 namespace Core::DataStructures::Hashing::Test {
 class IntegerDivisionMethodHashFunctionTest : public testing::Test {
