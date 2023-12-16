@@ -65,7 +65,7 @@ public:
 	 * @param key: The key to hash.
 	 * @return The hash value.
 	 */
-	virtual std::size_t operator()(const KeyType& key) const noexcept override;
+	std::size_t operator()(const KeyType& key) const noexcept override;
 
 private:
 	std::size_t tableSize;

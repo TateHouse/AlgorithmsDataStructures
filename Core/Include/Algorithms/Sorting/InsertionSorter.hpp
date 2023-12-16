@@ -54,7 +54,7 @@ public:
 	 * @brief Sorts the container using the given predicate and the insertion sort algorithm.
 	 * @param predicate: The predicate to use to sort the container.
 	 */
-	virtual void sort(const std::function<bool(const typename Container::value_type&,
+	void sort(const std::function<bool(const typename Container::value_type&,
 	                                           const typename Container::value_type&)>& predicate) noexcept override;
 
 private:
