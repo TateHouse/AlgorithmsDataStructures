@@ -22,7 +22,7 @@ public:
 	 * factory.
 	 * @param other: The division method hash function factory to copy.
 	 */
-	DivisionMethodHashFunctionFactory(const DivisionMethodHashFunctionFactory& other) = delete;
+	DivisionMethodHashFunctionFactory(const DivisionMethodHashFunctionFactory& other) = default;
 	
 	/**
 	 * @brief Instantiates a new division method hash function factory by moving the given division method hash function

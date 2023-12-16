@@ -22,7 +22,7 @@ public:
 	 * hash function factory.
 	 * @param other: The multiplication method hash function factory to copy.
 	 */
-	MultiplicationMethodHashFunctionFactory(const MultiplicationMethodHashFunctionFactory& other) = delete;
+	MultiplicationMethodHashFunctionFactory(const MultiplicationMethodHashFunctionFactory& other) = default;
 	
 	/**
 	 * @brief Instantiates a new multiplication method hash function factory by moving the given multiplication method
