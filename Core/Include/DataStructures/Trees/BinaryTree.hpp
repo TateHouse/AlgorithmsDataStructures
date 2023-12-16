@@ -311,8 +311,12 @@ BinaryTree<ElementType>::BinaryTree(const BinaryTree<ElementType>& other) {
 }
 
 template<typename ElementType>
-BinaryTree<ElementType>::BinaryTree(BinaryTree<ElementType>&& other) noexcept :
-		nodeCount {other.nodeCount}, rootNode {other.rootNode} {
+BinaryTree<ElementType>::BinaryTree(BinaryTree<ElementType>&& other) noexcept {
+	removeAll();
+	
+	nodeCount = other.nodeCount;
+	rootNode = other.rootNode;
+	
 	other.nodeCount = 0;
 	other.rootNode = nullptr;
 }

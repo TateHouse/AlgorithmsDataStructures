@@ -358,10 +358,14 @@ BinarySearchTree<ElementType>::BinarySearchTree(const BinarySearchTree<ElementTy
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-BinarySearchTree<ElementType>::BinarySearchTree(BinarySearchTree<ElementType>&& other) noexcept :
-		nodeCount {other.nodeCount}, rootNode {other.rootNode} {
-	other.rootNode = nullptr;
+BinarySearchTree<ElementType>::BinarySearchTree(BinarySearchTree<ElementType>&& other) noexcept {
+	removeAll();
+	
+	nodeCount = other.nodeCount;
+	rootNode = other.rootNode;
+	
 	other.nodeCount = 0;
+	other.rootNode = nullptr;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>

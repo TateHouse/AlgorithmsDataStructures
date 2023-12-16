@@ -232,8 +232,13 @@ SinglyLinkedList<ElementType>::SinglyLinkedList(const SinglyLinkedList<ElementTy
 }
 
 template<typename ElementType>
-SinglyLinkedList<ElementType>::SinglyLinkedList(SinglyLinkedList<ElementType>&& other) noexcept:
-		nodeCount {other.nodeCount}, headNode {other.headNode}, tailNode {other.tailNode} {
+SinglyLinkedList<ElementType>::SinglyLinkedList(SinglyLinkedList<ElementType>&& other) noexcept {
+	removeAll();
+	
+	nodeCount = other.nodeCount;
+	headNode = other.headNode;
+	tailNode = other.tailNode;
+	
 	other.nodeCount = 0;
 	other.headNode = nullptr;
 	other.tailNode = nullptr;
