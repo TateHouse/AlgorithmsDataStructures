@@ -26,7 +26,42 @@ public:
 	 */
 	explicit BinaryTreeConstPostOrderIterator(const BinaryTreeNode<ElementType>* node) noexcept;
 	
+	/**
+	 * @brief Instantiates a new const post-order iterator for binary trees by copying the given const post-order
+	 * iterator for binary trees.
+	 * @param other The const post-order iterator for binary trees to copy.
+	 */
+	BinaryTreeConstPostOrderIterator(const BinaryTreeConstPostOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new const post-order iterator for binary trees by moving the given const post-order
+	 * iterator for binary trees.
+	 * @param other The const post-order iterator for binary trees to move.
+	 */
+	BinaryTreeConstPostOrderIterator(BinaryTreeConstPostOrderIterator<ElementType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the const post-order iterator for binary trees.
+	 */
+	~BinaryTreeConstPostOrderIterator() noexcept = default;
+	
 public:
+	/**
+	 * @brief Assigns the given const post-order iterator for binary trees to this const post-order iterator for
+	 * binary trees using copy semantics.
+	 * @param other The const post-order iterator for binary trees to copy.
+	 * @return A reference to the const post-order iterator for binary trees.
+	 */
+	BinaryTreeConstPostOrderIterator<ElementType>& operator=(const BinaryTreeConstPostOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given const post-order iterator for binary trees to this const post-order iterator for
+	 * binary trees using move semantics.
+	 * @param other The const post-order iterator for binary trees to move.
+	 * @return A reference to the const post-order iterator for binary trees.
+	 */
+	BinaryTreeConstPostOrderIterator<ElementType>& operator=(BinaryTreeConstPostOrderIterator<ElementType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two const post-order iterators for binary trees.
 	 * @details Two const post-order iterators for binary trees are equal if they point to the same node.
@@ -35,7 +70,6 @@ public:
 	 */
 	const bool operator==(const BinaryTreeConstPostOrderIterator<ElementType>& other) const noexcept;
 	
-public:
 	/**
 	 * @brief Dereferences the const post-order iterator for binary trees.
 	 * @return A reference to the element stored in the node pointed to by the const post-order iterator for binary trees.

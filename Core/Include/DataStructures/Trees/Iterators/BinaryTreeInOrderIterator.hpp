@@ -25,8 +25,43 @@ public:
 	 * @param node: The node to iterate from.
 	 */
 	explicit BinaryTreeInOrderIterator(BinaryTreeNode<ElementType>* node) noexcept;
+	
+	/**
+	 * @brief Instantiates a new in-order iterator for binary trees by copying the given in-order iterator for binary
+	 * trees.
+	 * @param other The in-order iterator for binary trees to copy.
+	 */
+	BinaryTreeInOrderIterator(const BinaryTreeInOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new in-order iterator for binary trees by moving the given in-order iterator for binary
+	 * trees.
+	 * @param other The in-order iterator for binary trees to move.
+	 */
+	BinaryTreeInOrderIterator(BinaryTreeInOrderIterator<ElementType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the in-order iterator for binary trees.
+	 */
+	~BinaryTreeInOrderIterator() noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given in-order iterator for binary trees to this in-order iterator for binary trees using
+	 * copy semantics.
+	 * @param other The in-order iterator for binary trees to copy.
+	 * @return A reference to the in-order iterator for binary trees.
+	 */
+	BinaryTreeInOrderIterator<ElementType>& operator=(const BinaryTreeInOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given in-order iterator for binary trees to this in-order iterator for binary trees using
+	 * move semantics.
+	 * @param other The in-order iterator for binary trees to move.
+	 * @return A reference to the in-order iterator for binary trees.
+	 */
+	BinaryTreeInOrderIterator<ElementType>& operator=(BinaryTreeInOrderIterator<ElementType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two in-order iterators for binary trees.
 	 * @details Two in-order iterators for binary trees are equal if they point to the same node.
@@ -35,7 +70,6 @@ public:
 	 */
 	const bool operator==(const BinaryTreeInOrderIterator<ElementType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the in-order iterator for binary trees.
 	 * @return A reference to the element stored in the node pointed to by the in-order iterator for binary trees.

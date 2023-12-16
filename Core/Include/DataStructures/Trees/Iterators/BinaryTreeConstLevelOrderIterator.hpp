@@ -25,8 +25,43 @@ public:
 	 * @param node: The node to iterate from.
 	 */
 	explicit BinaryTreeConstLevelOrderIterator(BinaryTreeNode<ElementType>* node) noexcept;
+	
+	/**
+	 * @brief Instantiates a new const level-order iterator for binary trees by copying the given const level-order
+	 * iterator for binary trees.
+	 * @param other The const level-order iterator for binary trees to copy.
+	 */
+	BinaryTreeConstLevelOrderIterator(const BinaryTreeConstLevelOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new const level-order iterator for binary trees by moving the given const level-order
+	 * iterator for binary trees.
+	 * @param other The const level-order iterator for binary trees to move.
+	 */
+	BinaryTreeConstLevelOrderIterator(BinaryTreeConstLevelOrderIterator<ElementType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the const level-order iterator for binary trees.
+	 */
+	~BinaryTreeConstLevelOrderIterator() noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given const level-order iterator for binary trees to this const level-order iterator for
+	 * binary trees using copy semantics.
+	 * @param other The const level-order iterator for binary trees to copy.
+	 * @return A reference to the const level-order iterator for binary trees.
+	 */
+	BinaryTreeConstLevelOrderIterator<ElementType>& operator=(const BinaryTreeConstLevelOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given const level-order iterator for binary trees to this const level-order iterator for
+	 * binary trees using move semantics.
+	 * @param other The const level-order iterator for binary trees to move.
+	 * @return A reference to the const level-order iterator for binary trees.
+	 */
+	BinaryTreeConstLevelOrderIterator<ElementType>& operator=(BinaryTreeConstLevelOrderIterator<ElementType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two const level-order iterators for binary trees.
 	 * @details Two const level-order iterators for binary trees are equal if they point to the same node.
@@ -35,7 +70,6 @@ public:
 	 */
 	const bool operator==(const BinaryTreeConstLevelOrderIterator<ElementType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the const level-order iterator for binary trees.
 	 * @return A reference to the element stored in the node pointed to by the const level-order iterator for binary trees.

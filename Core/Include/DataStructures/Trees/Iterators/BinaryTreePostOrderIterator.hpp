@@ -25,8 +25,43 @@ public:
 	 * @param node: The node to iterate from.
 	 */
 	explicit BinaryTreePostOrderIterator(BinaryTreeNode<ElementType>* node) noexcept;
+	
+	/**
+	 * @brief Instantiates a new post-order iterator for binary trees by copying the given post-order iterator for binary
+	 * trees.
+	 * @param other The post-order iterator for binary trees to copy.
+	 */
+	BinaryTreePostOrderIterator(const BinaryTreePostOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new post-order iterator for binary trees by moving the given post-order iterator for binary
+	 * trees.
+	 * @param other The post-order iterator for binary trees to move.
+	 */
+	BinaryTreePostOrderIterator(BinaryTreePostOrderIterator<ElementType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the post-order iterator for binary trees.
+	 */
+	~BinaryTreePostOrderIterator() noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given post-order iterator for binary trees to this post-order iterator for binary trees using
+	 * copy semantics.
+	 * @param other The post-order iterator for binary trees to copy.
+	 * @return A reference to the post-order iterator for binary trees.
+	 */
+	BinaryTreePostOrderIterator<ElementType>& operator=(const BinaryTreePostOrderIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given post-order iterator for binary trees to this post-order iterator for binary trees using
+	 * move semantics.
+	 * @param other The post-order iterator for binary trees to move.
+	 * @return A reference to the post-order iterator for binary trees.
+	 */
+	BinaryTreePostOrderIterator<ElementType>& operator=(BinaryTreePostOrderIterator<ElementType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two post-order iterators for binary trees.
 	 * @details Two post-order iterators for binary trees are equal if they point to the same node.
@@ -35,7 +70,6 @@ public:
 	 */
 	const bool operator==(const BinaryTreePostOrderIterator<ElementType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the post-order iterator for binary trees.
 	 * @return A reference to the element stored in the node pointed to by the post-order iterator for binary trees.

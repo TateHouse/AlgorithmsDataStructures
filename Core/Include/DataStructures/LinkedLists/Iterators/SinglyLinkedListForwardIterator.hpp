@@ -24,8 +24,44 @@ public:
 	 * @param node: The node to iterate from.
 	 */
 	explicit SinglyLinkedListForwardIterator(SinglyLinkedListNode<ElementType>* node) noexcept;
+	
+	/**
+	 * @brief Instantiates a new singly linked list forward iterator by copying the given singly linked list forward
+	 * iterator.
+	 * @param other The singly linked list forward iterator to copy.
+	 */
+	SinglyLinkedListForwardIterator(const SinglyLinkedListForwardIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new singly linked list forward iterator by moving the given singly linked list forward
+	 * iterator.
+	 * @param other The singly linked list forward iterator to move.
+	 */
+	 
+	SinglyLinkedListForwardIterator(SinglyLinkedListForwardIterator<ElementType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the singly linked list forward iterator.
+	 */
+	~SinglyLinkedListForwardIterator() noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given singly linked list forward iterator to this singly linked list forward iterator using
+	 * copy semantics.
+	 * @param other The singly linked list forward iterator to copy.
+	 * @return A reference to the singly linked list forward iterator.
+	 */
+	SinglyLinkedListForwardIterator<ElementType>& operator=(const SinglyLinkedListForwardIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given singly linked list forward iterator to this singly linked list forward iterator using
+	 * move semantics.
+	 * @param other The singly linked list forward iterator to move.
+	 * @return A reference to the singly linked list forward iterator.
+	 */
+	SinglyLinkedListForwardIterator<ElementType>& operator=(SinglyLinkedListForwardIterator<ElementType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two singly linked list forward iterators.
 	 * @details Two singly linked list forward iterators are equal if they point to the same node.
@@ -34,7 +70,6 @@ public:
 	 */
 	const bool operator==(const SinglyLinkedListForwardIterator<ElementType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the singly linked list forward iterator.
 	 * @return A reference to the element stored in the node pointed to by the singly linked list forward iterator.

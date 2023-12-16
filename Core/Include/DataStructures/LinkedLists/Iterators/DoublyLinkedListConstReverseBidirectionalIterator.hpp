@@ -24,8 +24,38 @@ public:
 	 * @param node: The node to iterate from.
 	 */
 	explicit DoublyLinkedListConstReverseBidirectionalIterator(DoublyLinkedListNode<ElementType>* node) noexcept;
+	
+	/**
+	 * @brief Instantiates a new doubly linked list const reverse bidirectional iterator by copying the given doubly
+	 * linked list const reverse bidirectional iterator.
+	 * @param other The doubly linked list const reverse bidirectional iterator to copy.
+	 */
+	DoublyLinkedListConstReverseBidirectionalIterator(const DoublyLinkedListConstReverseBidirectionalIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new doubly linked list const reverse bidirectional iterator by moving the given doubly
+	 * linked list const reverse bidirectional iterator.
+	 * @param other The doubly linked list const reverse bidirectional iterator to move.
+	 */
+	DoublyLinkedListConstReverseBidirectionalIterator(DoublyLinkedListConstReverseBidirectionalIterator<ElementType>&& other) noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given doubly linked list const reverse bidirectional iterator to this doubly linked list
+	 * const reverse bidirectional iterator using copy semantics.
+	 * @param other The doubly linked list const reverse bidirectional iterator to copy.
+	 * @return A reference to the doubly linked list const reverse bidirectional iterator.
+	 */
+	DoublyLinkedListConstReverseBidirectionalIterator<ElementType>& operator=(const DoublyLinkedListConstReverseBidirectionalIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given doubly linked list const reverse bidirectional iterator to this doubly linked list
+	 * const reverse bidirectional iterator using move semantics.
+	 * @param other The doubly linked list const reverse bidirectional iterator to move.
+	 * @return A reference to the doubly linked list const reverse bidirectional iterator.
+	 */
+	DoublyLinkedListConstReverseBidirectionalIterator<ElementType>& operator=(DoublyLinkedListConstReverseBidirectionalIterator<ElementType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two doubly linked list const reverse bidirectional iterators.
 	 * @details Two doubly linked list const reverse bidirectional iterators are equal if they point to the same node.
@@ -34,7 +64,6 @@ public:
 	 */
 	const bool operator==(const DoublyLinkedListConstReverseBidirectionalIterator<ElementType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the doubly linked list const reverse bidirectional iterator.
 	 * @return A reference to the element stored in the node pointed to by the doubly linked list const reverse

@@ -29,8 +29,43 @@ public:
 	explicit SeparateChainingHashTableForwardIterator(std::vector<LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>>* buckets,
 	                                                  std::size_t bucketIndex,
 	                                                  LinkedLists::SinglyLinkedList<std::pair<KeyType, ValueType>>::ForwardIterator iterator) noexcept;
+	
+	/**
+	 * @brief Instantiates a new separate chaining hash table forward iterator by copying the given separate
+	 * chaining hash table forward iterator.
+	 * @param other: The separate chaining hash table forward iterator to copy.
+	 */
+	SeparateChainingHashTableForwardIterator(const SeparateChainingHashTableForwardIterator<KeyType, ValueType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new separate chaining hash table forward iterator by moving the given separate
+	 * chaining hash table forward iterator.
+	 * @param other: The separate chaining hash table forward iterator to move.
+	 */
+	SeparateChainingHashTableForwardIterator(SeparateChainingHashTableForwardIterator<KeyType, ValueType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the separate chaining hash table forward iterator.
+	 */
+	~SeparateChainingHashTableForwardIterator() noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given separate chaining hash table forward iterator to this separate chaining hash table
+	 * forward iterator using copy semantics.
+	 * @param other The separate chaining hash table forward iterator to copy.
+	 * @return A reference to the separate chaining hash table forward iterator.
+	 */
+	SeparateChainingHashTableForwardIterator<KeyType, ValueType>& operator=(const SeparateChainingHashTableForwardIterator<KeyType, ValueType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given separate chaining hash table forward iterator to this separate chaining hash table
+	 * forward iterator using move semantics.
+	 * @param other The separate chaining hash table forward iterator to move.
+	 * @return A reference to the separate chaining hash table forward iterator.
+	 */
+	SeparateChainingHashTableForwardIterator<KeyType, ValueType>& operator=(SeparateChainingHashTableForwardIterator<KeyType, ValueType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two separate chaining hash table forward iterators.
 	 * @details Two separate chaining hash table forward iterators are equal if they point to the same buckets,
@@ -40,7 +75,6 @@ public:
 	 */
 	const bool operator==(const SeparateChainingHashTableForwardIterator<KeyType, ValueType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the separate chaining hash table forward iterator.
 	 * @return A reference to the key-value pair stored in the node pointed to by the separate chaining hash table forward iterator.
@@ -86,13 +120,15 @@ const bool SeparateChainingHashTableForwardIterator<KeyType, ValueType>::operato
 
 template<Hashable KeyType, typename ValueType>
 std::pair<KeyType, ValueType>& SeparateChainingHashTableForwardIterator<KeyType, ValueType>::operator*() const noexcept {
-	assert(bucketIndex < buckets->size() && iterator != buckets->at(bucketIndex).end() && "Cannot dereference a null iterator.");
+	assert(bucketIndex < buckets->size() && iterator != buckets->at(bucketIndex).end() &&
+	       "Cannot dereference a null iterator.");
 	return *iterator;
 }
 
 template<Hashable KeyType, typename ValueType>
 std::pair<KeyType, ValueType>* SeparateChainingHashTableForwardIterator<KeyType, ValueType>::operator->() const noexcept {
-	assert(bucketIndex < buckets->size() && iterator != buckets->at(bucketIndex).end() && "Cannot dereference a null iterator.");
+	assert(bucketIndex < buckets->size() && iterator != buckets->at(bucketIndex).end() &&
+	       "Cannot dereference a null iterator.");
 	return &(*iterator);
 }
 
@@ -117,7 +153,8 @@ SeparateChainingHashTableForwardIterator<KeyType, ValueType>& SeparateChainingHa
 }
 
 template<Hashable KeyType, typename ValueType>
-SeparateChainingHashTableForwardIterator<KeyType, ValueType> SeparateChainingHashTableForwardIterator<KeyType, ValueType>::operator++(int) noexcept {
+SeparateChainingHashTableForwardIterator<KeyType, ValueType> SeparateChainingHashTableForwardIterator<KeyType, ValueType>::operator++(
+		int) noexcept {
 	assert(iterator != buckets->at(bucketIndex).end() && "Cannot increment a null iterator.");
 	auto iterator {*this};
 	++(*this);

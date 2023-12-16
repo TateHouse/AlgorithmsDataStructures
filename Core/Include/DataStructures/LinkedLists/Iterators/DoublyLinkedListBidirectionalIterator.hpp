@@ -24,8 +24,43 @@ public:
 	 * @param node: The node to iterate from.
 	 */
 	explicit DoublyLinkedListBidirectionalIterator(DoublyLinkedListNode<ElementType>* node) noexcept;
+	
+	/**
+	 * @brief Instantiates a new doubly linked list bidirectional iterator by copying the given doubly linked list
+	 * bidirectional iterator.
+	 * @param other The doubly linked list bidirectional iterator to copy.
+	 */
+	DoublyLinkedListBidirectionalIterator(const DoublyLinkedListBidirectionalIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new doubly linked list bidirectional iterator by moving the given doubly linked list
+	 * bidirectional iterator.
+	 * @param other The doubly linked list bidirectional iterator to move.
+	 */
+	DoublyLinkedListBidirectionalIterator(DoublyLinkedListBidirectionalIterator<ElementType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the doubly linked list bidirectional iterator.
+	 */
+	~DoublyLinkedListBidirectionalIterator() noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given doubly linked list bidirectional iterator to this doubly linked list bidirectional
+	 * iterator using copy semantics.
+	 * @param other The doubly linked list bidirectional iterator to copy.
+	 * @return A reference to the doubly linked list bidirectional iterator.
+	 */
+	DoublyLinkedListBidirectionalIterator<ElementType>& operator=(const DoublyLinkedListBidirectionalIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given doubly linked list bidirectional iterator to this doubly linked list bidirectional
+	 * iterator using move semantics.
+	 * @param other The doubly linked list bidirectional iterator to move.
+	 * @return A reference to the doubly linked list bidirectional iterator.
+	 */
+	DoublyLinkedListBidirectionalIterator<ElementType>& operator=(DoublyLinkedListBidirectionalIterator<ElementType>&& other) noexcept = default;
+
 	/**
 	 * @brief Compares two doubly linked list bidirectional iterators.
 	 * @details Two doubly linked list bidirectional iterators are equal if they point to the same node.
@@ -34,7 +69,6 @@ public:
 	 */
 	const bool operator==(const DoublyLinkedListBidirectionalIterator<ElementType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the doubly linked list bidirectional iterator.
 	 * @return A reference to the element stored in the node pointed to by the doubly linked list bidirectional iterator.

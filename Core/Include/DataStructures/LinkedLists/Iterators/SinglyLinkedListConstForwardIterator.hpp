@@ -24,8 +24,43 @@ public:
 	 * @param node: The node to iterate from.
 	 */
 	explicit SinglyLinkedListConstForwardIterator(SinglyLinkedListNode<ElementType>* node) noexcept;
+	
+	/**
+	 * @brief Instantiates a new singly linked list const forward iterator by copying the given singly linked list
+	 * const forward iterator.
+	 * @param other The singly linked list const forward iterator to copy.
+	 */
+	SinglyLinkedListConstForwardIterator(const SinglyLinkedListConstForwardIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Instantiates a new singly linked list const forward iterator by moving the given singly linked list
+	 * const forward iterator.
+	 * @param other The singly linked list const forward iterator to move.
+	 */
+	SinglyLinkedListConstForwardIterator(SinglyLinkedListConstForwardIterator<ElementType>&& other) noexcept = default;
+	
+	/**
+	 * @brief Destroys the singly linked list const forward iterator.
+	 */
+	~SinglyLinkedListConstForwardIterator() noexcept = default;
 
 public:
+	/**
+	 * @brief Assigns the given singly linked list const forward iterator to this singly linked list const forward
+	 * iterator using copy semantics.
+	 * @param other The singly linked list const forward iterator to copy.
+	 * @return A reference to the singly linked list const forward iterator.
+	 */
+	SinglyLinkedListConstForwardIterator<ElementType>& operator=(const SinglyLinkedListConstForwardIterator<ElementType>& other) = default;
+	
+	/**
+	 * @brief Assigns the given singly linked list const forward iterator to this singly linked list const forward
+	 * iterator using move semantics.
+	 * @param other The singly linked list const forward iterator to move.
+	 * @return A reference to the singly linked list const forward iterator.
+	 */
+	SinglyLinkedListConstForwardIterator<ElementType>& operator=(SinglyLinkedListConstForwardIterator<ElementType>&& other) noexcept = default;
+	
 	/**
 	 * @brief Compares two singly linked list const forward iterators.
 	 * @details Two singly linked list const forward iterators are equal if they point to the same node.
@@ -34,7 +69,6 @@ public:
 	 */
 	const bool operator==(const SinglyLinkedListConstForwardIterator<ElementType>& other) const noexcept;
 
-public:
 	/**
 	 * @brief Dereferences the singly linked list const forward iterator.
 	 * @return A reference to the element stored in the node pointed to by the singly linked list const forward iterator.
