@@ -468,10 +468,10 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
 	nodeQueue.enqueue(rootNode);
 	
-	BinaryTreeNode<ElementType>* currentNode {nullptr};
 	BinaryTreeNode<ElementType>* parentOfCurrentNode {nullptr};
 	BinaryTreeNode<ElementType>* targetNode {nullptr};
 	BinaryTreeNode<ElementType>* parentOfTargetNode {nullptr};
+	BinaryTreeNode<ElementType>* deepestNode {nullptr};
 	BinaryTreeNode<ElementType>* parentOfDeepestNode {nullptr};
 	auto isLastNodeLeftChild {false};
 	
@@ -481,7 +481,7 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 			continue;
 		}
 		
-		currentNode = optionalNode.value();
+		auto* currentNode = optionalNode.value();
 		
 		if (predicate(currentNode->getElement())) {
 			targetNode = currentNode;
@@ -490,12 +490,14 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 		
 		if (auto leftChild {currentNode->getLeftChild()}; leftChild != nullptr) {
 			nodeQueue.enqueue(leftChild);
+			deepestNode = currentNode->getLeftChild();
 			parentOfDeepestNode = currentNode;
 			isLastNodeLeftChild = true;
 		}
 		
 		if (auto rightChild {currentNode->getRightChild()}; rightChild != nullptr) {
 			nodeQueue.enqueue(rightChild);
+			deepestNode = currentNode->getRightChild();
 			parentOfDeepestNode = currentNode;
 			isLastNodeLeftChild = false;
 		}
@@ -509,37 +511,60 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 	
 	const auto removedElement {targetNode->getElement()};
 	
-	BinaryTreeNode<ElementType>* node {nullptr};
-	if (isLastNodeLeftChild) {
-		node = new BinaryTreeNode<ElementType> {parentOfDeepestNode->getLeftChild()->getElement()};
-	} else {
-		node = new BinaryTreeNode<ElementType> {parentOfDeepestNode->getRightChild()->getElement()};
-	}
-	
-	node->setLeftChild(targetNode->getLeftChild());
-	node->setRightChild(targetNode->getRightChild());
-	
-	if (parentOfTargetNode != nullptr) {
-		if (parentOfTargetNode->getLeftChild() == targetNode) {
-			parentOfTargetNode->setLeftChild(node);
+	if (targetNode->getLeftChild() == nullptr && targetNode->getRightChild() == nullptr) {
+		if (targetNode == rootNode) {
+			rootNode = nullptr;
+		} else if (targetNode == deepestNode) {
+			if (isLastNodeLeftChild) {
+				parentOfDeepestNode->setLeftChild(nullptr);
+			} else {
+				parentOfDeepestNode->setRightChild(nullptr);
+			}
 		} else {
-			parentOfTargetNode->setRightChild(node);
+			if (parentOfTargetNode->getLeftChild() == targetNode) {
+				parentOfTargetNode->setLeftChild(deepestNode);
+			} else {
+				parentOfTargetNode->setRightChild(deepestNode);
+			}
+		}
+		
+	} else if (targetNode->getRightChild() == nullptr) {
+		if (targetNode == deepestNode) {
+			parentOfDeepestNode->setLeftChild(nullptr);
+		} else if (targetNode == rootNode) {
+			rootNode = targetNode->getLeftChild();
+		} else {
+			parentOfTargetNode->setLeftChild(deepestNode);
+		}
+	} else if (targetNode->getLeftChild() == nullptr) {
+		if (targetNode == deepestNode) {
+			parentOfDeepestNode->setRightChild(nullptr);
+		} else if (targetNode == rootNode) {
+			rootNode = targetNode->getRightChild();
+		} else {
+			parentOfTargetNode->setRightChild(deepestNode);
 		}
 	} else {
-		rootNode = node;
-	}
-	
-	delete targetNode;
-	
-	if (isLastNodeLeftChild) {
-		delete parentOfDeepestNode->getLeftChild();
-		parentOfDeepestNode->setLeftChild(nullptr);
-	} else {
-		delete parentOfDeepestNode->getRightChild();
-		parentOfDeepestNode->setRightChild(nullptr);
+		deepestNode->setLeftChild(targetNode->getLeftChild());
+		deepestNode->setRightChild(targetNode->getRightChild());
+		
+		if (isLastNodeLeftChild) {
+			parentOfDeepestNode->setLeftChild(nullptr);
+		} else {
+			parentOfDeepestNode->setRightChild(nullptr);
+		}
+		
+		if (targetNode == rootNode) {
+			rootNode = deepestNode;
+		} else if (parentOfTargetNode->getLeftChild() == targetNode) {
+			parentOfTargetNode->setLeftChild(deepestNode);
+		} else {
+			parentOfTargetNode->setRightChild(deepestNode);
+		}
 	}
 	
 	--nodeCount;
+	delete targetNode;
 	
 	return removedElement;
 }
