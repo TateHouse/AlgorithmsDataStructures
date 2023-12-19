@@ -295,6 +295,65 @@ private:
 	void insertLevelOrder(BinaryTreeNode<ElementType>* node);
 	
 	/**
+	 * @brief Removes the given leaf node from the binary tree and replaces it with the deepest node in the binary tree.
+	 * @note This method frees the memory of the target node.
+	 * @param targetNode The leaf node to remove.
+	 * @param parentOfTargetNode The parent of the leaf node to remove.
+	 * @param deepestNode The deepest node in the binary tree.
+	 * @param parentOfDeepestNode The parent of the deepest node in the binary tree.
+	 * @param isLastNodeLeftChild True if the deepest node is the left child of its parent, false otherwise.
+	 */
+	void removeLeafNode(BinaryTreeNode<ElementType>* targetNode,
+	                    BinaryTreeNode<ElementType>* parentOfTargetNode,
+	                    BinaryTreeNode<ElementType>* deepestNode,
+	                    BinaryTreeNode<ElementType>* parentOfDeepestNode,
+	                    bool isLastNodeLeftChild);
+	
+	/**
+	 * @brief Removes the given node that has only a left child from the binary tree and replaces it with the deepest
+	 * node in the binary tree.
+	 * @note This method frees the memory of the target node.
+	 * @param targetNode The node to remove.
+	 * @param parentOfTargetNode The parent of the node to remove.
+	 * @param deepestNode The deepest node in the binary tree.
+	 * @param parentOfDeepestNode The parent of the deepest node in the binary tree.
+	 */
+	void removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* targetNode,
+	                                 BinaryTreeNode<ElementType>* parentOfTargetNode,
+	                                 BinaryTreeNode<ElementType>* deepestNode,
+	                                 BinaryTreeNode<ElementType>* parentOfDeepestNode);
+	
+	/**
+	 * @brief Removes the given node that has only a right child from the binary tree and replaces it with the deepest
+	 * node in the binary tree.
+	 * @note This method frees the memory of the target node.
+	 * @param targetNode The node to remove.
+	 * @param parentOfTargetNode The parent of the node to remove.
+	 * @param deepestNode The deepest node in the binary tree.
+	 * @param parentOfDeepestNode The parent of the deepest node in the binary tree.
+	 */
+	void removeNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* targetNode,
+	                                  BinaryTreeNode<ElementType>* parentOfTargetNode,
+	                                  BinaryTreeNode<ElementType>* deepestNode,
+	                                  BinaryTreeNode<ElementType>* parentOfDeepestNode);
+	
+	/**
+	 * @brief Removes the given node that has two children from the binary tree and replaces it with the deepest node in
+	 * the binary tree.
+	 * @note This method frees the memory of the target node.
+	 * @param targetNode The node to remove.
+	 * @param parentOfTargetNode The parent of the node to remove.
+	 * @param deepestNode The deepest node in the binary tree.
+	 * @param parentOfDeepestNode The parent of the deepest node in the binary tree.
+	 * @param isLastNodeLeftChild True if the deepest node is the left child of its parent, false otherwise.
+	 */
+	void removeNodeWithTwoChildren(BinaryTreeNode<ElementType>* targetNode,
+	                               BinaryTreeNode<ElementType>* parentOfTargetNode,
+	                               BinaryTreeNode<ElementType>* deepestNode,
+	                               BinaryTreeNode<ElementType>* parentOfDeepestNode,
+	                               bool isLastNodeLeftChild);
+	
+	/**
 	 * @brief Removes all nodes in the binary tree in post-order.
 	 * @param node: The node to start removing from.
 	 * @param elements: The vector to store the removed elements in.
@@ -515,59 +574,18 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 	const auto removedElement {targetNode->getElement()};
 	
 	if (targetNode->getLeftChild() == nullptr && targetNode->getRightChild() == nullptr) {
-		if (targetNode == rootNode) {
-			rootNode = nullptr;
-		} else if (targetNode == deepestNode) {
-			if (isLastNodeLeftChild) {
-				parentOfDeepestNode->setLeftChild(nullptr);
-			} else {
-				parentOfDeepestNode->setRightChild(nullptr);
-			}
-		} else {
-			if (parentOfTargetNode->getLeftChild() == targetNode) {
-				parentOfTargetNode->setLeftChild(deepestNode);
-			} else {
-				parentOfTargetNode->setRightChild(deepestNode);
-			}
-		}
-		
+		removeLeafNode(targetNode, parentOfTargetNode, deepestNode, parentOfDeepestNode, isLastNodeLeftChild);
 	} else if (targetNode->getRightChild() == nullptr) {
-		if (targetNode == deepestNode) {
-			parentOfDeepestNode->setLeftChild(nullptr);
-		} else if (targetNode == rootNode) {
-			rootNode = targetNode->getLeftChild();
-		} else {
-			parentOfTargetNode->setLeftChild(deepestNode);
-		}
+		removeNodeWithOnlyLeftChild(targetNode, parentOfTargetNode, deepestNode, parentOfDeepestNode);
 	} else if (targetNode->getLeftChild() == nullptr) {
-		if (targetNode == deepestNode) {
-			parentOfDeepestNode->setRightChild(nullptr);
-		} else if (targetNode == rootNode) {
-			rootNode = targetNode->getRightChild();
-		} else {
-			parentOfTargetNode->setRightChild(deepestNode);
-		}
+		removeNodeWithOnlyRightChild(targetNode, parentOfTargetNode, deepestNode, parentOfDeepestNode);
 	} else {
-		if (isLastNodeLeftChild) {
-			parentOfDeepestNode->setLeftChild(nullptr);
-		} else {
-			parentOfDeepestNode->setRightChild(nullptr);
-		}
-		
-		deepestNode->setLeftChild(targetNode->getLeftChild());
-		deepestNode->setRightChild(targetNode->getRightChild());
-		
-		if (targetNode == rootNode) {
-			rootNode = deepestNode;
-		} else if (parentOfTargetNode->getLeftChild() == targetNode) {
-			parentOfTargetNode->setLeftChild(deepestNode);
-		} else {
-			parentOfTargetNode->setRightChild(deepestNode);
-		}
+		removeNodeWithTwoChildren(targetNode,
+		                          parentOfTargetNode,
+		                          deepestNode,
+		                          parentOfDeepestNode,
+		                          isLastNodeLeftChild);
 	}
-	
-	--nodeCount;
-	delete targetNode;
 	
 	return removedElement;
 }
@@ -689,6 +707,97 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 			}
 		}
 	}
+}
+
+template<typename ElementType>
+void BinaryTree<ElementType>::removeLeafNode(BinaryTreeNode<ElementType>* targetNode,
+                                             BinaryTreeNode<ElementType>* parentOfTargetNode,
+                                             BinaryTreeNode<ElementType>* deepestNode,
+                                             BinaryTreeNode<ElementType>* parentOfDeepestNode,
+                                             bool isLastNodeLeftChild) {
+	if (targetNode == rootNode) {
+		rootNode = nullptr;
+	} else if (targetNode == deepestNode) {
+		if (isLastNodeLeftChild) {
+			parentOfDeepestNode->setLeftChild(nullptr);
+		} else {
+			parentOfDeepestNode->setRightChild(nullptr);
+		}
+	} else {
+		if (parentOfTargetNode->getLeftChild() == targetNode) {
+			parentOfTargetNode->setLeftChild(deepestNode);
+		} else {
+			parentOfTargetNode->setRightChild(deepestNode);
+		}
+	}
+	
+	--nodeCount;
+	
+	delete targetNode;
+}
+
+template<typename ElementType>
+void BinaryTree<ElementType>::removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* targetNode,
+                                                          BinaryTreeNode<ElementType>* parentOfTargetNode,
+                                                          BinaryTreeNode<ElementType>* deepestNode,
+                                                          BinaryTreeNode<ElementType>* parentOfDeepestNode) {
+	if (targetNode == deepestNode) {
+		parentOfDeepestNode->setLeftChild(nullptr);
+	} else if (targetNode == rootNode) {
+		rootNode = targetNode->getLeftChild();
+	} else {
+		parentOfTargetNode->setLeftChild(deepestNode);
+	}
+	
+	--nodeCount;
+	
+	delete targetNode;
+}
+
+template<typename ElementType>
+void BinaryTree<ElementType>::removeNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* targetNode,
+                                                           BinaryTreeNode<ElementType>* parentOfTargetNode,
+                                                           BinaryTreeNode<ElementType>* deepestNode,
+                                                           BinaryTreeNode<ElementType>* parentOfDeepestNode) {
+	if (targetNode == deepestNode) {
+		parentOfDeepestNode->setRightChild(nullptr);
+	} else if (targetNode == rootNode) {
+		rootNode = targetNode->getRightChild();
+	} else {
+		parentOfTargetNode->setRightChild(deepestNode);
+	}
+	
+	--nodeCount;
+	
+	delete targetNode;
+}
+
+template<typename ElementType>
+void BinaryTree<ElementType>::removeNodeWithTwoChildren(BinaryTreeNode<ElementType>* targetNode,
+                                                        BinaryTreeNode<ElementType>* parentOfTargetNode,
+                                                        BinaryTreeNode<ElementType>* deepestNode,
+                                                        BinaryTreeNode<ElementType>* parentOfDeepestNode,
+                                                        bool isLastNodeLeftChild) {
+	if (isLastNodeLeftChild) {
+		parentOfDeepestNode->setLeftChild(nullptr);
+	} else {
+		parentOfDeepestNode->setRightChild(nullptr);
+	}
+	
+	deepestNode->setLeftChild(targetNode->getLeftChild());
+	deepestNode->setRightChild(targetNode->getRightChild());
+	
+	if (targetNode == rootNode) {
+		rootNode = deepestNode;
+	} else if (parentOfTargetNode->getLeftChild() == targetNode) {
+		parentOfTargetNode->setLeftChild(deepestNode);
+	} else {
+		parentOfTargetNode->setRightChild(deepestNode);
+	}
+	
+	--nodeCount;
+	
+	delete targetNode;
 }
 
 template<typename ElementType>
