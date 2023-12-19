@@ -194,7 +194,8 @@ public:
 	
 	/**
 	 * @brief Removes the first element in the binary tree that satisfies a predicate.
-	 * @details The elements are traversed in level-order.
+	 * @details The elements are traversed in level-order and the removed element is replaced by the deepest node in the
+	 * binary tree.
 	 * @param predicate: The predicate to satisfy.
 	 * @return The removed element if it exists, std::nullopt otherwise.
 	 */
@@ -280,6 +281,8 @@ public:
 	
 	/**
 	 * @brief Gets the height of the binary tree.
+	 * @details Since this binary tree implementation uses level-order insertion, the height of the binary tree can be
+	 * calculated by starting at the root and traversing the leftmost path until a leaf node is reached.
 	 * @return The height of the binary tree.
 	 */
 	const int getHeight() const noexcept;
@@ -465,7 +468,7 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 		return std::nullopt;
 	}
 	
-	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
+	Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*> nodeQueue {};
 	nodeQueue.enqueue(rootNode);
 	
 	BinaryTreeNode<ElementType>* parentOfCurrentNode {nullptr};
@@ -655,7 +658,7 @@ void BinaryTree<ElementType>::insertLevelOrder(BinaryTreeNode<ElementType>* node
 		return;
 	}
 	
-	auto nodeQueue {Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*>()};
+	Queues::SinglyLinkedListQueue<BinaryTreeNode<ElementType>*> nodeQueue {};
 	nodeQueue.enqueue(rootNode);
 	
 	while (!nodeQueue.isEmpty()) {
