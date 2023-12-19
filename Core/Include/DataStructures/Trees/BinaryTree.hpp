@@ -548,14 +548,14 @@ std::optional<ElementType> BinaryTree<ElementType>::removeFirst(const std::funct
 			parentOfTargetNode->setRightChild(deepestNode);
 		}
 	} else {
-		deepestNode->setLeftChild(targetNode->getLeftChild());
-		deepestNode->setRightChild(targetNode->getRightChild());
-		
 		if (isLastNodeLeftChild) {
 			parentOfDeepestNode->setLeftChild(nullptr);
 		} else {
 			parentOfDeepestNode->setRightChild(nullptr);
 		}
+		
+		deepestNode->setLeftChild(targetNode->getLeftChild());
+		deepestNode->setRightChild(targetNode->getRightChild());
 		
 		if (targetNode == rootNode) {
 			rootNode = deepestNode;

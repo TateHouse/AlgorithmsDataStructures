@@ -240,6 +240,19 @@ TEST_F(NonEmptyIntegerBinarySearchTreeTest, GivenInteger_WhenRemoveFirstAndNodeI
 	EXPECT_THAT(elements, testing::ElementsAre(-20, -15, -10, -5, 5, 10, 15, 20));
 }
 
+TEST_F(NonEmptyIntegerBinarySearchTreeTest, GivenInteger_WhenRemoveFirstMultipleTimes_ThenElementsAreInExceptedOrder) {
+	binarySearchTree.removeFirst(20);
+	binarySearchTree.removeFirst(-5);
+	binarySearchTree.removeFirst(10);
+	
+	std::vector<int> elements {};
+	for (auto iterator {binarySearchTree.cbeginInOrder()}; iterator != binarySearchTree.cendInOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(-20, -15, -10, 0, 5, 15));
+}
+
 TEST_F(NonEmptyIntegerBinarySearchTreeTest,
        GivenIntegerNotInBinarySearchTree_WhenRemoveFirst_ThenElementsOrderIsUnchanged) {
 	binarySearchTree.removeFirst(100);
