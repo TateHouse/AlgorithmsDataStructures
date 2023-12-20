@@ -21,6 +21,23 @@ NonEmptyIntegerAVLTreeTest::NonEmptyIntegerAVLTreeTest() {
 	}
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenCopyConstruct_ThenNewAVLTreeIsEqualToOriginalAVLTree) {
+	const auto otherAVLTree {avlTree};
+	
+	EXPECT_THAT(otherAVLTree, testing::Eq(avlTree));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenMoveConstruct_ThenNewAVLTreeIsEqualToOriginalAVLTree) {
+	const auto otherAVLTree {std::move(avlTree)};
+	
+	std::vector<int> elements {};
+	for (auto iterator {otherAVLTree.cbeginLevelOrder()}; iterator != otherAVLTree.cendLevelOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 30, -50, -10, 10, 40, -5, 50));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, WhenCopyAssign_ThenNewAVLTreeIsEqualToOriginalAVLTree) {
 	const auto otherAVLTree = avlTree;
 	
