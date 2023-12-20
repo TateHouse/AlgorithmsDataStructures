@@ -69,6 +69,8 @@ public:
 	void traverse(IteratorType begin,
 	              IteratorType end,
 	              const std::function<void(ElementType&)>& function) const noexcept;
+	
+	const bool contains(const ElementType& element) const noexcept;
 
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
@@ -76,11 +78,11 @@ private:
 	BinaryTreeNode<ElementType>* removeFirst(BinaryTreeNode<ElementType>* node,
 	                                         const ElementType& element,
 	                                         std::optional<ElementType>& removedElement);
+	BinaryTreeNode<ElementType>* getInOrderSuccessor(BinaryTreeNode<ElementType>* node);
 	BinaryTreeNode<ElementType>* removeMinimum(BinaryTreeNode<ElementType>* node,
 	                                           std::optional<ElementType>& removedElement);
 	BinaryTreeNode<ElementType>* removeMaximum(BinaryTreeNode<ElementType>* node,
 	                                           std::optional<ElementType>& removedElement);
-	BinaryTreeNode<ElementType>* getInOrderSuccessor(BinaryTreeNode<ElementType>* node);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
 	const int getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept;
 	const int getBalanceFactor(const BinaryTreeNode<ElementType>* const node) const noexcept;
@@ -320,6 +322,17 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::removeFirst(BinaryTreeNode<El
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::getInOrderSuccessor(BinaryTreeNode<ElementType>* node) {
+	auto* currentNode {node};
+	
+	while (currentNode != nullptr && currentNode->getLeftChild() != nullptr) {
+		currentNode = currentNode->getLeftChild();
+	}
+	
+	return currentNode;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
 BinaryTreeNode<ElementType>* AVLTree<ElementType>::removeMinimum(BinaryTreeNode<ElementType>* node,
                                                                  std::optional<ElementType>& removedElement) {
 	if (node == nullptr) {
@@ -357,17 +370,6 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::removeMaximum(BinaryTreeNode<
 	node->setRightChild(removeMaximum(node->getRightChild(), removedElement));
 	
 	return rebalance(node);
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-BinaryTreeNode<ElementType>* AVLTree<ElementType>::getInOrderSuccessor(BinaryTreeNode<ElementType>* node) {
-	auto* currentNode {node};
-	
-	while (currentNode != nullptr && currentNode->getLeftChild() != nullptr) {
-		currentNode = currentNode->getLeftChild();
-	}
-	
-	return currentNode;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
@@ -455,6 +457,11 @@ void AVLTree<ElementType>::traverse(IteratorType begin,
                                     IteratorType end,
                                     const std::function<void(ElementType&)>& function) const noexcept {
 	std::for_each(begin, end, function);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const bool AVLTree<ElementType>::contains(const ElementType& element) const noexcept {
+	return findFirst(element).has_value();
 }
 
 template<ElementTypeWithLessThanOperator ElementType>

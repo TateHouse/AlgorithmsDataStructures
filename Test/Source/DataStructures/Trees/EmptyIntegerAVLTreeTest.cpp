@@ -115,4 +115,10 @@ TEST_F(EmptyIntegerAVLTreeTest, WhenFindMaximum_ThenReturnsNullOptional) {
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
+
+TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenContains_ThenReturnsFalse) {
+	const auto result {avlTree.contains(10)};
+	
+	EXPECT_THAT(result, testing::IsFalse());
+}
 }

@@ -211,4 +211,10 @@ TEST_F(NonEmptyIntegerAVLTreeTest, GivenFunctionToApplyToEachElement_WhenTravers
 	
 	EXPECT_THAT(elements, testing::ElementsAre(-100, -40, -20, -10, 0, 20, 60, 80, 100));
 }
+
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenIntegerMatchingAtleastOneElement_WhenContains_ThenReturnsTrue) {
+	const auto contains {avlTree.contains(50)};
+	
+	EXPECT_THAT(contains, testing::IsTrue());
+}
 }
