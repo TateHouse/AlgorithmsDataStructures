@@ -85,4 +85,10 @@ TEST_F(EmptyIntegerAVLTreeTest, WhenFindMinimum_ThenReturnsNullOptional) {
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
+
+TEST_F(EmptyIntegerAVLTreeTest, WhenFindMaximum_ThenReturnsNullOptional) {
+	const auto result {avlTree.findMaximum()};
+	
+	EXPECT_THAT(result, testing::Eq(std::nullopt));
+}
 }

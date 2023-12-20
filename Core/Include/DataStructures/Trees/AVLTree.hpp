@@ -48,6 +48,7 @@ public:
 	void insert(ElementType&& element) noexcept;
 	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	const std::optional<ElementType> findMinimum() const noexcept;
+	const std::optional<ElementType> findMaximum() const noexcept;
 
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
@@ -221,6 +222,21 @@ const std::optional<ElementType> AVLTree<ElementType>::findMinimum() const noexc
 	
 	while (currentNode->getLeftChild() != nullptr) {
 		currentNode = currentNode->getLeftChild();
+	}
+	
+	return currentNode->getElement();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const std::optional<ElementType> AVLTree<ElementType>::findMaximum() const noexcept {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto* currentNode {rootNode};
+	
+	while (currentNode->getRightChild() != nullptr) {
+		currentNode = currentNode->getRightChild();
 	}
 	
 	return currentNode->getElement();
