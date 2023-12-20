@@ -8,7 +8,7 @@ While I plan on continually implementing more algorithms and data structures, I 
 considering. These include but are not limited to:
 
 - Implementing a graphics visualizer for the algorithms and data structures.
-- Making better use of C++ 23 features, such as concepts and ranges.
+- Making better use of C++ features, such as concepts and ranges.
 - Refactoring data structures to allow for custom allocators.
 - Refactoring data structures into thread-safe and non-thread-safe versions.
 
