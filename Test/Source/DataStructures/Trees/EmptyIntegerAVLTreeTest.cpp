@@ -80,6 +80,12 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveFirst_ThenReturnsNullOpti
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
 
+TEST_F(EmptyIntegerAVLTreeTest, WhenRemoveMinimum_ThenReturnsNullOptional) {
+	const auto result {avlTree.removeMinimum()};
+	
+	EXPECT_THAT(result, testing::Eq(std::nullopt));
+}
+
 TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveAll_ThenReturnsEmptyVector) {
 	const auto result {avlTree.removeAll()};
 	

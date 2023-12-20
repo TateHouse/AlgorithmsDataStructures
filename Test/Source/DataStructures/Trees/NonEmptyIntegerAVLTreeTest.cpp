@@ -140,6 +140,12 @@ TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveFirstAndRigthAndLeftRotationsArePer
 	EXPECT_THAT(elements, testing::ElementsAre(10, 0, 30));
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveMinimum_ThenReturnsElement) {
+	const auto result {avlTree.removeMinimum()};
+	
+	EXPECT_THAT(result, testing::Optional(-50));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveAll_ThenReturnsElementsInPostOrder) {
 	const auto result {avlTree.removeAll()};
 	
