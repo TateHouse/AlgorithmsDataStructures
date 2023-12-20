@@ -46,6 +46,7 @@ public:
 public:
 	void insert(const ElementType& element) noexcept;
 	void insert(ElementType&& element) noexcept;
+	std::vector<ElementType> removeAll();
 	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	const std::optional<ElementType> findMinimum() const noexcept;
 	const std::optional<ElementType> findMaximum() const noexcept;
@@ -53,6 +54,7 @@ public:
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, ElementType&& element);
+	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
 	const int getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept;
 	const int getBalanceFactor(const BinaryTreeNode<ElementType>* const node) const noexcept;
 	BinaryTreeNode<ElementType>* rebalance(BinaryTreeNode<ElementType>* node);
@@ -157,6 +159,16 @@ void AVLTree<ElementType>::AVLTree::insert(ElementType&& element) noexcept {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
+std::vector<ElementType> AVLTree<ElementType>::removeAll() {
+	std::vector<ElementType> elements {};
+	removeAll(rootNode, elements);
+	rootNode = nullptr;
+	nodeCount = 0;
+	
+	return elements;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
 BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<ElementType>* node,
                                                           const ElementType& element) {
 	if (node == nullptr) {
@@ -185,6 +197,20 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<Element
 	}
 	
 	return rebalance(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void AVLTree<ElementType>::removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements) {
+	if (node == nullptr) {
+		return;
+	}
+	
+	removeAll(node->getLeftChild(), elements);
+	removeAll(node->getRightChild(), elements);
+	
+	elements.emplace_back(node->getElement());
+	
+	delete node;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>

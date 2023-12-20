@@ -69,6 +69,12 @@ TEST_F(NonEmptyIntegerAVLTreeTest,
 	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 30, -50, -7, 10, 40, -10, -5, 50));
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveAll_ThenReturnsElementsInPostOrder) {
+	const auto result {avlTree.removeAll()};
+	
+	EXPECT_THAT(result, testing::ElementsAre(-50, -5, -10, -20, 10, 50, 40, 30, 0));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, GivenIntegerMatchingAtLeastOneElement_WhenFindFirst_ThenReturnsElement) {
 	const auto result {avlTree.findFirst(50)};
 	
