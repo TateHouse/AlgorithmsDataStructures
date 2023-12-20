@@ -2,8 +2,17 @@
 
 ## Overview
 
-A project for implementing algorithms and data structures. This project is intended to be used as a reference for
-implementing algorithms and data structures in C++, particularly with a focus on iterators and templates.
+A project for implementing algorithms and data structures in C++ with a focus on templates and iterators.
+
+While I plan on continually implementing more algorithms and data structures, I do have a few long-term goals I am
+considering. These include but are not limited to:
+
+- Implementing a graphics visualizer for the algorithms and data structures.
+- Making better use of C++ 23 features, such as concepts and ranges.
+- Refactoring data structures to allow for custom allocators.
+- Refactoring data structures into thread-safe and non-thread-safe versions.
+
+## Current Features
 
 ### Algorithms
 
@@ -33,12 +42,13 @@ implementing algorithms and data structures in C++, particularly with a focus on
 - Trees
     - Binary Tree
     - Binary Search Tree
+    - AVL Tree
 - Hash Tables
     - Separate Chaining Hash Table
 
 ## Dependencies
 
-- C++ 23 (Tested with MSVC Version 19.37.32824)
+- C++ 23 (Developed with MSVC Version 19.38.33133)
 - CMake (Minimum Required Version: 3.26)
 - vcpkg
     - Google Test / Google Mock
