@@ -43,6 +43,19 @@ public:
 	PreOrderIterator beginPreOrder() noexcept;
 	PreOrderIterator endPreOrder() noexcept;
 
+public:
+	void insert(const ElementType& element) noexcept;
+	void insert(ElementType&& element) noexcept;
+
+private:
+	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
+	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, ElementType&& element);
+	const int getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept;
+	const int getBalanceFactor(const BinaryTreeNode<ElementType>* const node) const noexcept;
+	BinaryTreeNode<ElementType>* rebalance(BinaryTreeNode<ElementType>* node);
+	BinaryTreeNode<ElementType>* rotateLeft(BinaryTreeNode<ElementType>* node);
+	BinaryTreeNode<ElementType>* rotateRight(BinaryTreeNode<ElementType>* node);
+
 private:
 	std::size_t nodeCount {0};
 	BinaryTreeNode<ElementType>* rootNode {nullptr};
@@ -126,5 +139,113 @@ AVLTree<ElementType>::PreOrderIterator AVLTree<ElementType>::AVLTree::beginPreOr
 template<ElementTypeWithLessThanOperator ElementType>
 AVLTree<ElementType>::PreOrderIterator AVLTree<ElementType>::AVLTree::endPreOrder() noexcept {
 	return PreOrderIterator {nullptr};
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void AVLTree<ElementType>::AVLTree::insert(const ElementType& element) noexcept {
+	rootNode = insert(rootNode, element);
+	++nodeCount;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void AVLTree<ElementType>::AVLTree::insert(ElementType&& element) noexcept {
+	rootNode = insert(rootNode, std::move(element));
+	++nodeCount;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<ElementType>* node,
+                                                          const ElementType& element) {
+	if (node == nullptr) {
+		return new BinaryTreeNode<ElementType> {element};
+	}
+	
+	if (const auto nodeElement {node->getElement()}; element < nodeElement) {
+		node->setLeftChild(insert(node->getLeftChild(), element));
+	} else {
+		node->setRightChild(insert(node->getRightChild(), element));
+	}
+	
+	return rebalance(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<ElementType>* node, ElementType&& element) {
+	if (node == nullptr) {
+		return new BinaryTreeNode<ElementType> {std::move(element)};
+	}
+	
+	if (const auto nodeElement {node->getElement()}; element < nodeElement) {
+		node->setLeftChild(insert(node->getLeftChild(), std::move(element)));
+	} else {
+		node->setRightChild(insert(node->getRightChild(), std::move(element)));
+	}
+	
+	return rebalance(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const int AVLTree<ElementType>::AVLTree::getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept {
+	if (node == nullptr) {
+		return -1;
+	}
+	
+	const auto leftSubtreeHeight {getHeight(node->getLeftChild())};
+	const auto rightSubtreeHeight {getHeight(node->getRightChild())};
+	
+	return std::max(leftSubtreeHeight, rightSubtreeHeight) + 1;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const int AVLTree<ElementType>::getBalanceFactor(const BinaryTreeNode<ElementType>* node) const noexcept {
+	if (node == nullptr) {
+		return 0;
+	}
+	
+	const auto leftSubtreeHeight {getHeight(node->getLeftChild())};
+	const auto rightSubtreeHeight {getHeight(node->getRightChild())};
+	
+	return leftSubtreeHeight - rightSubtreeHeight;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::rebalance(BinaryTreeNode<ElementType>* node) {
+	const auto balanceFactor {getBalanceFactor(node)};
+	
+	if (balanceFactor > 1) {
+		if (const auto leftChildBalanceFactor {getBalanceFactor(node->getLeftChild())}; leftChildBalanceFactor < 0) {
+			node->setLeftChild(rotateLeft(node->getLeftChild()));
+		}
+		
+		return rotateRight(node);
+	}
+	
+	if (balanceFactor < -1) {
+		if (const auto rightChildBalanceFactor {getBalanceFactor(node->getRightChild())}; rightChildBalanceFactor > 0) {
+			node->setRightChild(rotateRight(node->getRightChild()));
+		}
+		
+		return rotateLeft(node);
+	}
+	
+	return node;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateLeft(BinaryTreeNode<ElementType>* node) {
+	auto* newParent {node->getRightChild()};
+	node->setRightChild(newParent->getLeftChild());
+	newParent->setLeftChild(node);
+	
+	return newParent;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateRight(BinaryTreeNode<ElementType>* node) {
+	auto* newParent {node->getLeftChild()};
+	node->setLeftChild(newParent->getRightChild());
+	newParent->setRightChild(node);
+	
+	return newParent;
 }
 }
