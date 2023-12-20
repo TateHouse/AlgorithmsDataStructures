@@ -46,7 +46,7 @@ public:
 	 * @brief Destroys the avl tree.
 	 */
 	~AVLTree() noexcept;
-	
+
 public:
 	/**
 	 * @brief Assigns the given avl tree to this avl tree using copy semantics.
@@ -321,7 +321,7 @@ private:
 	 * @param node The node to get the in-order successor of.
 	 * @return The in-order successor of the given node.
 	 */
-	BinaryTreeNode<ElementType>* getInOrderSuccessor(BinaryTreeNode<ElementType>* node);
+	BinaryTreeNode<ElementType>* getInOrderSuccessor(BinaryTreeNode<ElementType>* node) noexcept;
 	
 	/**
 	 * @brief Removes the minimum element from the avl tree recursively.
@@ -367,21 +367,21 @@ private:
 	 * @param node The node to rebalance.
 	 * @return The node that was rebalanced.
 	 */
-	BinaryTreeNode<ElementType>* rebalance(BinaryTreeNode<ElementType>* node);
+	BinaryTreeNode<ElementType>* rebalance(BinaryTreeNode<ElementType>* node) noexcept;
 	
 	/**
 	 * @brief Rotates the given node left recursively.
 	 * @param node The node to rotate left.
 	 * @return The node that was rotated left.
 	 */
-	BinaryTreeNode<ElementType>* rotateLeft(BinaryTreeNode<ElementType>* node);
+	BinaryTreeNode<ElementType>* rotateLeft(BinaryTreeNode<ElementType>* node) noexcept;
 	
 	/**
 	 * @brief Rotates the given node right recursively.
 	 * @param node The node to rotate right.
 	 * @return The node that was rotated right.
 	 */
-	BinaryTreeNode<ElementType>* rotateRight(BinaryTreeNode<ElementType>* node);
+	BinaryTreeNode<ElementType>* rotateRight(BinaryTreeNode<ElementType>* node) noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -772,7 +772,7 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::removeFirst(BinaryTreeNode<El
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-BinaryTreeNode<ElementType>* AVLTree<ElementType>::getInOrderSuccessor(BinaryTreeNode<ElementType>* node) {
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::getInOrderSuccessor(BinaryTreeNode<ElementType>* node) noexcept {
 	auto* currentNode {node};
 	
 	while (currentNode != nullptr && currentNode->getLeftChild() != nullptr) {
@@ -861,7 +861,7 @@ const int AVLTree<ElementType>::getBalanceFactor(const BinaryTreeNode<ElementTyp
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-BinaryTreeNode<ElementType>* AVLTree<ElementType>::rebalance(BinaryTreeNode<ElementType>* node) {
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::rebalance(BinaryTreeNode<ElementType>* node) noexcept {
 	const auto balanceFactor {getBalanceFactor(node)};
 	
 	if (balanceFactor > 1) {
@@ -884,7 +884,7 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::rebalance(BinaryTreeNode<Elem
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateLeft(BinaryTreeNode<ElementType>* node) {
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateLeft(BinaryTreeNode<ElementType>* node) noexcept {
 	auto* newParent {node->getRightChild()};
 	node->setRightChild(newParent->getLeftChild());
 	newParent->setLeftChild(node);
@@ -893,7 +893,7 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateLeft(BinaryTreeNode<Ele
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateRight(BinaryTreeNode<ElementType>* node) {
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateRight(BinaryTreeNode<ElementType>* node) noexcept {
 	auto* newParent {node->getLeftChild()};
 	node->setLeftChild(newParent->getRightChild());
 	newParent->setRightChild(node);
