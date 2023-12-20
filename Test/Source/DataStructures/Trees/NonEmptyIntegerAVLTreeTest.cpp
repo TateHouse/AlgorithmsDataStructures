@@ -80,4 +80,10 @@ TEST_F(NonEmptyIntegerAVLTreeTest, GivenIntegerMatchingNoElements_WhenFindFirst_
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenFindMinimum_ThenReturnsElement) {
+	const auto result {avlTree.findMinimum()};
+	
+	EXPECT_THAT(result, testing::Optional(-50));
+}
 }

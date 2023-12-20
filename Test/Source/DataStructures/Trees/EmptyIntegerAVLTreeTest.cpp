@@ -79,4 +79,10 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenFindFirst_ThenReturnsNullOption
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
+
+TEST_F(EmptyIntegerAVLTreeTest, WhenFindMinimum_ThenReturnsNullOptional) {
+	const auto result {avlTree.findMinimum()};
+	
+	EXPECT_THAT(result, testing::Eq(std::nullopt));
+}
 }
