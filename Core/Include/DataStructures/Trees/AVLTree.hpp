@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -56,6 +57,18 @@ public:
 	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	const std::optional<ElementType> findMinimum() const noexcept;
 	const std::optional<ElementType> findMaximum() const noexcept;
+	
+	template<typename ConstIteratorType>
+	requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
+	void traverse(ConstIteratorType begin,
+	              ConstIteratorType end,
+	              const std::function<void(const ElementType&)>& function) const noexcept;
+	
+	template<typename IteratorType>
+	requires Iterators::AllowedIterator<IteratorType, ElementType>
+	void traverse(IteratorType begin,
+	              IteratorType end,
+	              const std::function<void(ElementType&)>& function) const noexcept;
 
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
@@ -424,6 +437,24 @@ const std::optional<ElementType> AVLTree<ElementType>::findMaximum() const noexc
 	}
 	
 	return currentNode->getElement();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+template<typename ConstIteratorType>
+requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
+void AVLTree<ElementType>::traverse(ConstIteratorType begin,
+                                    ConstIteratorType end,
+                                    const std::function<void(const ElementType&)>& function) const noexcept {
+	std::for_each(begin, end, function);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+template<typename IteratorType>
+requires Iterators::AllowedIterator<IteratorType, ElementType>
+void AVLTree<ElementType>::traverse(IteratorType begin,
+                                    IteratorType end,
+                                    const std::function<void(ElementType&)>& function) const noexcept {
+	std::for_each(begin, end, function);
 }
 
 template<ElementTypeWithLessThanOperator ElementType>

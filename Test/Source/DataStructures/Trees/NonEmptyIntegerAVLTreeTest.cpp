@@ -181,4 +181,34 @@ TEST_F(NonEmptyIntegerAVLTreeTest, WhenFindMaximum_ThenReturnsElement) {
 	
 	EXPECT_THAT(result, testing::Optional(50));
 }
+
+TEST_F(NonEmptyIntegerAVLTreeTest,
+       GivenConstFunctionToApplyToEachElement_WhenConstTraverse_ThenFunctionIsAppliedToEachElement) {
+	std::vector<int> elements {};
+	const auto pushBack {[&elements](const int& element) {
+		elements.push_back(element);
+	}};
+	
+	const auto& constBinarySearchTree {avlTree};
+	constBinarySearchTree.traverse(constBinarySearchTree.cbeginInOrder(),
+	                               constBinarySearchTree.cendInOrder(),
+	                               pushBack);
+	
+	EXPECT_THAT(elements, testing::ElementsAre(-50, -20, -10, -5, 0, 10, 30, 40, 50));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenFunctionToApplyToEachElement_WhenTraverse_ThenFunctionIsAppliedToEachElement) {
+	const auto doubleElement {[](int& element) {
+		element = element * 2;
+	}};
+	
+	avlTree.traverse(avlTree.beginInOrder(), avlTree.endInOrder(), doubleElement);
+	
+	std::vector<int> elements {};
+	for (auto iterator {avlTree.cbeginInOrder()}; iterator != avlTree.cendInOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(-100, -40, -20, -10, 0, 20, 60, 80, 100));
+}
 }
