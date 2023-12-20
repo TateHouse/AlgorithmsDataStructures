@@ -900,5 +900,4 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateRight(BinaryTreeNode<El
 	
 	return newParent;
 }
-	
 }
