@@ -20,6 +20,11 @@ namespace Core::DataStructures::Trees {
 template<ElementTypeWithLessThanOperator ElementType>
 class AVLTree final {
 public:
+	AVLTree<ElementType>& operator=(const AVLTree& other);
+	AVLTree<ElementType>& operator=(AVLTree&& other) noexcept;
+	const bool operator==(const AVLTree& other) const noexcept;
+
+public:
 	using value_type = ElementType;
 	using ConstInOrderIterator = Iterators::BinaryTreeConstInOrderIterator<ElementType>;
 	using ConstLevelOrderIterator = Iterators::BinaryTreeConstLevelOrderIterator<ElementType>;
@@ -97,6 +102,47 @@ private:
 	std::size_t nodeCount {0};
 	BinaryTreeNode<ElementType>* rootNode {nullptr};
 };
+
+template<ElementTypeWithLessThanOperator ElementType>
+AVLTree<ElementType>& AVLTree<ElementType>::operator=(const AVLTree& other) {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	for (auto iterator {other.cbeginInOrder()}; iterator != other.cendInOrder(); ++iterator) {
+		insert(*iterator);
+	}
+	
+	return *this;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+AVLTree<ElementType>& AVLTree<ElementType>::operator=(AVLTree&& other) noexcept {
+	if (this == &other) {
+		return *this;
+	}
+	
+	removeAll();
+	
+	nodeCount = other.nodeCount;
+	rootNode = other.rootNode;
+	
+	other.nodeCount = 0;
+	other.rootNode = nullptr;
+	
+	return *this;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const bool AVLTree<ElementType>::operator==(const AVLTree& other) const noexcept {
+	if (nodeCount != other.nodeCount) {
+		return false;
+	}
+	
+	return std::equal(cbeginInOrder(), cendInOrder(), other.cbeginInOrder(), other.cendInOrder());
+}
 
 template<ElementTypeWithLessThanOperator ElementType>
 AVLTree<ElementType>::ConstInOrderIterator AVLTree<ElementType>::AVLTree::cbeginInOrder() const noexcept {

@@ -21,6 +21,43 @@ NonEmptyIntegerAVLTreeTest::NonEmptyIntegerAVLTreeTest() {
 	}
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenCopyAssign_ThenNewAVLTreeIsEqualToOriginalAVLTree) {
+	const auto otherAVLTree = avlTree;
+	
+	EXPECT_THAT(otherAVLTree, testing::Eq(avlTree));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenMoveAssign_ThenNewAVLTreeIsEqualToOriginalAVLTree) {
+	const auto otherAVLTree = std::move(avlTree);
+	
+	std::vector<int> elements {};
+	for (auto iterator {otherAVLTree.cbeginLevelOrder()}; iterator != otherAVLTree.cendLevelOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 30, -50, -10, 10, 40, -5, 50));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenTwoNonEqualNonEmptyIntegerAVLTrees_WhenCompare_ThenReturnsFalse) {
+	AVLTree<int> otherAVLTree {};
+	const auto elements {std::array<int, 9> {50, 40, 30, 20, 10, 0, -10, -20, -50}};
+	for (const auto& element : elements) {
+		otherAVLTree.insert(element);
+	}
+	
+	EXPECT_THAT(avlTree, testing::Ne(otherAVLTree));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenTwoEqualNonEmptyIntegerAVLTrees_WhenCompare_ThenReturnsTrue) {
+	AVLTree<int> otherAVLTree {};
+	const auto elements {std::array<int, 9> {0, 10, -20, 40, 30, -10, -50, -5, 50}};
+	for (const auto& element : elements) {
+		otherAVLTree.insert(element);
+	}
+	
+	EXPECT_THAT(avlTree, testing::Eq(otherAVLTree));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsert_ThenSizeIsIncremented) {
 	avlTree.insert(60);
 	const auto size {avlTree.getNodeCount()};

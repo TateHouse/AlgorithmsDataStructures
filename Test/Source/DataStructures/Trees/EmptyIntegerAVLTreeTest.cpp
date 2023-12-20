@@ -14,6 +14,12 @@ protected:
 	AVLTree<int> avlTree {};
 };
 
+TEST_F(EmptyIntegerAVLTreeTest, GivenTwoEmptyIntegerAVLTrees_WhenCompare_ThenReturnsTrue) {
+	AVLTree<int> otherAVLTree {};
+	
+	EXPECT_THAT(avlTree, testing::Eq(otherAVLTree));
+}
+
 TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsert_ThenElementsAreInExpectedOrder) {
 	avlTree.insert(10);
 	
