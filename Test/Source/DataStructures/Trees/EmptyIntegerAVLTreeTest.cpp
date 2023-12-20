@@ -73,4 +73,10 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndRightAndLeftRotationsA
 	
 	EXPECT_THAT(elements, testing::ElementsAre(20, 10, 30));
 }
+
+TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenFindFirst_ThenReturnsNullOptional) {
+	const auto result {avlTree.findFirst(10)};
+	
+	EXPECT_THAT(result, testing::Eq(std::nullopt));
+}
 }

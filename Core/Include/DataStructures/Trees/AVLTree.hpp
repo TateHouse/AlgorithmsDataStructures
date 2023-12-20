@@ -46,6 +46,7 @@ public:
 public:
 	void insert(const ElementType& element) noexcept;
 	void insert(ElementType&& element) noexcept;
+	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
@@ -182,6 +183,31 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<Element
 	}
 	
 	return rebalance(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const std::optional<ElementType> AVLTree<ElementType>::findFirst(const ElementType& element) const noexcept {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto* currentNode {rootNode};
+	
+	while (currentNode != nullptr) {
+		const auto& currentNodeElement {currentNode->getElement()};
+		
+		if (element == currentNodeElement) {
+			return currentNodeElement;
+		}
+		
+		if (element < currentNodeElement) {
+			currentNode = currentNode->getLeftChild();
+		} else {
+			currentNode = currentNode->getRightChild();
+		}
+	}
+	
+	return std::nullopt;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>

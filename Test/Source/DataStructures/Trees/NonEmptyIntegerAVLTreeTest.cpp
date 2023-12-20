@@ -44,7 +44,8 @@ TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndLeftRotationPerform
 	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 30, -50, -10, 10, 50, -5, 40, 60));
 }
 
-TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndLeftAndRightRotationsArePerformed_ThenElementsAreInExpectedOrder) {
+TEST_F(NonEmptyIntegerAVLTreeTest,
+       GivenInteger_WhenInsertAndLeftAndRightRotationsArePerformed_ThenElementsAreInExpectedOrder) {
 	avlTree.insert(-70);
 	avlTree.insert(-60);
 	
@@ -56,7 +57,8 @@ TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndLeftAndRightRotatio
 	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 30, -60, -10, 10, 40, -70, -50, -5, 50));
 }
 
-TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndRightAndLeftRotationsArePerformed_ThenElementsAreInExpectedOrder) {
+TEST_F(NonEmptyIntegerAVLTreeTest,
+       GivenInteger_WhenInsertAndRightAndLeftRotationsArePerformed_ThenElementsAreInExpectedOrder) {
 	avlTree.insert(-7);
 	
 	std::vector<int> elements {};
@@ -65,5 +67,17 @@ TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndRightAndLeftRotatio
 	}
 	
 	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 30, -50, -7, 10, 40, -10, -5, 50));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenIntegerMatchingAtLeastOneElement_WhenFindFirst_ThenReturnsElement) {
+	const auto result {avlTree.findFirst(50)};
+	
+	EXPECT_THAT(result, testing::Optional(50));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenIntegerMatchingNoElements_WhenFindFirst_ThenReturnsNullOptional) {
+	const auto result {avlTree.findFirst(100)};
+	
+	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
 }
