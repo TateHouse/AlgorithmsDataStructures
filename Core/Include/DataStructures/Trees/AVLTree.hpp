@@ -23,6 +23,7 @@ public:
 	AVLTree() noexcept = default;
 	AVLTree(const AVLTree& other);
 	AVLTree(AVLTree&& other) noexcept;
+	~AVLTree() noexcept;
 	
 public:
 	AVLTree<ElementType>& operator=(const AVLTree& other);
@@ -124,6 +125,11 @@ AVLTree<ElementType>::AVLTree(AVLTree<ElementType>&& other) noexcept {
 	
 	other.nodeCount = 0;
 	other.rootNode = nullptr;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+AVLTree<ElementType>::~AVLTree() noexcept {
+	removeAll();
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
