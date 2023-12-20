@@ -157,4 +157,10 @@ TEST_F(EmptyIntegerAVLTreeTest, WhenIsEmpty_ThenReturnsTrue) {
 	
 	EXPECT_THAT(result, testing::IsTrue());
 }
+
+TEST_F(EmptyIntegerAVLTreeTest, WhenGetHeight_ThenReturnsNegativeOne) {
+	const auto result {avlTree.getHeight()};
+	
+	EXPECT_THAT(result, testing::Eq(-1));
+}
 }

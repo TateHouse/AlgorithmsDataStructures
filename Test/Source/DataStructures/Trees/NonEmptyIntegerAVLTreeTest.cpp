@@ -258,4 +258,10 @@ TEST_F(NonEmptyIntegerAVLTreeTest, WhenIsEmpty_ThenReturnsFalse) {
 	
 	EXPECT_THAT(isEmpty, testing::IsFalse());
 }
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenGetHeight_ThenReturnsHeight) {
+	const auto height {avlTree.getHeight()};
+	
+	EXPECT_THAT(height, testing::Eq(3));
+}
 }

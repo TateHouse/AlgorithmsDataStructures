@@ -73,6 +73,7 @@ public:
 	const bool contains(const ElementType& element) const noexcept;
 	const bool isEmpty() const noexcept;
 	const std::size_t getNodeCount() const noexcept;
+	const int getHeight() const noexcept;
 
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
@@ -244,6 +245,99 @@ std::vector<ElementType> AVLTree<ElementType>::removeAll() {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
+const std::optional<ElementType> AVLTree<ElementType>::findFirst(const ElementType& element) const noexcept {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto* currentNode {rootNode};
+	
+	while (currentNode != nullptr) {
+		const auto& currentNodeElement {currentNode->getElement()};
+		
+		if (element == currentNodeElement) {
+			return currentNodeElement;
+		}
+		
+		if (element < currentNodeElement) {
+			currentNode = currentNode->getLeftChild();
+		} else {
+			currentNode = currentNode->getRightChild();
+		}
+	}
+	
+	return std::nullopt;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const std::optional<ElementType> AVLTree<ElementType>::findMinimum() const noexcept {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto* currentNode {rootNode};
+	
+	while (currentNode->getLeftChild() != nullptr) {
+		currentNode = currentNode->getLeftChild();
+	}
+	
+	return currentNode->getElement();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const std::optional<ElementType> AVLTree<ElementType>::findMaximum() const noexcept {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	auto* currentNode {rootNode};
+	
+	while (currentNode->getRightChild() != nullptr) {
+		currentNode = currentNode->getRightChild();
+	}
+	
+	return currentNode->getElement();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+template<typename ConstIteratorType>
+requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
+void AVLTree<ElementType>::traverse(ConstIteratorType begin,
+                                    ConstIteratorType end,
+                                    const std::function<void(const ElementType&)>& function) const noexcept {
+	std::for_each(begin, end, function);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+template<typename IteratorType>
+requires Iterators::AllowedIterator<IteratorType, ElementType>
+void AVLTree<ElementType>::traverse(IteratorType begin,
+                                    IteratorType end,
+                                    const std::function<void(ElementType&)>& function) const noexcept {
+	std::for_each(begin, end, function);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const bool AVLTree<ElementType>::contains(const ElementType& element) const noexcept {
+	return findFirst(element).has_value();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const bool AVLTree<ElementType>::isEmpty() const noexcept {
+	return rootNode == nullptr && nodeCount == 0;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const std::size_t AVLTree<ElementType>::getNodeCount() const noexcept {
+	return nodeCount;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const int AVLTree<ElementType>::getHeight() const noexcept {
+	return getHeight(rootNode);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
 BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<ElementType>* node,
                                                           const ElementType& element) {
 	if (node == nullptr) {
@@ -386,94 +480,6 @@ void AVLTree<ElementType>::removeAll(BinaryTreeNode<ElementType>* node, std::vec
 	elements.emplace_back(node->getElement());
 	
 	delete node;
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> AVLTree<ElementType>::findFirst(const ElementType& element) const noexcept {
-	if (rootNode == nullptr) {
-		return std::nullopt;
-	}
-	
-	auto* currentNode {rootNode};
-	
-	while (currentNode != nullptr) {
-		const auto& currentNodeElement {currentNode->getElement()};
-		
-		if (element == currentNodeElement) {
-			return currentNodeElement;
-		}
-		
-		if (element < currentNodeElement) {
-			currentNode = currentNode->getLeftChild();
-		} else {
-			currentNode = currentNode->getRightChild();
-		}
-	}
-	
-	return std::nullopt;
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> AVLTree<ElementType>::findMinimum() const noexcept {
-	if (rootNode == nullptr) {
-		return std::nullopt;
-	}
-	
-	auto* currentNode {rootNode};
-	
-	while (currentNode->getLeftChild() != nullptr) {
-		currentNode = currentNode->getLeftChild();
-	}
-	
-	return currentNode->getElement();
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> AVLTree<ElementType>::findMaximum() const noexcept {
-	if (rootNode == nullptr) {
-		return std::nullopt;
-	}
-	
-	auto* currentNode {rootNode};
-	
-	while (currentNode->getRightChild() != nullptr) {
-		currentNode = currentNode->getRightChild();
-	}
-	
-	return currentNode->getElement();
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-template<typename ConstIteratorType>
-requires Iterators::AllowedConstIterator<ConstIteratorType, ElementType>
-void AVLTree<ElementType>::traverse(ConstIteratorType begin,
-                                    ConstIteratorType end,
-                                    const std::function<void(const ElementType&)>& function) const noexcept {
-	std::for_each(begin, end, function);
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-template<typename IteratorType>
-requires Iterators::AllowedIterator<IteratorType, ElementType>
-void AVLTree<ElementType>::traverse(IteratorType begin,
-                                    IteratorType end,
-                                    const std::function<void(ElementType&)>& function) const noexcept {
-	std::for_each(begin, end, function);
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-const bool AVLTree<ElementType>::contains(const ElementType& element) const noexcept {
-	return findFirst(element).has_value();
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-const bool AVLTree<ElementType>::isEmpty() const noexcept {
-	return rootNode == nullptr && nodeCount == 0;
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
-const std::size_t AVLTree<ElementType>::getNodeCount() const noexcept {
-	return nodeCount;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
