@@ -51,6 +51,7 @@ public:
 	void insert(ElementType&& element) noexcept;
 	std::optional<ElementType> removeFirst(const ElementType& element);
 	std::optional<ElementType> removeMinimum();
+	std::optional<ElementType> removeMaximum();
 	std::vector<ElementType> removeAll();
 	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	const std::optional<ElementType> findMinimum() const noexcept;
@@ -63,6 +64,8 @@ private:
 	                                         const ElementType& element,
 	                                         std::optional<ElementType>& removedElement);
 	BinaryTreeNode<ElementType>* removeMinimum(BinaryTreeNode<ElementType>* node,
+	                                           std::optional<ElementType>& removedElement);
+	BinaryTreeNode<ElementType>* removeMaximum(BinaryTreeNode<ElementType>* node,
 	                                           std::optional<ElementType>& removedElement);
 	BinaryTreeNode<ElementType>* getInOrderSuccessor(BinaryTreeNode<ElementType>* node);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
@@ -198,6 +201,22 @@ std::optional<ElementType> AVLTree<ElementType>::removeMinimum() {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
+std::optional<ElementType> AVLTree<ElementType>::removeMaximum() {
+	if (rootNode == nullptr) {
+		return std::nullopt;
+	}
+	
+	std::optional<ElementType> removedElement;
+	rootNode = removeMaximum(rootNode, removedElement);
+	
+	if (removedElement.has_value()) {
+		--nodeCount;
+	}
+	
+	return removedElement;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
 std::vector<ElementType> AVLTree<ElementType>::removeAll() {
 	std::vector<ElementType> elements {};
 	removeAll(rootNode, elements);
@@ -303,6 +322,26 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::removeMinimum(BinaryTreeNode<
 	}
 	
 	node->setLeftChild(removeMinimum(node->getLeftChild(), removedElement));
+	
+	return rebalance(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::removeMaximum(BinaryTreeNode<ElementType>* node,
+                                                                 std::optional<ElementType>& removedElement) {
+	if (node == nullptr) {
+		return nullptr;
+	}
+	
+	if (node->getRightChild() == nullptr) {
+		removedElement = node->getElement();
+		auto* leftChild {node->getLeftChild()};
+		delete node;
+		
+		return leftChild;
+	}
+	
+	node->setRightChild(removeMaximum(node->getRightChild(), removedElement));
 	
 	return rebalance(node);
 }

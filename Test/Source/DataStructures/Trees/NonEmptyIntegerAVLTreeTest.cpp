@@ -146,6 +146,12 @@ TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveMinimum_ThenReturnsElement) {
 	EXPECT_THAT(result, testing::Optional(-50));
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveMaximum_ThenReturnsElement) {
+	const auto result {avlTree.removeMaximum()};
+	
+	EXPECT_THAT(result, testing::Optional(50));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveAll_ThenReturnsElementsInPostOrder) {
 	const auto result {avlTree.removeAll()};
 	
