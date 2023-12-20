@@ -217,4 +217,10 @@ TEST_F(NonEmptyIntegerAVLTreeTest, GivenIntegerMatchingAtleastOneElement_WhenCon
 	
 	EXPECT_THAT(contains, testing::IsTrue());
 }
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenIsEmpty_ThenReturnsFalse) {
+	const auto isEmpty {avlTree.isEmpty()};
+	
+	EXPECT_THAT(isEmpty, testing::IsFalse());
+}
 }

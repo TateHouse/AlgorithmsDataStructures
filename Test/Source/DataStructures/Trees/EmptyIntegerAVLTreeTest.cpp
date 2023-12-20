@@ -121,4 +121,10 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenContains_ThenReturnsFalse) {
 	
 	EXPECT_THAT(result, testing::IsFalse());
 }
+
+TEST_F(EmptyIntegerAVLTreeTest, WhenIsEmpty_ThenReturnsTrue) {
+	const auto result {avlTree.isEmpty()};
+	
+	EXPECT_THAT(result, testing::IsTrue());
+}
 }

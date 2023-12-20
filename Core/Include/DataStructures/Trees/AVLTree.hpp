@@ -71,6 +71,7 @@ public:
 	              const std::function<void(ElementType&)>& function) const noexcept;
 	
 	const bool contains(const ElementType& element) const noexcept;
+	const bool isEmpty() const noexcept;
 
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
@@ -462,6 +463,11 @@ void AVLTree<ElementType>::traverse(IteratorType begin,
 template<ElementTypeWithLessThanOperator ElementType>
 const bool AVLTree<ElementType>::contains(const ElementType& element) const noexcept {
 	return findFirst(element).has_value();
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+const bool AVLTree<ElementType>::isEmpty() const noexcept {
+	return rootNode == nullptr && nodeCount == 0;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
