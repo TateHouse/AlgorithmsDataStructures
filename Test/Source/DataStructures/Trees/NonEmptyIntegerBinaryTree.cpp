@@ -188,6 +188,20 @@ TEST_F(NonEmptyIntegerBinaryTreeTest,
 	EXPECT_THAT(elements, testing::ElementsAre(50, 20, 30, 40));
 }
 
+TEST_F(NonEmptyIntegerBinaryTreeTest,
+       GivenPredicateMatchingAtLeastOneElement_WhenRemoveFirstMultipleTimes_ThenElementsAreInExpectedOrder) {
+	binaryTree.removeFirst(::Test::isTen);
+	binaryTree.removeFirst(::Test::isTwenty);
+	binaryTree.removeFirst(::Test::isFifty);
+	
+	std::vector<int> elements {};
+	for (auto iterator {binaryTree.cbeginLevelOrder()}; iterator != binaryTree.cendLevelOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(30, 40));
+}
+
 TEST_F(NonEmptyIntegerBinaryTreeTest, GivenPredicateMatchingNoElements_WhenRemoveFirst_ThenReturnsNullOptional) {
 	const auto result {binaryTree.removeFirst(::Test::isSixty)};
 	

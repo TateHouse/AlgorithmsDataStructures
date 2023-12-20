@@ -296,6 +296,7 @@ private:
 	
 	/**
 	 * @brief Removes the given leaf node from the binary search tree.
+	 * @note This method frees the memory of the node that was removed.
 	 * @param currentNode: The leaf node to remove.
 	 * @param parentNode: The parent node of the leaf node to remove.
 	 * @param isLeftChild: True if the leaf node to remove is a left child, false otherwise.
@@ -305,7 +306,18 @@ private:
 	                    const bool isLeftChild);
 	
 	/**
+	 * @brief Removes the given node from the binary search tree that has only a left child.
+	 * @note This method frees the memory of the node that was removed.
+	 * @param currentNode: The node to remove.
+	 * @param parentNode: The parent node of the node to remove.
+	 * @param isLeftChild: True if the node to remove is a left child, false otherwise.
+	 */
+	void removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
+	                                 BinaryTreeNode<ElementType>* parentNode,
+	                                 const bool isLeftChild);
+	/**
 	 * @brief Removes the given node from the binary search tree that has only a right child.
+	 * @note This method frees the memory of the node that was removed.
 	 * @param currentNode: The node to remove.
 	 * @param parentNode: The parent node of the node to remove.
 	 * @param isLeftChild: True if the node to remove is a left child, false otherwise.
@@ -314,18 +326,10 @@ private:
 	                                  BinaryTreeNode<ElementType>* parentNode,
 	                                  const bool isLeftChild);
 	
-	/**
-	 * @brief Removes the given node from the binary search tree that has only a left child.
-	 * @param currentNode: The node to remove.
-	 * @param parentNode: The parent node of the node to remove.
-	 * @param isLeftChild: True if the node to remove is a left child, false otherwise.
-	 */
-	void removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
-	                                 BinaryTreeNode<ElementType>* parentNode,
-	                                 const bool isLeftChild);
 	
 	/**
 	 * @brief Removes the given node from the binary search tree that has two children.
+	 * @note This method frees the memory of the node that was removed.
 	 * @param currentNode: The node to remove.
 	 * @param parentNode: The parent node of the node to remove.
 	 */
@@ -751,23 +755,6 @@ void BinarySearchTree<ElementType>::removeLeafNode(BinaryTreeNode<ElementType>* 
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-void BinarySearchTree<ElementType>::removeNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
-                                                                 BinaryTreeNode<ElementType>* parentNode,
-                                                                 const bool isLeftChild) {
-	if (parentNode == nullptr) {
-		rootNode = currentNode->getRightChild();
-	} else if (isLeftChild) {
-		parentNode->setLeftChild(currentNode->getRightChild());
-	} else {
-		parentNode->setRightChild(currentNode->getRightChild());
-	}
-	
-	--nodeCount;
-	
-	delete currentNode;
-}
-
-template<ElementTypeWithLessThanOperator ElementType>
 void BinarySearchTree<ElementType>::removeNodeWithOnlyLeftChild(BinaryTreeNode<ElementType>* currentNode,
                                                                 BinaryTreeNode<ElementType>* parentNode,
                                                                 const bool isLeftChild) {
@@ -777,6 +764,23 @@ void BinarySearchTree<ElementType>::removeNodeWithOnlyLeftChild(BinaryTreeNode<E
 		parentNode->setLeftChild(currentNode->getLeftChild());
 	} else {
 		parentNode->setRightChild(currentNode->getLeftChild());
+	}
+	
+	--nodeCount;
+	
+	delete currentNode;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+void BinarySearchTree<ElementType>::removeNodeWithOnlyRightChild(BinaryTreeNode<ElementType>* currentNode,
+                                                                 BinaryTreeNode<ElementType>* parentNode,
+                                                                 const bool isLeftChild) {
+	if (parentNode == nullptr) {
+		rootNode = currentNode->getRightChild();
+	} else if (isLeftChild) {
+		parentNode->setLeftChild(currentNode->getRightChild());
+	} else {
+		parentNode->setRightChild(currentNode->getRightChild());
 	}
 	
 	--nodeCount;
