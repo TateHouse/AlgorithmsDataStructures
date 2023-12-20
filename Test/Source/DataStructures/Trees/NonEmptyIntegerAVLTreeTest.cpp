@@ -69,6 +69,77 @@ TEST_F(NonEmptyIntegerAVLTreeTest,
 	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 30, -50, -7, 10, 40, -10, -5, 50));
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveFirst_ThenReturnsElement) {
+	const auto result {avlTree.removeFirst(50)};
+	
+	EXPECT_THAT(result, testing::Optional(50));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest,
+       GivenInteger_WhenRemoveFirstAndLeftRotationPerformed_ThenElementsAreInExpectedOrder) {
+	const auto result {avlTree.removeFirst(-20)};
+	
+	ASSERT_THAT(result, testing::Optional(-20));
+	
+	std::vector<int> elements {};
+	for (auto iterator {avlTree.cbeginLevelOrder()}; iterator != avlTree.cendLevelOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(0, -10, 30, -50, -5, 10, 40, 50));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveFirstAndRightRotationIsPerformed_ThenElementsAreInExpectedOrder) {
+	const auto result {avlTree.removeFirst(10)};
+	
+	ASSERT_THAT(result, testing::Optional(10));
+	
+	std::vector<int> elements {};
+	for (auto iterator {avlTree.cbeginLevelOrder()}; iterator != avlTree.cendLevelOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(0, -20, 40, -50, -10, 30, 50, -5));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveFirstAndLeftAndRightRotationsArePerformed_ThenElementsAreInExpectedOrder) {
+	avlTree.removeFirst(-50);
+	avlTree.removeFirst(50);
+	avlTree.removeFirst(10);
+	avlTree.removeFirst(40);
+	avlTree.removeFirst(-20);
+	
+	const auto result {avlTree.removeFirst(30)};
+	
+	ASSERT_THAT(result, testing::Optional(30));
+	
+	std::vector<int> elements {};
+	for (auto iterator {avlTree.cbeginLevelOrder()}; iterator != avlTree.cendLevelOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(-5, -10, 0));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveFirstAndRigthAndLeftRotationsArePerformed_ThenElementsAreInExpectedOrder) {
+	avlTree.removeFirst(-50);
+	avlTree.removeFirst(50);
+	avlTree.removeFirst(40);
+	avlTree.removeFirst(-5);
+	avlTree.removeFirst(-20);
+	
+	const auto result {avlTree.removeFirst(-10)};
+	
+	ASSERT_THAT(result, testing::Optional(-10));
+	
+	std::vector<int> elements {};
+	for (auto iterator {avlTree.cbeginLevelOrder()}; iterator != avlTree.cendLevelOrder(); ++iterator) {
+		elements.push_back(*iterator);
+	}
+	
+	EXPECT_THAT(elements, testing::ElementsAre(10, 0, 30));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveAll_ThenReturnsElementsInPostOrder) {
 	const auto result {avlTree.removeAll()};
 	

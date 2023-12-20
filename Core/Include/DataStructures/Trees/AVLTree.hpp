@@ -1,5 +1,8 @@
 #pragma once
 
+#include <optional>
+#include <vector>
+
 #include"DataStructures/Trees/BinaryTreeNode.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstInOrderIterator.hpp"
 #include "DataStructures/Trees/Iterators/BinaryTreeConstLevelOrderIterator.hpp"
@@ -46,6 +49,7 @@ public:
 public:
 	void insert(const ElementType& element) noexcept;
 	void insert(ElementType&& element) noexcept;
+	std::optional<ElementType> removeFirst(const ElementType& element);
 	std::vector<ElementType> removeAll();
 	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	const std::optional<ElementType> findMinimum() const noexcept;
@@ -54,6 +58,10 @@ public:
 private:
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, const ElementType& element);
 	BinaryTreeNode<ElementType>* insert(BinaryTreeNode<ElementType>* node, ElementType&& element);
+	BinaryTreeNode<ElementType>* removeFirst(BinaryTreeNode<ElementType>* node,
+	                                         const ElementType& element,
+	                                         std::optional<ElementType>& removedElement);
+	BinaryTreeNode<ElementType>* getInOrderSuccessor(BinaryTreeNode<ElementType>* node);
 	void removeAll(BinaryTreeNode<ElementType>* node, std::vector<ElementType>& elements);
 	const int getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept;
 	const int getBalanceFactor(const BinaryTreeNode<ElementType>* const node) const noexcept;
@@ -159,6 +167,18 @@ void AVLTree<ElementType>::AVLTree::insert(ElementType&& element) noexcept {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
+std::optional<ElementType> AVLTree<ElementType>::removeFirst(const ElementType& element) {
+	std::optional<ElementType> removedElement;
+	rootNode = removeFirst(rootNode, element, removedElement);
+	
+	if (removedElement.has_value()) {
+		--nodeCount;
+	}
+	
+	return removedElement;
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
 std::vector<ElementType> AVLTree<ElementType>::removeAll() {
 	std::vector<ElementType> elements {};
 	removeAll(rootNode, elements);
@@ -175,7 +195,7 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<Element
 		return new BinaryTreeNode<ElementType> {element};
 	}
 	
-	if (const auto nodeElement {node->getElement()}; element < nodeElement) {
+	if (const auto& nodeElement {node->getElement()}; element < nodeElement) {
 		node->setLeftChild(insert(node->getLeftChild(), element));
 	} else {
 		node->setRightChild(insert(node->getRightChild(), element));
@@ -190,13 +210,73 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::insert(BinaryTreeNode<Element
 		return new BinaryTreeNode<ElementType> {std::move(element)};
 	}
 	
-	if (const auto nodeElement {node->getElement()}; element < nodeElement) {
+	if (const auto& nodeElement {node->getElement()}; element < nodeElement) {
 		node->setLeftChild(insert(node->getLeftChild(), std::move(element)));
 	} else {
 		node->setRightChild(insert(node->getRightChild(), std::move(element)));
 	}
 	
 	return rebalance(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::removeFirst(BinaryTreeNode<ElementType>* node,
+                                                               const ElementType& element,
+                                                               std::optional<ElementType>& removedElement) {
+	if (node == nullptr) {
+		return nullptr;
+	}
+	
+	if (const auto& nodeElement {node->getElement()}; element < nodeElement) {
+		node->setLeftChild(removeFirst(node->getLeftChild(), element, removedElement));
+	} else if (element > nodeElement) {
+		node->setRightChild(removeFirst(node->getRightChild(), element, removedElement));
+	} else {
+		removedElement = node->getElement();
+		
+		if (node->getLeftChild() != nullptr && node->getRightChild() != nullptr) {
+			auto* inOrderSuccessorParent {node};
+			auto* inOrderSuccessor {getInOrderSuccessor(node->getRightChild())};
+			
+			if (inOrderSuccessorParent != node) {
+				inOrderSuccessorParent->setLeftChild(inOrderSuccessor->getRightChild());
+			} else {
+				inOrderSuccessorParent->setRightChild(inOrderSuccessor->getRightChild());
+			}
+			
+			inOrderSuccessor->setLeftChild(node->getLeftChild());
+			inOrderSuccessor->setRightChild(
+					node->getRightChild() == inOrderSuccessor ? inOrderSuccessorParent : node->getRightChild());
+			
+			delete node;
+			
+			node = inOrderSuccessor;
+		} else {
+			
+			auto* childNode {node->getLeftChild() != nullptr ? node->getLeftChild() : node->getRightChild()};
+			
+			delete node;
+			
+			node = childNode;
+		}
+	}
+	
+	if (node == nullptr) {
+		return node;
+	}
+	
+	return rebalance(node);
+}
+
+template<ElementTypeWithLessThanOperator ElementType>
+BinaryTreeNode<ElementType>* AVLTree<ElementType>::getInOrderSuccessor(BinaryTreeNode<ElementType>* node) {
+	auto* currentNode {node};
+	
+	while (currentNode != nullptr && currentNode->getLeftChild() != nullptr) {
+		currentNode = currentNode->getLeftChild();
+	}
+	
+	return currentNode;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
@@ -332,4 +412,5 @@ BinaryTreeNode<ElementType>* AVLTree<ElementType>::rotateRight(BinaryTreeNode<El
 	
 	return newParent;
 }
+	
 }

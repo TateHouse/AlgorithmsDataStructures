@@ -74,6 +74,12 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndRightAndLeftRotationsA
 	EXPECT_THAT(elements, testing::ElementsAre(20, 10, 30));
 }
 
+TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveFirst_ThenReturnsNullOptional) {
+	const auto result {avlTree.removeFirst(10)};
+	
+	EXPECT_THAT(result, testing::Eq(std::nullopt));
+}
+
 TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveAll_ThenReturnsEmptyVector) {
 	const auto result {avlTree.removeAll()};
 	
