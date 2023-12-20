@@ -22,6 +22,13 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsert_ThenElementsAreInExpecte
 	EXPECT_THAT(*iterator, testing::Eq(10));
 }
 
+TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsert_ThenSizeIsIncremented) {
+	avlTree.insert(10);
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(1));
+}
+
 TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndRightRotationIsPerformed_ThenElementsAreInExpectedOrder) {
 	avlTree.insert(10);
 	avlTree.insert(20);
@@ -48,7 +55,8 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndLeftRotationIsPerforme
 	EXPECT_THAT(elements, testing::ElementsAre(20, 10, 30));
 }
 
-TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndLeftAndRightRotationsArePerformed_ThenElementsAreInExpectedOrder) {
+TEST_F(EmptyIntegerAVLTreeTest,
+       GivenInteger_WhenInsertAndLeftAndRightRotationsArePerformed_ThenElementsAreInExpectedOrder) {
 	avlTree.insert(30);
 	avlTree.insert(10);
 	avlTree.insert(20);
@@ -61,7 +69,8 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndLeftAndRightRotationsA
 	EXPECT_THAT(elements, testing::ElementsAre(20, 10, 30));
 }
 
-TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndRightAndLeftRotationsArePerformed_ThenElementsAreInExpectedOrder) {
+TEST_F(EmptyIntegerAVLTreeTest,
+       GivenInteger_WhenInsertAndRightAndLeftRotationsArePerformed_ThenElementsAreInExpectedOrder) {
 	avlTree.insert(10);
 	avlTree.insert(30);
 	avlTree.insert(20);
@@ -80,16 +89,37 @@ TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveFirst_ThenReturnsNullOpti
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
 
+TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveFirst_ThenSizeIsNotDecremented) {
+	avlTree.removeFirst(10);
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(0));
+}
+
 TEST_F(EmptyIntegerAVLTreeTest, WhenRemoveMinimum_ThenReturnsNullOptional) {
 	const auto result {avlTree.removeMinimum()};
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
 }
 
+TEST_F(EmptyIntegerAVLTreeTest, WhenRemoveMinimum_ThenSizeIsNotDecremented) {
+	avlTree.removeMinimum();
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(0));
+}
+
 TEST_F(EmptyIntegerAVLTreeTest, WhenRemoveMaximum_ThenReturnsNullOptional) {
 	const auto result {avlTree.removeMaximum()};
 	
 	EXPECT_THAT(result, testing::Eq(std::nullopt));
+}
+
+TEST_F(EmptyIntegerAVLTreeTest, WhenRemoveMaximum_ThenSizeIsNotDecremented) {
+	avlTree.removeMaximum();
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(0));
 }
 
 TEST_F(EmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveAll_ThenReturnsEmptyVector) {

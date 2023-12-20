@@ -21,6 +21,13 @@ NonEmptyIntegerAVLTreeTest::NonEmptyIntegerAVLTreeTest() {
 	}
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsert_ThenSizeIsIncremented) {
+	avlTree.insert(60);
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(10));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenInsertAndRightRotationPerformed_ThenElementsAreInExpectedOrder) {
 	avlTree.insert(-60);
 	avlTree.insert(-70);
@@ -73,6 +80,13 @@ TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveFirst_ThenReturnsEleme
 	const auto result {avlTree.removeFirst(50)};
 	
 	EXPECT_THAT(result, testing::Optional(50));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, GivenInteger_WhenRemoveFirst_ThenSizeIsDecremented) {
+	avlTree.removeFirst(50);
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(8));
 }
 
 TEST_F(NonEmptyIntegerAVLTreeTest,
@@ -146,16 +160,37 @@ TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveMinimum_ThenReturnsElement) {
 	EXPECT_THAT(result, testing::Optional(-50));
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveMinimum_ThenSizeIsDecremented) {
+	avlTree.removeMinimum();
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(8));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveMaximum_ThenReturnsElement) {
 	const auto result {avlTree.removeMaximum()};
 	
 	EXPECT_THAT(result, testing::Optional(50));
 }
 
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveMaximum_ThenSizeIsDecremented) {
+	avlTree.removeMaximum();
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(8));
+}
+
 TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveAll_ThenReturnsElementsInPostOrder) {
 	const auto result {avlTree.removeAll()};
 	
 	EXPECT_THAT(result, testing::ElementsAre(-50, -5, -10, -20, 10, 50, 40, 30, 0));
+}
+
+TEST_F(NonEmptyIntegerAVLTreeTest, WhenRemoveAll_ThenSizeIsZero) {
+	avlTree.removeAll();
+	const auto size {avlTree.getNodeCount()};
+	
+	EXPECT_THAT(size, testing::Eq(0));
 }
 
 TEST_F(NonEmptyIntegerAVLTreeTest, GivenIntegerMatchingAtLeastOneElement_WhenFindFirst_ThenReturnsElement) {
