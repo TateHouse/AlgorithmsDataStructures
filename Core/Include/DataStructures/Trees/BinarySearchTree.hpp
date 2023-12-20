@@ -283,8 +283,6 @@ public:
 	
 	/**
 	 * @brief Gets the height of the binary search tree.
-	 * @details Unlike the binary tree implementation, the height of the binary search tree is calculated using
-	 * recursion.
 	 * @return The height of the binary search tree.
 	 */
 	const int getHeight() const noexcept;
