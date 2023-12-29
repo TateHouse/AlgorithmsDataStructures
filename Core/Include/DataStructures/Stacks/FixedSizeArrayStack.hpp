@@ -176,7 +176,7 @@ std::optional<ElementType> FixedSizeArrayStack<ElementType, Size>::pop() noexcep
 	
 	--topIndex;
 	
-	return std::move(array[topIndex]);
+	return array[topIndex];
 }
 
 template<typename ElementType, std::size_t Size>

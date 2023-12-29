@@ -448,7 +448,7 @@ std::optional<ElementType> SinglyLinkedList<ElementType>::removeAtHead() noexcep
 		tailNode = nullptr;
 	}
 	
-	return std::move(element);
+	return element;
 }
 
 template<typename ElementType>
@@ -472,7 +472,7 @@ std::optional<ElementType> SinglyLinkedList<ElementType>::removeAtTail() noexcep
 	tailNode->setNextNode(nullptr);
 	--nodeCount;
 	
-	return std::move(element);
+	return element;
 }
 
 template<typename ElementType>
@@ -500,7 +500,7 @@ std::optional<ElementType> SinglyLinkedList<ElementType>::removeAtIndex(const st
 	delete node;
 	--nodeCount;
 	
-	return std::move(element);
+	return element;
 }
 
 template<typename ElementType>

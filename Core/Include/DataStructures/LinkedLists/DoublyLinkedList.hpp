@@ -270,7 +270,7 @@ private:
 
 template<typename ElementType>
 DoublyLinkedList<ElementType>::DoublyLinkedList(const DoublyLinkedList<ElementType>& other) {
-	for (const auto& element: other) {
+	for (const auto& element : other) {
 		insertAtTail(element);
 	}
 }
@@ -296,7 +296,7 @@ DoublyLinkedList<ElementType>& DoublyLinkedList<ElementType>::operator=(const Do
 	
 	removeAll();
 	
-	for (const auto& element: other) {
+	for (const auto& element : other) {
 		insertAtTail(element);
 	}
 	
@@ -520,7 +520,7 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtHead() noexcep
 		headNode->setPreviousNode(nullptr);
 	}
 	
-	return std::move(element);
+	return element;
 }
 
 template<typename ElementType>
@@ -541,7 +541,7 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtTail() noexcep
 	tailNode->setNextNode(nullptr);
 	--nodeCount;
 	
-	return std::move(element);
+	return element;
 }
 
 template<typename ElementType>
@@ -570,7 +570,7 @@ std::optional<ElementType> DoublyLinkedList<ElementType>::removeAtIndex(const st
 	delete node;
 	--nodeCount;
 	
-	return std::move(element);
+	return element;
 }
 
 template<typename ElementType>

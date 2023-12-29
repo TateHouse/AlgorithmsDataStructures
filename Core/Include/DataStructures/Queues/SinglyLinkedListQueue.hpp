@@ -139,12 +139,12 @@ void SinglyLinkedListQueue<ElementType>::enqueue(ElementType&& element) {
 
 template<typename ElementType>
 std::optional<ElementType> SinglyLinkedListQueue<ElementType>::dequeue() {
-	return std::move(singlyLinkedList.removeAtHead());
+	return singlyLinkedList.removeAtHead();
 }
 
 template<typename ElementType>
 std::vector<ElementType> SinglyLinkedListQueue<ElementType>::dequeueAll() {
-	return std::move(singlyLinkedList.removeAll());
+	return singlyLinkedList.removeAll();
 }
 
 template<typename ElementType>
