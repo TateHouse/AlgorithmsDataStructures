@@ -68,7 +68,7 @@ public:
 	 * @param other: The other in-order iterator for binary trees to compare with.
 	 * @return True if the two in-order iterators for binary trees are equal, false otherwise.
 	 */
-	const bool operator==(const BinaryTreeInOrderIterator<ElementType>& other) const noexcept;
+	bool operator==(const BinaryTreeInOrderIterator<ElementType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the in-order iterator for binary trees.
@@ -107,7 +107,7 @@ BinaryTreeInOrderIterator<ElementType>::BinaryTreeInOrderIterator(BinaryTreeNode
 }
 
 template<typename ElementType>
-const bool BinaryTreeInOrderIterator<ElementType>::operator==(const BinaryTreeInOrderIterator<ElementType>& other) const noexcept {
+bool BinaryTreeInOrderIterator<ElementType>::operator==(const BinaryTreeInOrderIterator<ElementType>& other) const noexcept {
 	return nodeStack == other.nodeStack;
 }
 

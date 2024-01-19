@@ -58,7 +58,7 @@ public:
 	 * @param other: The singly linked list stack to compare to.
 	 * @return True if the singly linked list stacks are equal, false otherwise.
 	 */
-	const bool operator==(const SinglyLinkedListStack<ElementType>& other) const noexcept;
+	bool operator==(const SinglyLinkedListStack<ElementType>& other) const noexcept;
 
 public:
 	/**
@@ -106,20 +106,20 @@ public:
 	 * @brief Checks if the singly linked list stack is empty.
 	 * @return True if the singly linked list stack is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of elements in the singly linked list stack.
 	 * @return The number of elements in the singly linked list stack.
 	 */
-	const std::size_t getSize() const noexcept;
+	std::size_t getSize() const noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
 };
 
 template<typename ElementType>
-const bool SinglyLinkedListStack<ElementType>::operator==(const SinglyLinkedListStack<ElementType>& other) const noexcept {
+bool SinglyLinkedListStack<ElementType>::operator==(const SinglyLinkedListStack<ElementType>& other) const noexcept {
 	if (this == &other) {
 		return true;
 	}
@@ -166,12 +166,12 @@ ElementType* const SinglyLinkedListStack<ElementType>::getTop() noexcept {
 }
 
 template<typename ElementType>
-const bool SinglyLinkedListStack<ElementType>::isEmpty() const noexcept {
+bool SinglyLinkedListStack<ElementType>::isEmpty() const noexcept {
 	return singlyLinkedList.isEmpty();
 }
 
 template<typename ElementType>
-const std::size_t SinglyLinkedListStack<ElementType>::getSize() const noexcept {
+std::size_t SinglyLinkedListStack<ElementType>::getSize() const noexcept {
 	return singlyLinkedList.getNodeCount();
 }
 }

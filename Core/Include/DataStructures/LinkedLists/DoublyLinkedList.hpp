@@ -64,7 +64,7 @@ public:
 	 * @param other: The doubly linked list to check.
 	 * @return True if the given doubly linked list is equal to this doubly linked list, false otherwise.
 	 */
-	const bool operator==(const DoublyLinkedList<ElementType>& other) const noexcept;
+	bool operator==(const DoublyLinkedList<ElementType>& other) const noexcept;
 
 public:
 	using value_type = ElementType;
@@ -158,7 +158,7 @@ public:
 	 * linked list.
 	 * @throws std::bad_alloc: Thrown if memory allocation fails.
 	 */
-	const bool insertAtIndex(const ElementType& element, const std::size_t index);
+	bool insertAtIndex(const ElementType& element, const std::size_t index);
 	
 	/**
 	 * @brief Inserts the given element at the given index in the doubly linked list using move semantics.
@@ -168,7 +168,7 @@ public:
 	 * linked list.
 	 * @throws std::bad_alloc: Thrown if memory allocation fails.
 	 */
-	const bool insertAtIndex(ElementType&& element, const std::size_t index);
+	bool insertAtIndex(ElementType&& element, const std::size_t index);
 	
 	/**
 	 * @brief Removes the element at the head of the doubly linked list.
@@ -239,7 +239,7 @@ public:
 	 * @param predicate: The predicate to satisfy.
 	 * @return True if the doubly linked list contains a node that satisfies the given predicate, false otherwise.
 	 */
-	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	
 	/**
 	 * @brief Checks if the doubly linked list contains nodes that satisfy all of the given predicates.
@@ -248,19 +248,19 @@ public:
 	 * @param predicates: The predicates to satisfy.
 	 * @return True if the doubly linked list contains nodes that satisfy all of the given predicates, false otherwise.
 	 */
-	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
+	bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	
 	/**
 	 * @brief Checks if the doubly linked list is empty.
 	 * @return True if the doubly linked list is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of nodes in the doubly linked list.
 	 * @return The number of nodes in the doubly linked list.
 	 */
-	const std::size_t getNodeCount() const noexcept;
+	std::size_t getNodeCount() const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -323,7 +323,7 @@ DoublyLinkedList<ElementType>& DoublyLinkedList<ElementType>::operator=(DoublyLi
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::operator==(const DoublyLinkedList<ElementType>& other) const noexcept {
+bool DoublyLinkedList<ElementType>::operator==(const DoublyLinkedList<ElementType>& other) const noexcept {
 	if (nodeCount != other.nodeCount) {
 		return false;
 	}
@@ -441,7 +441,7 @@ void DoublyLinkedList<ElementType>::insertAtTail(ElementType&& element) {
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) {
+bool DoublyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) {
 	if (index > nodeCount) {
 		return false;
 	}
@@ -472,7 +472,7 @@ const bool DoublyLinkedList<ElementType>::insertAtIndex(const ElementType& eleme
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::insertAtIndex(ElementType&& element, const std::size_t index) {
+bool DoublyLinkedList<ElementType>::insertAtIndex(ElementType&& element, const std::size_t index) {
 	if (index > nodeCount) {
 		return false;
 	}
@@ -638,24 +638,24 @@ void DoublyLinkedList<ElementType>::reverse() noexcept {
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+bool DoublyLinkedList<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
 	return std::any_of(cbegin(), cend(), predicate);
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept {
+bool DoublyLinkedList<ElementType>::containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept {
 	return std::ranges::all_of(predicates, [this](const auto& predicate) {
 		return contains(predicate);
 	});
 }
 
 template<typename ElementType>
-const bool DoublyLinkedList<ElementType>::isEmpty() const noexcept {
+bool DoublyLinkedList<ElementType>::isEmpty() const noexcept {
 	return nodeCount == 0 && headNode == nullptr && tailNode == nullptr;
 }
 
 template<typename ElementType>
-const std::size_t DoublyLinkedList<ElementType>::getNodeCount() const noexcept {
+std::size_t DoublyLinkedList<ElementType>::getNodeCount() const noexcept {
 	return nodeCount;
 }
 }

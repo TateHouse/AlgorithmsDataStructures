@@ -73,7 +73,7 @@ public:
 	 * @param other: The other separate chaining hash table forward iterator to compare with.
 	 * @return True if the two separate chaining hash table forward iterators are equal, false otherwise.
 	 */
-	const bool operator==(const SeparateChainingHashTableForwardIterator<KeyType, ValueType>& other) const noexcept;
+	bool operator==(const SeparateChainingHashTableForwardIterator<KeyType, ValueType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the separate chaining hash table forward iterator.
@@ -114,7 +114,7 @@ SeparateChainingHashTableForwardIterator<KeyType, ValueType>::SeparateChainingHa
 }
 
 template<Hashable KeyType, typename ValueType>
-const bool SeparateChainingHashTableForwardIterator<KeyType, ValueType>::operator==(const SeparateChainingHashTableForwardIterator<KeyType, ValueType>& other) const noexcept {
+bool SeparateChainingHashTableForwardIterator<KeyType, ValueType>::operator==(const SeparateChainingHashTableForwardIterator<KeyType, ValueType>& other) const noexcept {
 	return buckets == other.buckets && bucketIndex == other.bucketIndex && iterator == other.iterator;
 }
 

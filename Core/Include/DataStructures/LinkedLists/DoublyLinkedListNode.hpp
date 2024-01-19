@@ -61,7 +61,7 @@ public:
 	 * @param other: The node to compare to.
 	 * @return True if the nodes are equal, false otherwise.
 	 */
-	const bool operator==(const DoublyLinkedListNode<ElementType>& other) const noexcept;
+	bool operator==(const DoublyLinkedListNode<ElementType>& other) const noexcept;
 
 public:
 	/**
@@ -129,7 +129,7 @@ DoublyLinkedListNode<ElementType>::DoublyLinkedListNode(ElementType&& element) n
 }
 
 template<typename ElementType>
-const bool DoublyLinkedListNode<ElementType>::operator==(const DoublyLinkedListNode<ElementType>& other) const noexcept {
+bool DoublyLinkedListNode<ElementType>::operator==(const DoublyLinkedListNode<ElementType>& other) const noexcept {
 	return element == other.element;
 }
 

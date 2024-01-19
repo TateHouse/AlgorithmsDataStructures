@@ -16,7 +16,7 @@ class SeparateChainingHashTableConstForwardIterator final {
 public:
 	using iterator_category = std::forward_iterator_tag;
 	using difference_type = std::ptrdiff_t;
-	using value_type = const std::pair<KeyType, ValueType>;
+	using value_type = std::pair<KeyType, ValueType>;
 	using reference = const std::pair<KeyType, ValueType>&;
 	using pointer = const std::pair<KeyType, ValueType>* const;
 	
@@ -74,7 +74,7 @@ public:
 	 * @param other: The other separate chaining hash table const forward iterator to compare with.
 	 * @return True if the two separate chaining hash table const forward iterators are equal, false otherwise.
 	 */
-	const bool operator==(const SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>& other) const noexcept;
+	bool operator==(const SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the separate chaining hash table const forward iterator.
@@ -115,7 +115,7 @@ SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>::SeparateChain
 }
 
 template<Hashable KeyType, typename ValueType>
-const bool SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>::operator==(const SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>& other) const noexcept {
+bool SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>::operator==(const SeparateChainingHashTableConstForwardIterator<KeyType, ValueType>& other) const noexcept {
 	return buckets == other.buckets && bucketIndex == other.bucketIndex && iterator == other.iterator;
 }
 

@@ -50,7 +50,7 @@ public:
 	 * @return A reference to this singly linked list queue.
 	 */
 	SinglyLinkedListQueue<ElementType>& operator=(SinglyLinkedListQueue<ElementType>&& other) noexcept = default;
-	const bool operator==(const SinglyLinkedListQueue<ElementType>& other) const noexcept;
+	bool operator==(const SinglyLinkedListQueue<ElementType>& other) const noexcept;
 
 public:
 	/**
@@ -110,20 +110,20 @@ public:
 	 * @brief Checks if the singly linked list queue is empty.
 	 * @return True if the singly linked list queue is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of elements in the singly linked list queue.
 	 * @return The number of elements in the singly linked list queue.
 	 */
-	const std::size_t getSize() const noexcept;
+	std::size_t getSize() const noexcept;
 
 private:
 	LinkedLists::SinglyLinkedList<ElementType> singlyLinkedList {};
 };
 
 template<typename ElementType>
-const bool SinglyLinkedListQueue<ElementType>::operator==(const SinglyLinkedListQueue<ElementType>& other) const noexcept {
+bool SinglyLinkedListQueue<ElementType>::operator==(const SinglyLinkedListQueue<ElementType>& other) const noexcept {
 	return singlyLinkedList == other.singlyLinkedList;
 }
 
@@ -192,12 +192,12 @@ ElementType* const SinglyLinkedListQueue<ElementType>::getBack() noexcept {
 }
 
 template<typename ElementType>
-const bool SinglyLinkedListQueue<ElementType>::isEmpty() const noexcept {
+bool SinglyLinkedListQueue<ElementType>::isEmpty() const noexcept {
 	return singlyLinkedList.isEmpty();
 }
 
 template<typename ElementType>
-const std::size_t SinglyLinkedListQueue<ElementType>::getSize() const noexcept {
+std::size_t SinglyLinkedListQueue<ElementType>::getSize() const noexcept {
 	return singlyLinkedList.getNodeCount();
 }
 }

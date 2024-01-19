@@ -56,7 +56,7 @@ public:
 	 * @param other: The dynamically sized array stack to compare to.
 	 * @return True if the dynamically sized array stacks are equal, false otherwise.
 	 */
-	const bool operator==(const DynamicSizeArrayStack<ElementType>& other) const noexcept;
+	bool operator==(const DynamicSizeArrayStack<ElementType>& other) const noexcept;
 
 public:
 	/**
@@ -103,20 +103,20 @@ public:
 	 * @brief Checks if the dynamically sized array stack is empty.
 	 * @return True if the dynamically sized array stack is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of elements in the dynamically sized array stack.
 	 * @return The number of elements in the dynamically sized array stack.
 	 */
-	const std::size_t getSize() const noexcept;
+	std::size_t getSize() const noexcept;
 
 private:
 	std::vector<ElementType> vector {};
 };
 
 template<typename ElementType>
-const bool DynamicSizeArrayStack<ElementType>::operator==(const DynamicSizeArrayStack<ElementType>& other) const noexcept {
+bool DynamicSizeArrayStack<ElementType>::operator==(const DynamicSizeArrayStack<ElementType>& other) const noexcept {
 	if (this == &other) {
 		return true;
 	}
@@ -182,12 +182,12 @@ ElementType* const DynamicSizeArrayStack<ElementType>::getTop() noexcept {
 }
 
 template<typename ElementType>
-const bool DynamicSizeArrayStack<ElementType>::isEmpty() const noexcept {
+bool DynamicSizeArrayStack<ElementType>::isEmpty() const noexcept {
 	return vector.empty();
 }
 
 template<typename ElementType>
-const std::size_t DynamicSizeArrayStack<ElementType>::getSize() const noexcept {
+std::size_t DynamicSizeArrayStack<ElementType>::getSize() const noexcept {
 	return vector.size();
 }
 }

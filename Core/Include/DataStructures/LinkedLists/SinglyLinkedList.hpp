@@ -62,7 +62,7 @@ public:
 	 * @param other: The singly linked list to compare to.
 	 * @return True if the singly linked lists are equal, false otherwise.
 	 */
-	const bool operator==(const SinglyLinkedList<ElementType>& other) const noexcept;
+	bool operator==(const SinglyLinkedList<ElementType>& other) const noexcept;
 
 public:
 	using value_type = ElementType;
@@ -130,7 +130,7 @@ public:
 	 * linked list.
 	 * @throws std::bad_alloc: Thrown if memory allocation fails.
 	 */
-	const bool insertAtIndex(const ElementType& element, const std::size_t index);
+	bool insertAtIndex(const ElementType& element, const std::size_t index);
 	
 	/**
 	 * @brief Inserts the given element at the given index in the singly linked list using move semantics.
@@ -140,7 +140,7 @@ public:
 	 * linked list.
 	 * @throws std::bad_alloc: Thrown if memory allocation fails.
 	 */
-	const bool insertAtIndex(ElementType&& element, const std::size_t index);
+	bool insertAtIndex(ElementType&& element, const std::size_t index);
 	
 	/**
 	 * @brief Removes the element at the head of the singly linked list.
@@ -195,7 +195,7 @@ public:
 	 * @param predicate: The predicate to satisfy.
 	 * @return True if the singly linked list contains a node that satisfies the given predicate, false otherwise.
 	 */
-	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	
 	/**
 	 * @brief Checks if the singly linked list contains nodes that satisfy all of the given predicates.
@@ -204,19 +204,19 @@ public:
 	 * @param predicates: The predicates to satisfy.
 	 * @return True if the singly linked list contains nodes that satisfy all of the given predicates, false otherwise.
 	 */
-	const bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
+	bool containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept;
 	
 	/**
 	 * @brief Checks if the singly linked list is empty.
 	 * @return True if the singly linked list is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of nodes in the singly linked list.
 	 * @return The number of nodes in the singly linked list.
 	 */
-	const std::size_t getNodeCount() const noexcept;
+	std::size_t getNodeCount() const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -284,7 +284,7 @@ SinglyLinkedList<ElementType>& SinglyLinkedList<ElementType>::operator=(SinglyLi
 }
 
 template<typename ElementType>
-const bool SinglyLinkedList<ElementType>::operator==(const SinglyLinkedList<ElementType>& other) const noexcept {
+bool SinglyLinkedList<ElementType>::operator==(const SinglyLinkedList<ElementType>& other) const noexcept {
 	if (nodeCount != other.nodeCount) {
 		return false;
 	}
@@ -373,7 +373,7 @@ void SinglyLinkedList<ElementType>::insertAtTail(ElementType&& element) {
 }
 
 template<typename ElementType>
-const bool SinglyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) {
+bool SinglyLinkedList<ElementType>::insertAtIndex(const ElementType& element, const std::size_t index) {
 	if (index > nodeCount) {
 		return false;
 	}
@@ -403,7 +403,7 @@ const bool SinglyLinkedList<ElementType>::insertAtIndex(const ElementType& eleme
 }
 
 template<typename ElementType>
-const bool SinglyLinkedList<ElementType>::insertAtIndex(ElementType&& element, const std::size_t index) {
+bool SinglyLinkedList<ElementType>::insertAtIndex(ElementType&& element, const std::size_t index) {
 	if (index > nodeCount) {
 		return false;
 	}
@@ -556,24 +556,24 @@ void SinglyLinkedList<ElementType>::reverse() noexcept {
 }
 
 template<typename ElementType>
-const bool SinglyLinkedList<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+bool SinglyLinkedList<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
 	return std::any_of(cbegin(), cend(), predicate);
 }
 
 template<typename ElementType>
-const bool SinglyLinkedList<ElementType>::containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept {
+bool SinglyLinkedList<ElementType>::containsAll(const std::vector<std::function<bool(const ElementType&)>>& predicates) const noexcept {
 	return std::ranges::all_of(predicates, [this](const auto& predicate) {
 		return contains(predicate);
 	});
 }
 
 template<typename ElementType>
-const bool SinglyLinkedList<ElementType>::isEmpty() const noexcept {
+bool SinglyLinkedList<ElementType>::isEmpty() const noexcept {
 	return nodeCount == 0 && headNode == nullptr && tailNode == nullptr;
 }
 
 template<typename ElementType>
-const std::size_t SinglyLinkedList<ElementType>::getNodeCount() const noexcept {
+std::size_t SinglyLinkedList<ElementType>::getNodeCount() const noexcept {
 	return nodeCount;
 }
 }

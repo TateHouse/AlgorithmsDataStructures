@@ -68,7 +68,7 @@ public:
 	 * @param other: The other singly linked list forward iterator to compare with.
 	 * @return True if the two singly linked list forward iterators are equal, false otherwise.
 	 */
-	const bool operator==(const SinglyLinkedListForwardIterator<ElementType>& other) const noexcept;
+	bool operator==(const SinglyLinkedListForwardIterator<ElementType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the singly linked list forward iterator.
@@ -105,7 +105,7 @@ SinglyLinkedListForwardIterator<ElementType>::SinglyLinkedListForwardIterator(Si
 }
 
 template<typename ElementType>
-const bool SinglyLinkedListForwardIterator<ElementType>::operator==(const SinglyLinkedListForwardIterator<ElementType>& other) const noexcept {
+bool SinglyLinkedListForwardIterator<ElementType>::operator==(const SinglyLinkedListForwardIterator<ElementType>& other) const noexcept {
 	return node == other.node;
 }
 

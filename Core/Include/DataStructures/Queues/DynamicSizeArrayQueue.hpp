@@ -56,7 +56,7 @@ public:
 	 * @param other: The dynamically sized array queue to compare to.
 	 * @return True if the dynamically sized array queues are equal, false otherwise.
 	 */
-	const bool operator==(const DynamicSizeArrayQueue<ElementType>& other) const noexcept;
+	bool operator==(const DynamicSizeArrayQueue<ElementType>& other) const noexcept;
 
 public:
 	/**
@@ -120,13 +120,13 @@ public:
 	 * @brief Checks if the dynamically sized array queue is empty.
 	 * @return True if the dynamically sized array queue is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of elements in the dynamically sized array queue.
 	 * @return The number of elements in the dynamically sized array queue.
 	 */
-	const std::size_t getSize() const noexcept;
+	std::size_t getSize() const noexcept;
 
 private:
 	std::vector<ElementType> vector {};
@@ -135,7 +135,7 @@ private:
 };
 
 template<typename ElementType>
-const bool DynamicSizeArrayQueue<ElementType>::operator==(const DynamicSizeArrayQueue<ElementType>& other) const noexcept {
+bool DynamicSizeArrayQueue<ElementType>::operator==(const DynamicSizeArrayQueue<ElementType>& other) const noexcept {
 	if (this == &other) {
 		return true;
 	}
@@ -237,12 +237,12 @@ ElementType* const DynamicSizeArrayQueue<ElementType>::getBack() noexcept {
 }
 
 template<typename ElementType>
-const bool DynamicSizeArrayQueue<ElementType>::isEmpty() const noexcept {
+bool DynamicSizeArrayQueue<ElementType>::isEmpty() const noexcept {
 	return frontIndex == backIndex;
 }
 
 template<typename ElementType>
-const std::size_t DynamicSizeArrayQueue<ElementType>::getSize() const noexcept {
+std::size_t DynamicSizeArrayQueue<ElementType>::getSize() const noexcept {
 	return backIndex - frontIndex;
 }
 }

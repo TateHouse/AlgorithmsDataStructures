@@ -61,7 +61,7 @@ public:
 	 * @param other The node to compare with.
 	 * @return True if the two nodes are equal, false otherwise.
 	 */
-	const bool operator==(const BinaryTreeNode<ElementType>& other) const noexcept;
+	bool operator==(const BinaryTreeNode<ElementType>& other) const noexcept;
 
 public:
 	/**
@@ -121,8 +121,8 @@ private:
 	 * @param rightChild The right child of the node.
 	 * @return True if the children are equal, false otherwise.
 	 */
-	static const bool areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
-	                                   const BinaryTreeNode<ElementType>* rightChild) noexcept;
+	static bool areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
+	                             const BinaryTreeNode<ElementType>* rightChild) noexcept;
 
 private:
 	ElementType element;
@@ -141,7 +141,7 @@ BinaryTreeNode<ElementType>::BinaryTreeNode(ElementType&& element) noexcept : el
 }
 
 template<typename ElementType>
-const bool BinaryTreeNode<ElementType>::operator==(const BinaryTreeNode<ElementType>& other) const noexcept {
+bool BinaryTreeNode<ElementType>::operator==(const BinaryTreeNode<ElementType>& other) const noexcept {
 	if (element != other.element) {
 		return false;
 	}
@@ -191,7 +191,7 @@ void BinaryTreeNode<ElementType>::setRightChild(BinaryTreeNode<ElementType>* rig
 }
 
 template<typename ElementType>
-const bool BinaryTreeNode<ElementType>::areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
+bool BinaryTreeNode<ElementType>::areChildrenEqual(const BinaryTreeNode<ElementType>* leftChild,
                                                          const BinaryTreeNode<ElementType>* rightChild) noexcept {
 	if (leftChild == nullptr && rightChild == nullptr) {
 		return true;

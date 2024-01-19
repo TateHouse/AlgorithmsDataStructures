@@ -15,7 +15,7 @@ class SinglyLinkedListConstForwardIterator final {
 public:
 	using iterator_category = std::forward_iterator_tag;
 	using difference_type = std::ptrdiff_t;
-	using value_type = const ElementType;
+	using value_type = ElementType;
 	using reference = const ElementType&;
 	using pointer = const ElementType* const;
 	
@@ -67,7 +67,7 @@ public:
 	 * @param other: The other singly linked list const forward iterator to compare with.
 	 * @return True if the two singly linked list const forward iterators are equal, false otherwise.
 	 */
-	const bool operator==(const SinglyLinkedListConstForwardIterator<ElementType>& other) const noexcept;
+	bool operator==(const SinglyLinkedListConstForwardIterator<ElementType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the singly linked list const forward iterator.
@@ -104,7 +104,7 @@ SinglyLinkedListConstForwardIterator<ElementType>::SinglyLinkedListConstForwardI
 }
 
 template<typename ElementType>
-const bool SinglyLinkedListConstForwardIterator<ElementType>::operator==(const SinglyLinkedListConstForwardIterator<ElementType>& other) const noexcept {
+bool SinglyLinkedListConstForwardIterator<ElementType>::operator==(const SinglyLinkedListConstForwardIterator<ElementType>& other) const noexcept {
 	return node == other.node;
 }
 

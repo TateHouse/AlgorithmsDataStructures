@@ -68,7 +68,7 @@ public:
 	 * @param other: The other level order iterator for binary trees to compare with.
 	 * @return True if the two level order iterators for binary trees are equal, false otherwise.
 	 */
-	const bool operator==(const BinaryTreeLevelOrderIterator<ElementType>& other) const noexcept;
+	bool operator==(const BinaryTreeLevelOrderIterator<ElementType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the level order iterator for binary trees.
@@ -106,7 +106,7 @@ BinaryTreeLevelOrderIterator<ElementType>::BinaryTreeLevelOrderIterator(BinaryTr
 }
 
 template<typename ElementType>
-const bool BinaryTreeLevelOrderIterator<ElementType>::operator==(const BinaryTreeLevelOrderIterator<ElementType>& other) const noexcept {
+bool BinaryTreeLevelOrderIterator<ElementType>::operator==(const BinaryTreeLevelOrderIterator<ElementType>& other) const noexcept {
 	return nodeQueue == other.nodeQueue;
 }
 

@@ -15,7 +15,7 @@ class DoublyLinkedListConstBidirectionalIterator final {
 public:
 	using iterator_category = std::bidirectional_iterator_tag;
 	using difference_type = std::ptrdiff_t;
-	using value_type = const ElementType;
+	using value_type = ElementType;
 	using reference = const ElementType&;
 	using pointer = const ElementType* const;
 	
@@ -67,7 +67,7 @@ public:
 	 * @param other: The other doubly linked list const bidirectional iterator to compare with.
 	 * @return True if the two doubly linked list const bidirectional iterators are equal, false otherwise.
 	 */
-	const bool operator==(const DoublyLinkedListConstBidirectionalIterator<ElementType>& other) const noexcept;
+	bool operator==(const DoublyLinkedListConstBidirectionalIterator<ElementType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the doubly linked list const bidirectional iterator.
@@ -116,7 +116,7 @@ DoublyLinkedListConstBidirectionalIterator<ElementType>::DoublyLinkedListConstBi
 }
 
 template<typename ElementType>
-const bool DoublyLinkedListConstBidirectionalIterator<ElementType>::operator==(const DoublyLinkedListConstBidirectionalIterator<ElementType>& other) const noexcept {
+bool DoublyLinkedListConstBidirectionalIterator<ElementType>::operator==(const DoublyLinkedListConstBidirectionalIterator<ElementType>& other) const noexcept {
 	return node == other.node;
 }
 

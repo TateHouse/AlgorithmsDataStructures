@@ -68,7 +68,7 @@ public:
 	 * @param other: The binary tree to check.
 	 * @return True if the other binary tree is equal to this binary tree, false otherwise.
 	 */
-	const bool operator==(const BinaryTree<ElementType>& other) const noexcept;
+	bool operator==(const BinaryTree<ElementType>& other) const noexcept;
 
 public:
 	using value_type = ElementType;
@@ -265,19 +265,19 @@ public:
 	 * @param predicate: The predicate to satisfy.
 	 * @return True if the binary tree contains an element that satisfies the predicate, false otherwise.
 	 */
-	const bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
+	bool contains(const std::function<bool(const ElementType&)>& predicate) const noexcept;
 	
 	/**
 	 * @brief Checks if the binary tree is empty.
 	 * @return True if the binary tree is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of nodes in the binary tree.
 	 * @return The number of nodes in the binary tree.
 	 */
-	const std::size_t getNodeCount() const noexcept;
+	std::size_t getNodeCount() const noexcept;
 	
 	/**
 	 * @brief Gets the height of the binary tree.
@@ -285,7 +285,7 @@ public:
 	 * calculated by starting at the root and traversing the leftmost path until a leaf node is reached.
 	 * @return The height of the binary tree.
 	 */
-	const int getHeight() const noexcept;
+	int getHeight() const noexcept;
 
 private:
 	/**
@@ -421,7 +421,7 @@ BinaryTree<ElementType>& BinaryTree<ElementType>::operator=(BinaryTree<ElementTy
 }
 
 template<typename ElementType>
-const bool BinaryTree<ElementType>::operator==(const BinaryTree<ElementType>& other) const noexcept {
+bool BinaryTree<ElementType>::operator==(const BinaryTree<ElementType>& other) const noexcept {
 	if (nodeCount != other.nodeCount) {
 		return false;
 	}
@@ -637,22 +637,22 @@ void BinaryTree<ElementType>::traverse(IteratorType begin,
 }
 
 template<typename ElementType>
-const bool BinaryTree<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
+bool BinaryTree<ElementType>::contains(const std::function<bool(const ElementType&)>& predicate) const noexcept {
 	return std::any_of(cbeginLevelOrder(), cendLevelOrder(), predicate);
 }
 
 template<typename ElementType>
-const bool BinaryTree<ElementType>::isEmpty() const noexcept {
+bool BinaryTree<ElementType>::isEmpty() const noexcept {
 	return rootNode == nullptr && nodeCount == 0;
 }
 
 template<typename ElementType>
-const std::size_t BinaryTree<ElementType>::getNodeCount() const noexcept {
+std::size_t BinaryTree<ElementType>::getNodeCount() const noexcept {
 	return nodeCount;
 }
 
 template<typename ElementType>
-const int BinaryTree<ElementType>::getHeight() const noexcept {
+int BinaryTree<ElementType>::getHeight() const noexcept {
 	auto height {-1};
 	
 	if (rootNode == nullptr) {

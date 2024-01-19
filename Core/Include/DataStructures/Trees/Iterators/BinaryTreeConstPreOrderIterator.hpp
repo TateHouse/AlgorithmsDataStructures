@@ -16,7 +16,7 @@ class BinaryTreeConstPreOrderIterator final {
 public:
 	using iterator_category = std::forward_iterator_tag;
 	using difference_type = std::ptrdiff_t;
-	using value_type = const ElementType;
+	using value_type = ElementType;
 	using reference = const ElementType&;
 	using pointer = const ElementType* const;
 	
@@ -68,7 +68,7 @@ public:
 	 * @param other: The other const pre-order iterator for binary trees to compare with.
 	 * @return True if the two const pre-order iterators for binary trees are equal, false otherwise.
 	 */
-	const bool operator==(const BinaryTreeConstPreOrderIterator<ElementType>& other) const noexcept;
+	bool operator==(const BinaryTreeConstPreOrderIterator<ElementType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the const pre-order iterator for binary trees.
@@ -106,7 +106,7 @@ BinaryTreeConstPreOrderIterator<ElementType>::BinaryTreeConstPreOrderIterator(Bi
 }
 
 template<typename ElementType>
-const bool BinaryTreeConstPreOrderIterator<ElementType>::operator==(const BinaryTreeConstPreOrderIterator<ElementType>& other) const noexcept {
+bool BinaryTreeConstPreOrderIterator<ElementType>::operator==(const BinaryTreeConstPreOrderIterator<ElementType>& other) const noexcept {
 	return nodeStack == other.nodeStack;
 }
 

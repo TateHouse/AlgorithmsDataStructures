@@ -69,7 +69,7 @@ public:
 	 * @param other: The binary search tree to check.
 	 * @return True if the given binary search tree is equal to this binary search tree, false otherwise.
 	 */
-	const bool operator==(const BinarySearchTree<ElementType>& other) const noexcept;
+	bool operator==(const BinarySearchTree<ElementType>& other) const noexcept;
 
 public:
 	using value_type = ElementType;
@@ -224,19 +224,19 @@ public:
 	 * @return The first occurrence of the given element in the binary search tree, or std::nullopt if the binary search
 	 * tree is empty or the given element was not found in the binary search tree.
 	 */
-	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
+	std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	
 	/**
 	 * @brief Finds the minimum element in the binary search tree.
 	 * @return The minimum element in the binary search tree, or std::nullopt if the binary search tree is empty.
 	 */
-	const std::optional<ElementType> findMinimum() const noexcept;
+	std::optional<ElementType> findMinimum() const noexcept;
 	
 	/**
 	 * @brief Finds the maximum element in the binary search tree.
 	 * @return The maximum element in the binary search tree, or std::nullopt if the binary search tree is empty.
 	 */
-	const std::optional<ElementType> findMaximum() const noexcept;
+	std::optional<ElementType> findMaximum() const noexcept;
 	
 	/**
 	 * @brief Traverses the binary search tree using the given function on each node in the binary search tree.
@@ -267,25 +267,25 @@ public:
 	 * @param element: The element to check.
 	 * @return True if the binary search tree contains the given element, false otherwise.
 	 */
-	const bool contains(const ElementType& element) const noexcept;
+	bool contains(const ElementType& element) const noexcept;
 	
 	/**
 	 * @brief Checks if the binary search tree is empty.
 	 * @return True if the binary search tree is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of nodes in the binary search tree.
 	 * @return The number of nodes in the binary search tree.
 	 */
-	const std::size_t getNodeCount() const noexcept;
+	std::size_t getNodeCount() const noexcept;
 	
 	/**
 	 * @brief Gets the height of the binary search tree.
 	 * @return The height of the binary search tree.
 	 */
-	const int getHeight() const noexcept;
+	int getHeight() const noexcept;
 
 private:
 	/**
@@ -347,7 +347,7 @@ private:
 	 * @param node: The node to get the height of.
 	 * @return The height of the given node.
 	 */
-	const int getHeight(BinaryTreeNode<ElementType>* node) const noexcept;
+	int getHeight(BinaryTreeNode<ElementType>* node) const noexcept;
 
 private:
 	std::size_t nodeCount {0};
@@ -410,7 +410,7 @@ BinarySearchTree<ElementType>& BinarySearchTree<ElementType>::operator=(BinarySe
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const bool BinarySearchTree<ElementType>::operator==(const BinarySearchTree<ElementType>& other) const noexcept {
+bool BinarySearchTree<ElementType>::operator==(const BinarySearchTree<ElementType>& other) const noexcept {
 	if (nodeCount != other.nodeCount) {
 		return false;
 	}
@@ -613,7 +613,7 @@ std::vector<ElementType> BinarySearchTree<ElementType>::removeAll() {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> BinarySearchTree<ElementType>::findFirst(const ElementType& element) const noexcept {
+std::optional<ElementType> BinarySearchTree<ElementType>::findFirst(const ElementType& element) const noexcept {
 	if (rootNode == nullptr) {
 		return std::nullopt;
 	}
@@ -638,7 +638,7 @@ const std::optional<ElementType> BinarySearchTree<ElementType>::findFirst(const 
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> BinarySearchTree<ElementType>::findMinimum() const noexcept {
+std::optional<ElementType> BinarySearchTree<ElementType>::findMinimum() const noexcept {
 	if (rootNode == nullptr) {
 		return std::nullopt;
 	}
@@ -653,7 +653,7 @@ const std::optional<ElementType> BinarySearchTree<ElementType>::findMinimum() co
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> BinarySearchTree<ElementType>::findMaximum() const noexcept {
+std::optional<ElementType> BinarySearchTree<ElementType>::findMaximum() const noexcept {
 	if (rootNode == nullptr) {
 		return std::nullopt;
 	}
@@ -686,22 +686,22 @@ void BinarySearchTree<ElementType>::traverse(IteratorType begin,
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const bool BinarySearchTree<ElementType>::contains(const ElementType& element) const noexcept {
+bool BinarySearchTree<ElementType>::contains(const ElementType& element) const noexcept {
 	return findFirst(element).has_value();
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const bool BinarySearchTree<ElementType>::isEmpty() const noexcept {
+bool BinarySearchTree<ElementType>::isEmpty() const noexcept {
 	return rootNode == nullptr && nodeCount == 0;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::size_t BinarySearchTree<ElementType>::getNodeCount() const noexcept {
+std::size_t BinarySearchTree<ElementType>::getNodeCount() const noexcept {
 	return nodeCount;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const int BinarySearchTree<ElementType>::getHeight() const noexcept {
+int BinarySearchTree<ElementType>::getHeight() const noexcept {
 	return getHeight(rootNode);
 }
 
@@ -840,7 +840,7 @@ void BinarySearchTree<ElementType>::removeAll(BinaryTreeNode<ElementType>* node,
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const int BinarySearchTree<ElementType>::getHeight(BinaryTreeNode<ElementType>* node) const noexcept {
+int BinarySearchTree<ElementType>::getHeight(BinaryTreeNode<ElementType>* node) const noexcept {
 	if (node == nullptr) {
 		return -1;
 	}

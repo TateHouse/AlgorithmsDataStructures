@@ -61,7 +61,7 @@ public:
 	 * @param other: The node to compare to.
 	 * @return True if the nodes are equal, false otherwise.
 	 */
-	const bool operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept;
+	bool operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept;
 
 public:
 	/**
@@ -110,7 +110,7 @@ SinglyLinkedListNode<ElementType>::SinglyLinkedListNode(ElementType&& element) n
 }
 
 template<typename ElementType>
-const bool SinglyLinkedListNode<ElementType>::operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept {
+bool SinglyLinkedListNode<ElementType>::operator==(const SinglyLinkedListNode<ElementType>& other) const noexcept {
 	return element == other.element;
 }
 

@@ -60,7 +60,7 @@ public:
 	 * @param other: The fixed size circular array queue to compare to.
 	 * @return True if the fixed size circular array queues are equal, false otherwise.
 	 */
-	const bool operator==(const FixedSizeCircularArrayQueue<ElementType, Size>& other) const noexcept;
+	bool operator==(const FixedSizeCircularArrayQueue<ElementType, Size>& other) const noexcept;
 
 public:
 	/**
@@ -69,7 +69,7 @@ public:
 	 * @return: True if the element was inserted, false if the fixed size circular array queue is full and the element
 	 * was not inserted.
 	 */
-	const bool enqueue(const ElementType& element) noexcept;
+	bool enqueue(const ElementType& element) noexcept;
 	
 	/**
 	 * @brief Inserts the given element to the back of the fixed size circular array queue using move semantics.
@@ -77,7 +77,7 @@ public:
 	 * @return True if the element was inserted, false if the fixed size circular array queue is full and the element
 	 * was not inserted.
 	 */
-	const bool enqueue(ElementType&& element) noexcept;
+	bool enqueue(ElementType&& element) noexcept;
 	
 	/**
 	 * @brief Removes the element at the front of the fixed size circular array queue.
@@ -124,19 +124,19 @@ public:
 	 * @brief Checks if the fixed size circular array queue is empty.
 	 * @return True if the fixed size circular array queue is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Checks if the fixed size circular array queue is full.
 	 * @return True if the fixed size circular array queue is full, false otherwise.
 	 */
-	const bool isFull() const noexcept;
+	bool isFull() const noexcept;
 	
 	/**
 	 * @brief Gets the number of elements in the fixed size circular array queue.
 	 * @return The number of elements in the fixed size circular array queue.
 	 */
-	const std::size_t getSize() const noexcept;
+	std::size_t getSize() const noexcept;
 
 private:
 	std::array<ElementType, Size> array {};
@@ -146,7 +146,7 @@ private:
 };
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeCircularArrayQueue<ElementType, Size>::operator==(const FixedSizeCircularArrayQueue<ElementType, Size>& other) const noexcept {
+bool FixedSizeCircularArrayQueue<ElementType, Size>::operator==(const FixedSizeCircularArrayQueue<ElementType, Size>& other) const noexcept {
 	if (this == &other) {
 		return true;
 	}
@@ -165,7 +165,7 @@ const bool FixedSizeCircularArrayQueue<ElementType, Size>::operator==(const Fixe
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(const ElementType& element) noexcept {
+bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(const ElementType& element) noexcept {
 	if (isFull()) {
 		return false;
 	}
@@ -178,7 +178,7 @@ const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(const Element
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(ElementType&& element) noexcept {
+bool FixedSizeCircularArrayQueue<ElementType, Size>::enqueue(ElementType&& element) noexcept {
 	if (isFull()) {
 		return false;
 	}
@@ -253,17 +253,17 @@ ElementType* const FixedSizeCircularArrayQueue<ElementType, Size>::getBack() noe
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeCircularArrayQueue<ElementType, Size>::isEmpty() const noexcept {
+bool FixedSizeCircularArrayQueue<ElementType, Size>::isEmpty() const noexcept {
 	return elementCount == 0;
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeCircularArrayQueue<ElementType, Size>::isFull() const noexcept {
+bool FixedSizeCircularArrayQueue<ElementType, Size>::isFull() const noexcept {
 	return elementCount == Size;
 }
 
 template<typename ElementType, std::size_t Size>
-const std::size_t FixedSizeCircularArrayQueue<ElementType, Size>::getSize() const noexcept {
+std::size_t FixedSizeCircularArrayQueue<ElementType, Size>::getSize() const noexcept {
 	return elementCount;
 }
 }

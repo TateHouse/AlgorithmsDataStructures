@@ -69,7 +69,7 @@ public:
 	 * @param other The avl tree to check.
 	 * @return True if the given avl tree is equal to this avl tree, false otherwise.
 	 */
-	const bool operator==(const AVLTree& other) const noexcept;
+	bool operator==(const AVLTree& other) const noexcept;
 
 public:
 	using value_type = ElementType;
@@ -223,19 +223,19 @@ public:
 	 * @return The first occurrence of the given element in the avl tree, or std::nullopt if the avl tree is empty or
 	 * the given element was not found in the avl tree.
 	 */
-	const std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
+	std::optional<ElementType> findFirst(const ElementType& element) const noexcept;
 	
 	/**
 	 * @brief Finds the minimum element in the avl tree.
 	 * @return The minimum element in the avl tree, or std::nullopt if the avl tree is empty.
 	 */
-	const std::optional<ElementType> findMinimum() const noexcept;
+	std::optional<ElementType> findMinimum() const noexcept;
 	
 	/**
 	 * @brief Finds the maximum element in the avl tree.
 	 * @return The maximum element in the avl tree, or std::nullopt if the avl tree is empty.
 	 */
-	const std::optional<ElementType> findMaximum() const noexcept;
+	std::optional<ElementType> findMaximum() const noexcept;
 	
 	/**
 	 * @brief Traverses the avl tree using the given function on each node in the avl tree.
@@ -268,25 +268,25 @@ public:
 	 * @param element The element to check.
 	 * @return True if the avl tree contains the given element, false otherwise.
 	 */
-	const bool contains(const ElementType& element) const noexcept;
+	bool contains(const ElementType& element) const noexcept;
 	
 	/**
 	 * @brief Checks if the avl tree is empty.
 	 * @return True if the avl tree is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of nodes in the avl tree.
 	 * @return The number of nodes in the avl tree.
 	 */
-	const std::size_t getNodeCount() const noexcept;
+	std::size_t getNodeCount() const noexcept;
 	
 	/**
 	 * @brief Gets the height of the avl tree.
 	 * @return The height of the avl tree.
 	 */
-	const int getHeight() const noexcept;
+	int getHeight() const noexcept;
 
 private:
 	/**
@@ -353,14 +353,14 @@ private:
 	 * @param node The node to get the height of.
 	 * @return The height of the given node.
 	 */
-	const int getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept;
+	int getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept;
 	
 	/**
 	 * @brief Gets the balance factor of the given node recursively.
 	 * @param node The node to get the balance factor of.
 	 * @return The balance factor of the given node.
 	 */
-	const int getBalanceFactor(const BinaryTreeNode<ElementType>* const node) const noexcept;
+	int getBalanceFactor(const BinaryTreeNode<ElementType>* const node) const noexcept;
 	
 	/**
 	 * @brief Rebalances the given node recursively.
@@ -444,7 +444,7 @@ AVLTree<ElementType>& AVLTree<ElementType>::operator=(AVLTree&& other) noexcept 
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const bool AVLTree<ElementType>::operator==(const AVLTree& other) const noexcept {
+bool AVLTree<ElementType>::operator==(const AVLTree& other) const noexcept {
 	if (nodeCount != other.nodeCount) {
 		return false;
 	}
@@ -599,7 +599,7 @@ std::vector<ElementType> AVLTree<ElementType>::removeAll() {
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> AVLTree<ElementType>::findFirst(const ElementType& element) const noexcept {
+std::optional<ElementType> AVLTree<ElementType>::findFirst(const ElementType& element) const noexcept {
 	if (rootNode == nullptr) {
 		return std::nullopt;
 	}
@@ -624,7 +624,7 @@ const std::optional<ElementType> AVLTree<ElementType>::findFirst(const ElementTy
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> AVLTree<ElementType>::findMinimum() const noexcept {
+std::optional<ElementType> AVLTree<ElementType>::findMinimum() const noexcept {
 	if (rootNode == nullptr) {
 		return std::nullopt;
 	}
@@ -639,7 +639,7 @@ const std::optional<ElementType> AVLTree<ElementType>::findMinimum() const noexc
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::optional<ElementType> AVLTree<ElementType>::findMaximum() const noexcept {
+std::optional<ElementType> AVLTree<ElementType>::findMaximum() const noexcept {
 	if (rootNode == nullptr) {
 		return std::nullopt;
 	}
@@ -672,22 +672,22 @@ void AVLTree<ElementType>::traverse(IteratorType begin,
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const bool AVLTree<ElementType>::contains(const ElementType& element) const noexcept {
+bool AVLTree<ElementType>::contains(const ElementType& element) const noexcept {
 	return findFirst(element).has_value();
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const bool AVLTree<ElementType>::isEmpty() const noexcept {
+bool AVLTree<ElementType>::isEmpty() const noexcept {
 	return rootNode == nullptr && nodeCount == 0;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const std::size_t AVLTree<ElementType>::getNodeCount() const noexcept {
+std::size_t AVLTree<ElementType>::getNodeCount() const noexcept {
 	return nodeCount;
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const int AVLTree<ElementType>::getHeight() const noexcept {
+int AVLTree<ElementType>::getHeight() const noexcept {
 	return getHeight(rootNode);
 }
 
@@ -837,7 +837,7 @@ void AVLTree<ElementType>::removeAll(BinaryTreeNode<ElementType>* node, std::vec
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const int AVLTree<ElementType>::AVLTree::getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept {
+int AVLTree<ElementType>::AVLTree::getHeight(const BinaryTreeNode<ElementType>* const node) const noexcept {
 	if (node == nullptr) {
 		return -1;
 	}
@@ -849,7 +849,7 @@ const int AVLTree<ElementType>::AVLTree::getHeight(const BinaryTreeNode<ElementT
 }
 
 template<ElementTypeWithLessThanOperator ElementType>
-const int AVLTree<ElementType>::getBalanceFactor(const BinaryTreeNode<ElementType>* node) const noexcept {
+int AVLTree<ElementType>::getBalanceFactor(const BinaryTreeNode<ElementType>* node) const noexcept {
 	if (node == nullptr) {
 		return 0;
 	}

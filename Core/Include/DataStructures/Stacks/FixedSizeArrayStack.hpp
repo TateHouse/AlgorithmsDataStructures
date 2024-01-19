@@ -58,7 +58,7 @@ public:
 	 * @param other: The fixed size array stack to compare to.
 	 * @return True if the fixed size array stacks are equal, false otherwise.
 	 */
-	const bool operator==(const FixedSizeArrayStack<ElementType, Size>& other) const noexcept;
+	bool operator==(const FixedSizeArrayStack<ElementType, Size>& other) const noexcept;
 
 public:
 	/**
@@ -66,14 +66,14 @@ public:
 	 * @param element: The element to push onto the top of the fixed size array stack.
 	 * @return True if the element was inserted at the top of the fixed size array stack, false otherwise.
 	 */
-	const bool push(const ElementType& element) noexcept;
+	bool push(const ElementType& element) noexcept;
 	
 	/**
 	 * @brief Inserts the given element at the top of the fixed size array stack using move semantics.
 	 * @param element: The element to push onto the top of the fixed size array stack.
 	 * @return True if the element was inserted at the top of the fixed size array stack, false otherwise.
 	 */
-	const bool push(ElementType&& element) noexcept;
+	bool push(ElementType&& element) noexcept;
 	
 	/**
 	 * @brief Removes the element at the top of the fixed size array stack.
@@ -106,19 +106,19 @@ public:
 	 * @brief Checks if the fixed size array stack is empty.
 	 * @return True if the fixed size array stack is empty, false otherwise.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Checks if the fixed size array stack is full.
 	 * @return True if the fixed size array stack is full, false otherwise.
 	 */
-	const bool isFull() const noexcept;
+	bool isFull() const noexcept;
 	
 	/**
 	 * @brief Gets the number of elements in the fixed size array stack.
 	 * @return The number of elements in the fixed size array stack.
 	 */
-	const std::size_t getSize() const noexcept;
+	std::size_t getSize() const noexcept;
 
 private:
 	std::array<ElementType, Size> array {};
@@ -126,7 +126,7 @@ private:
 };
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeArrayStack<ElementType, Size>::operator==(const FixedSizeArrayStack<ElementType, Size>& other) const noexcept {
+bool FixedSizeArrayStack<ElementType, Size>::operator==(const FixedSizeArrayStack<ElementType, Size>& other) const noexcept {
 	if (this == &other) {
 		return true;
 	}
@@ -145,7 +145,7 @@ const bool FixedSizeArrayStack<ElementType, Size>::operator==(const FixedSizeArr
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeArrayStack<ElementType, Size>::push(const ElementType& element) noexcept {
+bool FixedSizeArrayStack<ElementType, Size>::push(const ElementType& element) noexcept {
 	if (isFull()) {
 		return false;
 	}
@@ -157,7 +157,7 @@ const bool FixedSizeArrayStack<ElementType, Size>::push(const ElementType& eleme
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeArrayStack<ElementType, Size>::push(ElementType&& element) noexcept {
+bool FixedSizeArrayStack<ElementType, Size>::push(ElementType&& element) noexcept {
 	if (isFull()) {
 		return false;
 	}
@@ -211,17 +211,17 @@ ElementType* const FixedSizeArrayStack<ElementType, Size>::getTop() noexcept {
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeArrayStack<ElementType, Size>::isEmpty() const noexcept {
+bool FixedSizeArrayStack<ElementType, Size>::isEmpty() const noexcept {
 	return topIndex == 0;
 }
 
 template<typename ElementType, std::size_t Size>
-const bool FixedSizeArrayStack<ElementType, Size>::isFull() const noexcept {
+bool FixedSizeArrayStack<ElementType, Size>::isFull() const noexcept {
 	return topIndex == Size;
 }
 
 template<typename ElementType, std::size_t Size>
-const std::size_t FixedSizeArrayStack<ElementType, Size>::getSize() const noexcept {
+std::size_t FixedSizeArrayStack<ElementType, Size>::getSize() const noexcept {
 	return topIndex;
 }
 }

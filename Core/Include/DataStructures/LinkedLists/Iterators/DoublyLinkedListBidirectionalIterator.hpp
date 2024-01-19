@@ -67,7 +67,7 @@ public:
 	 * @param other: The other doubly linked list bidirectional iterator to compare with.
 	 * @return True if the two doubly linked list bidirectional iterators are equal, false otherwise.
 	 */
-	const bool operator==(const DoublyLinkedListBidirectionalIterator<ElementType>& other) const noexcept;
+	bool operator==(const DoublyLinkedListBidirectionalIterator<ElementType>& other) const noexcept;
 
 	/**
 	 * @brief Dereferences the doubly linked list bidirectional iterator.
@@ -116,7 +116,7 @@ DoublyLinkedListBidirectionalIterator<ElementType>::DoublyLinkedListBidirectiona
 }
 
 template<typename ElementType>
-const bool DoublyLinkedListBidirectionalIterator<ElementType>::operator==(const DoublyLinkedListBidirectionalIterator<ElementType>& other) const noexcept {
+bool DoublyLinkedListBidirectionalIterator<ElementType>::operator==(const DoublyLinkedListBidirectionalIterator<ElementType>& other) const noexcept {
 	return node == other.node;
 }
 

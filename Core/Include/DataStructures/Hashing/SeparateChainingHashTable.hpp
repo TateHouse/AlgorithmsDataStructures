@@ -132,25 +132,25 @@ public:
 	 * @param key: The key.
 	 * @return True if the separate chaining hash table contains the key-value pair, otherwise false.
 	 */
-	const bool contains(const KeyType& key) const noexcept;
+	bool contains(const KeyType& key) const noexcept;
 	
 	/**
 	 * @brief Checks if the separate chaining hash table is empty.
 	 * @return True if the separate chaining hash table is empty, otherwise false.
 	 */
-	const bool isEmpty() const noexcept;
+	bool isEmpty() const noexcept;
 	
 	/**
 	 * @brief Gets the number of elements in the separate chaining hash table.
 	 * @return The number of elements in the separate chaining hash table.
 	 */
-	const std::size_t getSize() const noexcept;
+	std::size_t getSize() const noexcept;
 	
 	/**
 	 * @brief Gets the size of the separate chaining hash table.
 	 * @return The size of the separate chaining hash table.
 	 */
-	const std::size_t getTableSize() const noexcept;
+	std::size_t getTableSize() const noexcept;
 
 private:
 	std::size_t tableSize;
@@ -323,7 +323,7 @@ std::optional<ValueType> SeparateChainingHashTable<KeyType, ValueType>::find(con
 }
 
 template<Hashable KeyType, typename ValueType>
-const bool SeparateChainingHashTable<KeyType, ValueType>::contains(const KeyType& key) const noexcept {
+bool SeparateChainingHashTable<KeyType, ValueType>::contains(const KeyType& key) const noexcept {
 	const auto hashFunction {hashFunctionFactory->create(tableSize)};
 	const auto hash {(*hashFunction)(key)};
 	const auto& bucket {buckets[hash]};
@@ -335,17 +335,17 @@ const bool SeparateChainingHashTable<KeyType, ValueType>::contains(const KeyType
 }
 
 template<Hashable KeyType, typename ValueType>
-const bool SeparateChainingHashTable<KeyType, ValueType>::isEmpty() const noexcept {
+bool SeparateChainingHashTable<KeyType, ValueType>::isEmpty() const noexcept {
 	return elementCount == 0;
 }
 
 template<Hashable KeyType, typename ValueType>
-const std::size_t SeparateChainingHashTable<KeyType, ValueType>::getSize() const noexcept {
+std::size_t SeparateChainingHashTable<KeyType, ValueType>::getSize() const noexcept {
 	return elementCount;
 }
 
 template<Hashable KeyType, typename ValueType>
-const std::size_t SeparateChainingHashTable<KeyType, ValueType>::getTableSize() const noexcept {
+std::size_t SeparateChainingHashTable<KeyType, ValueType>::getTableSize() const noexcept {
 	return tableSize;
 }
 }
