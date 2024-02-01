@@ -1,7 +1,6 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
+CMAKE_MINIMUM_REQUIRED(VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 SET(HEADER_FILES
-		ArrayOrVectorConcept.hpp
 		BubbleSorter.hpp
 		InsertionSorter.hpp
 		MergeSorter.hpp
