@@ -67,8 +67,8 @@ private:
 	 * @return True if the value was found, false otherwise.
 	 */
 	template<typename Iterator>
-	bool linearSearch(Iterator begin,
-	                  Iterator end,
+	bool linearSearch(const Iterator begin,
+	                  const Iterator end,
 	                  const std::function<char(const typename Container::value_type&)>& predicate) const noexcept;
 
 private:
@@ -88,8 +88,8 @@ bool LinearSearcher<Container>::search(const std::function<char(const typename C
 
 template<ArrayOrVectorConcept Container>
 template<typename Iterator>
-bool LinearSearcher<Container>::linearSearch(Iterator begin,
-                                             Iterator end,
+bool LinearSearcher<Container>::linearSearch(const Iterator begin,
+                                             const Iterator end,
                                              const std::function<char(const typename Container::value_type&)>& predicate) const noexcept {
 	for (auto iterator {begin}; iterator != end; ++iterator) {
 		if (predicate(*iterator)) {
