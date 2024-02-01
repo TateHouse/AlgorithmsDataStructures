@@ -23,13 +23,13 @@ public:
 	 * @brief Instantiates a new bubble sorter by copying the given bubble sorter.
 	 * @param other: The bubble sorter to copy.
 	 */
-	BubbleSorter(const BubbleSorter& other) noexcept = delete;
+	BubbleSorter(const BubbleSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Instantiates a new bubble sorter by moving the given bubble sorter.
 	 * @param other: The bubble sorter to move.
 	 */
-	BubbleSorter(BubbleSorter&& other) noexcept = delete;
+	BubbleSorter(BubbleSorter&& other) noexcept = default;
 	
 	/**
 	 * @brief Destroys the bubble sorter.
@@ -42,14 +42,14 @@ public:
 	 * @param other: The bubble sorter to copy.
 	 * @return A reference to this bubble sorter.
 	 */
-	BubbleSorter& operator=(const BubbleSorter& other) noexcept = delete;
+	BubbleSorter& operator=(const BubbleSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Assigns the given bubble sorter to this bubble sorter using move semantics.
 	 * @param other: The bubble sorter to move.
 	 * @return A reference to this bubble sorter.
 	 */
-	BubbleSorter& operator=(BubbleSorter&& other) noexcept = delete;
+	BubbleSorter& operator=(BubbleSorter&& other) noexcept = default;
 
 public:
 	/**

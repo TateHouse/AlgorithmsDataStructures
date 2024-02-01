@@ -15,19 +15,19 @@ public:
 	 * @brief Instantiates a new linear searcher.
 	 * @param container: The container to search.
 	 */
-	explicit LinearSearcher(const Container& container) noexcept;
+	explicit LinearSearcher(Container& container) noexcept;
 	
 	/**
 	 * @brief Instantiates a new linear searcher by copying the given linear searcher.
 	 * @param other: The linear searcher to copy.
 	 */
-	LinearSearcher(const LinearSearcher& other) noexcept = delete;
+	LinearSearcher(const LinearSearcher& other) noexcept = default;
 	
 	/**
 	 * @brief Instantiates a new linear searcher by moving the given linear searcher.
 	 * @param other: The linear searcher to move.
 	 */
-	LinearSearcher(LinearSearcher&& other) noexcept = delete;
+	LinearSearcher(LinearSearcher&& other) noexcept = default;
 	
 	/**
 	 * @brief Destroys the linear searcher.
@@ -40,14 +40,14 @@ public:
 	 * @param other: The linear searcher to copy.
 	 * @return A reference to this linear searcher.
 	 */
-	LinearSearcher& operator=(const LinearSearcher& other) noexcept = delete;
+	LinearSearcher& operator=(const LinearSearcher& other) noexcept = default;
 	
 	/**
 	 * @brief Assigns the given linear searcher to this linear searcher using move semantics.
 	 * @param other: The linear searcher to move.
 	 * @return A reference to this linear searcher.
 	 */
-	LinearSearcher& operator=(LinearSearcher&& other) noexcept = delete;
+	LinearSearcher& operator=(LinearSearcher&& other) noexcept = default;
 
 public:
 	/**
@@ -55,7 +55,7 @@ public:
 	 * @param predicate: The predicate to use to search the container.
 	 * @return True if the value was found, false otherwise.
 	 */
-	bool search(const std::function<bool(const typename Container::value_type&)>& predicate) const noexcept override;
+	bool search(const std::function<char(const typename Container::value_type&)>& predicate) const noexcept override;
 
 private:
 	/**
@@ -67,30 +67,30 @@ private:
 	 * @return True if the value was found, false otherwise.
 	 */
 	template<typename Iterator>
-	bool linearSearch(Iterator begin,
-	                  Iterator end,
-	                  const std::function<bool(const typename Container::value_type&)>& predicate) const noexcept;
+	bool linearSearch(const Iterator begin,
+	                  const Iterator end,
+	                  const std::function<char(const typename Container::value_type&)>& predicate) const noexcept;
 
 private:
-	const Container& container;
+	Container& container;
 };
 
 template<ArrayOrVectorConcept Container>
-LinearSearcher<Container>::LinearSearcher(const Container& container) noexcept :
+LinearSearcher<Container>::LinearSearcher(Container& container) noexcept :
 		SearchingAlgorithm<typename Container::value_type> {}, container {container} {
 	
 }
 
 template<ArrayOrVectorConcept Container>
-bool LinearSearcher<Container>::search(const std::function<bool(const typename Container::value_type&)>& predicate) const noexcept {
+bool LinearSearcher<Container>::search(const std::function<char(const typename Container::value_type&)>& predicate) const noexcept {
 	return linearSearch(container.cbegin(), container.cend(), predicate);
 }
 
 template<ArrayOrVectorConcept Container>
 template<typename Iterator>
-bool LinearSearcher<Container>::linearSearch(Iterator begin,
-                                             Iterator end,
-                                             const std::function<bool(const typename Container::value_type&)>& predicate) const noexcept {
+bool LinearSearcher<Container>::linearSearch(const Iterator begin,
+                                             const Iterator end,
+                                             const std::function<char(const typename Container::value_type&)>& predicate) const noexcept {
 	for (auto iterator {begin}; iterator != end; ++iterator) {
 		if (predicate(*iterator)) {
 			return true;

@@ -23,13 +23,13 @@ public:
 	 * @brief Instantiates a new selection sorter by copying the given selection sorter.
 	 * @param other: The selection sorter to copy.
 	 */
-	SelectionSorter(const SelectionSorter& other) noexcept = delete;
+	SelectionSorter(const SelectionSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Instantiates a new selection sorter by moving the given selection sorter.
 	 * @param other: The selection sorter to move.
 	 */
-	SelectionSorter(SelectionSorter&& other) noexcept = delete;
+	SelectionSorter(SelectionSorter&& other) noexcept = default;
 	
 	/**
 	 * @brief Destroys the selection sorter.
@@ -42,14 +42,14 @@ public:
 	 * @param other: The selection sorter to copy.
 	 * @return A reference to this selection sorter.
 	 */
-	SelectionSorter& operator=(const SelectionSorter& other) noexcept = delete;
+	SelectionSorter& operator=(const SelectionSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Assigns the given selection sorter to this selection sorter using move semantics.
 	 * @param other: The selection sorter to move.
 	 * @return A reference to this selection sorter.
 	 */
-	SelectionSorter& operator=(SelectionSorter&& other) noexcept = delete;
+	SelectionSorter& operator=(SelectionSorter&& other) noexcept = default;
 
 public:
 	/**

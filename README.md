@@ -20,6 +20,7 @@ considering. These include but are not limited to:
     - Division Method
     - Multiplication Method
 - Searching
+    - Binary Search
     - Linear Search
 - Sorting
     - Bubble Sort

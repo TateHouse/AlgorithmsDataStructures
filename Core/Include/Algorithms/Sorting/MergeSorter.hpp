@@ -21,13 +21,13 @@ public:
 	 * @brief Instantiates a new merge sorter by copying the given merge sorter.
 	 * @param mergeSorter: The merge sorter to copy.
 	 */
-	MergeSorter(const MergeSorter& mergeSorter) noexcept = delete;
+	MergeSorter(const MergeSorter& mergeSorter) noexcept = default;
 	
 	/**
 	 * @brief Instantiates a new merge sorter by moving the given merge sorter.
 	 * @param mergeSorter: The merge sorter to move.
 	 */
-	MergeSorter(MergeSorter&& mergeSorter) noexcept = delete;
+	MergeSorter(MergeSorter&& mergeSorter) noexcept = default;
 	
 	/**
 	 * @brief Destroys the merge sorter.
@@ -40,14 +40,14 @@ public:
 	 * @param mergeSorter: The merge sorter to copy.
 	 * @return A reference to this merge sorter.
 	 */
-	MergeSorter& operator=(const MergeSorter& mergeSorter) noexcept = delete;
+	MergeSorter& operator=(const MergeSorter& mergeSorter) noexcept = default;
 	
 	/**
 	 * @brief Assigns the given merge sorter to this merge sorter using move semantics.
 	 * @param mergeSorter: The merge sorter to move.
 	 * @return A reference to this merge sorter.
 	 */
-	MergeSorter& operator=(MergeSorter&& mergeSorter) noexcept = delete;
+	MergeSorter& operator=(MergeSorter&& mergeSorter) noexcept = default;
 
 public:
 	/**

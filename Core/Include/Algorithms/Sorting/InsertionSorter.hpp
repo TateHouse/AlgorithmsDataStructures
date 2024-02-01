@@ -21,13 +21,13 @@ public:
 	 * @brief Instantiates a new insertion sorter by copying the given insertion sorter.
 	 * @param other: The insertion sorter to copy.
 	 */
-	InsertionSorter(const InsertionSorter& other) noexcept = delete;
+	InsertionSorter(const InsertionSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Instantiates a new insertion sorter by moving the given insertion sorter.
 	 * @param other: The insertion sorter to move.
 	 */
-	InsertionSorter(InsertionSorter&& other) noexcept = delete;
+	InsertionSorter(InsertionSorter&& other) noexcept = default;
 	
 	/**
 	 * @brief Destroys the insertion sorter.
@@ -40,14 +40,14 @@ public:
 	 * @param other: The insertion sorter to copy.
 	 * @return A reference to this insertion sorter.
 	 */
-	InsertionSorter& operator=(const InsertionSorter& other) noexcept = delete;
+	InsertionSorter& operator=(const InsertionSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Assigns the given insertion sorter to this insertion sorter using move semantics.
 	 * @param other: The insertion sorter to move.
 	 * @return A reference to this insertion sorter.
 	 */
-	InsertionSorter& operator=(InsertionSorter&& other) noexcept = delete;
+	InsertionSorter& operator=(InsertionSorter&& other) noexcept = default;
 
 public:
 	/**

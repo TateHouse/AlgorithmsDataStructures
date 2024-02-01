@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 SET(HEADER_FILES
+		BinarySearcher.hpp
+		BinarySearchPredicate.hpp
 		LinearSearcher.hpp
 		SearchingAlgorithm.hpp)
 
