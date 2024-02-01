@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#include "ArrayOrVectorConcept.hpp"
+#include "Algorithms/ArrayOrVectorConcept.hpp"
 #include "SortingAlgorithm.hpp"
 
 namespace Core::Algorithms::Sorting {
