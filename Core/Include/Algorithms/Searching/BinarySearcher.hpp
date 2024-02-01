@@ -52,7 +52,8 @@ public:
 public:
 	/**
 	 * @brief Searches the container for the given value using the given predicate and the binary search algorithm.
-	 * @param predicate: The predicate to use to search the container.
+	 * @param predicate: The predicate to use to search the container. It must be a BinarySearchPredicate type.
+	 * However, this is not enforced by the compiler. Any other type might result in undefined behavior.
 	 * @return True if the value was found, false otherwise.
 	 */
 	bool search(const std::function<char(const typename Container::value_type&)>& predicate) const noexcept override;
