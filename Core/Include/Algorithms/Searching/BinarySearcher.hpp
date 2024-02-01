@@ -15,19 +15,19 @@ public:
 	 * @brief Instantiates a new binary searcher.
 	 * @param container: The container to search.
 	 */
-	explicit BinarySearcher(const Container& container) noexcept;
+	explicit BinarySearcher(Container& container) noexcept;
 	
 	/**
 	 * @brief Instantiates a new binary searcher by copying the given binary searcher.
 	 * @param other: The binary searcher to copy.
 	 */
-	BinarySearcher(const BinarySearcher& other) noexcept = delete;
+	BinarySearcher(const BinarySearcher& other) noexcept = default;
 	
 	/**
 	 * @brief Instantiates a new binary searcher by moving the given binary searcher.
 	 * @param other: The binary searcher to move.
 	 */
-	BinarySearcher(BinarySearcher&& other) noexcept = delete;
+	BinarySearcher(BinarySearcher&& other) noexcept = default;
 	
 	/**
 	 * @brief Destroys the binary searcher.
@@ -40,14 +40,14 @@ public:
 	 * @param other: The binary searcher to copy.
 	 * @return A reference to this binary searcher.
 	 */
-	BinarySearcher& operator=(const BinarySearcher& other) noexcept = delete;
+	BinarySearcher& operator=(const BinarySearcher& other) noexcept = default;
 	
 	/**
 	 * @brief Assigns the given binary searcher to this binary searcher using move semantics.
 	 * @param other: The binary searcher to move.
 	 * @return A reference to this binary searcher.
 	 */
-	BinarySearcher& operator=(BinarySearcher&& other) noexcept = delete;
+	BinarySearcher& operator=(BinarySearcher&& other) noexcept = default;
 
 public:
 	/**
@@ -73,11 +73,11 @@ private:
 	            const std::function<char(const typename Container::value_type&)>& predicate) const noexcept;
 
 private:
-	const Container& container;
+	Container& container;
 };
 
 template<ArrayOrVectorConcept Container>
-BinarySearcher<Container>::BinarySearcher(const Container& container) noexcept
+BinarySearcher<Container>::BinarySearcher(Container& container) noexcept
 		: SearchingAlgorithm<typename Container::value_type> {}, container {container} {
 	
 }
