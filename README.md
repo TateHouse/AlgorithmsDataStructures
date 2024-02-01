@@ -16,15 +16,17 @@ considering. These include but are not limited to:
 
 ### Algorithms
 
+- Hashing
+    - Division Method
+    - Multiplication Method
+- Searching
+    - Linear Search
 - Sorting
     - Bubble Sort
     - Insertion Sort
     - Merge Sort
     - Quick Sort
     - Selection Sort
-- Hash Functions
-    - Division Method
-    - Multiplication Method
 
 ### Data Structures
 
