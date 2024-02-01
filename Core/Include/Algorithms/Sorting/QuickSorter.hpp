@@ -23,13 +23,13 @@ public:
 	 * @brief Instantiates a new quick sorter by copying the given quick sorter.
 	 * @param other: The quick sorter to copy.
 	 */
-	QuickSorter(const QuickSorter& other) noexcept = delete;
+	QuickSorter(const QuickSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Instantiates a new quick sorter by moving the given quick sorter.
 	 * @param other: The quick sorter to move.
 	 */
-	QuickSorter(QuickSorter&& other) noexcept = delete;
+	QuickSorter(QuickSorter&& other) noexcept = default;
 	
 	/**
 	 * @brief Destroys the quick sorter.
@@ -42,14 +42,14 @@ public:
 	 * @param other: The quick sorter to copy.
 	 * @return A reference to this quick sorter.
 	 */
-	QuickSorter& operator=(const QuickSorter& other) noexcept = delete;
+	QuickSorter& operator=(const QuickSorter& other) noexcept = default;
 	
 	/**
 	 * @brief Assigns the given quick sorter to this quick sorter using move semantics.
 	 * @param other: The quick sorter to move.
 	 * @return A reference to this quick sorter.
 	 */
-	QuickSorter& operator=(QuickSorter&& other) noexcept = delete;
+	QuickSorter& operator=(QuickSorter&& other) noexcept = default;
 
 public:
 	/**
